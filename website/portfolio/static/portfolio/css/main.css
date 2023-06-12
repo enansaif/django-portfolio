@@ -1,0 +1,38 @@
+:root {
+    --theme-blue: #55bae2;
+    --theme-orange: #eea620;
+    --default-transition-duration: 0.1s;
+}
+
+/* main.py about section */
+.dot {opacity: 0.1;}
+.function {color:blue;}
+.variable {color: orange;}
+.self {color: green;}
+.value {color: darkslategrey;}
+.ide {background-color: whitesmoke;}
+
+.social-btn {
+    transition: var(--default-transition-duration);
+    background-color: var(--theme-orange);
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+}
+  
+.social-btn:hover {
+    transition:var(--default-transition-duration);
+    background-color: var(--theme-blue);
+    color: white;
+}
+
+.skills {
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    padding: 2px;
+    border-radius: 2px;
+}
