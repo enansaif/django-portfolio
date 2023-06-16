@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "portfolio.app.PortfolioConfig",
-    "leetquizzer.app.LeetquizzerConfig",
+    "portfolio",
+    "leetquizzer",
 ]
 
 MIDDLEWARE = [

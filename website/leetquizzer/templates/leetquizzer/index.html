@@ -1,0 +1,9 @@
+{% if problem_list %}
+<ul>
+    {% for problem in problem_list %}
+    <p>{{ problem.number }}. {{problem.name}}{{ problem.solution }} {{ problem.edge_case }}</p>
+    {% endfor %}
+</ul>
+{% else %}
+<p>no problems to show</p>
+{% endif %}
