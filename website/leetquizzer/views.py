@@ -25,6 +25,6 @@ class AddProblem(View):
         if not form.is_valid():
             context = {'form': form}
             return render(request, self.template, context)
-        problem = form.save()
+        form.save()
         return redirect(self.success_url)
         
