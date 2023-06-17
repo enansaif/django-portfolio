@@ -1,0 +1,10 @@
+{% extends "leetquizzer/base.html" %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" class="btn btn-light" value="Submit">
+</form>
+<a href="{% url 'leetquizzer:add_topic' %}">Add New Topic</a><br>
+<a href="{% url 'leetquizzer:add_difficulty' %}">Add Difficulty</a>
+{% endblock %}

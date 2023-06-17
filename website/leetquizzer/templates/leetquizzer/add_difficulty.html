@@ -1,0 +1,8 @@
+{% extends "leetquizzer/base.html" %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" class="btn btn-secondary" value="Submit">
+</form>
+{% endblock %}

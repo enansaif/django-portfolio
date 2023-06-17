@@ -1,9 +1,12 @@
+{% extends "leetquizzer/base.html" %}
+{% block content %}
 {% if problem_list %}
 <ul>
     {% for problem in problem_list %}
-    <p>{{ problem.number }}. {{problem.name}} {{ problem.solution }} {{ problem.edge_case }}</p>
+    <p>{{problem.number}}. {{problem.name}} | {{problem.topic}} | {{problem.difficulty}}</p>
     {% endfor %}
 </ul>
 {% else %}
 <p>no problems to show</p>
 {% endif %}
+{% endblock %}
