@@ -17,8 +17,10 @@ class Problem(models.Model):
     number = models.PositiveIntegerField()
     topic = models.ForeignKey('Topic', null=True, on_delete=models.SET_NULL)
     difficulty = models.ForeignKey('Difficulty', null=True, on_delete=models.SET_NULL)
-    solution = models.TextField()
-    edge_case = models.TextField()
+    edge_case = models.TextField(null=True)
+    solution = models.TextField(null=True)
+    option1 = models.TextField(null=True)
+    option2 = models.TextField(null=True)
     
     def __str__(self):
         return f"{self.number}. {self.name}"

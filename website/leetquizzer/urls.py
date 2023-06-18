@@ -7,4 +7,5 @@ urlpatterns = [
     path('create/', views.AddProblem.as_view(), name='create'),
     path('add_topic/', views.AddTopic.as_view(), name='add_topic'),
     path('add_difficulty/', views.AddDifficulty.as_view(), name='add_difficulty'),
+    path('<str:problem_id>/problem/', views.ProblemMenu.as_view(), name='problem_menu'),
 ]

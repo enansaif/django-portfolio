@@ -1,10 +1,22 @@
 {% extends "leetquizzer/base.html" %}
+
+{% block title %}
+    <title>Create</title>
+{% endblock %}
+
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" class="pt-1">
     {% csrf_token %}
     {{ form.as_table }}
-    <input type="submit" class="btn btn-light" value="Submit">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <input type="submit" class="btn btn-secondary mt-1" value="Submit">
+        <a href="{% url 'leetquizzer:add_topic' %}" class="btn btn-secondary mt-1">Add Topic</a>
+    </li>
 </form>
-<a href="{% url 'leetquizzer:add_topic' %}">Add New Topic</a><br>
+
 <a href="{% url 'leetquizzer:add_difficulty' %}">Add Difficulty</a>
+
+{% if message %}
+<p><strong>{{ message }}</strong></p>
+{% endif %}
 {% endblock %}

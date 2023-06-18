@@ -1,11 +1,30 @@
 {% extends "leetquizzer/base.html" %}
+
+{% block title %}
+<title>Problem List</title>
+{% endblock %}
+
 {% block content %}
 {% if problem_list %}
-<ul>
-    {% for problem in problem_list %}
-    <p>{{problem.number}}. {{problem.name}} | {{problem.topic}} | {{problem.difficulty}}</p>
-    {% endfor %}
-</ul>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col"># <a href="{% url 'leetquizzer:create' %}" class="btn btn-dark p-0 px-2">+</a></th>
+        <th scope="col">Problem</th><th scope="col">Topic</th><th scope="col">Difficulty</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for problem in problem_list %}
+        <tr>
+            <th scope="row">{{problem.number}}</th>
+            <td><a href="{% url 'leetquizzer:problem_menu' problem.number %}"
+                class="link-dark link-offset-3 link-underline-opacity-10 link-underline-opacity-75-hover">{{problem.name}}</a></td>
+            <td>{{problem.topic}}</td>
+            <td>{{problem.difficulty}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
 {% else %}
 <p>no problems to show</p>
 {% endif %}

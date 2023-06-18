@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Count
 from django.views import View
 from django.urls import reverse_lazy
+from django.template.exceptions import TemplateDoesNotExist
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import AddProblemForm, AddTopicForm, AddDifficultyForm
 
@@ -11,6 +12,13 @@ class MainMenu(View):
         problems = Problem.objects.all()
         context = {'problem_list': problems}
         return render(request, 'leetquizzer/index.html', context)
+
+class ProblemMenu(View):
+    def get(self, request, problem_id):
+        try:
+            return render(request, f"quizzes/{problem_id}.html")
+        except TemplateDoesNotExist:
+            return render(request, 'quizzes/error_404.html')
 
 class AddProblem(View):
     template = 'leetquizzer/create.html'
@@ -26,12 +34,22 @@ class AddProblem(View):
         if not form.is_valid():
             context = {'form': form}
             return render(request, self.template, context)
+        
+        hasName = Problem.objects.filter(name=form.cleaned_data['name']).exists()
+        hasNumber = Problem.objects.filter(number=form.cleaned_data['number']).exists()
+        if hasName or hasNumber:
+            context = {'form': form,
+                       'message': 'Problem with this name or number already exists!'}
+            return render(request, self.template, context)
+        
         problem = Problem(name=form.cleaned_data['name'], 
                           number=form.cleaned_data['number'],
                           topic=form.cleaned_data['topic'], 
                           difficulty=form.cleaned_data['difficulty'],
-                          solution=form.cleaned_data['solution'], 
-                          edge_case=form.cleaned_data['edge_case'])
+                          edge_case=form.cleaned_data['edge_case'],
+                          solution=form.cleaned_data['solution'],
+                          option1=form.cleaned_data['option1'],
+                          option2=form.cleaned_data['option2'])
         problem.save()
         return redirect(self.success_url)
 
@@ -42,16 +60,25 @@ class AddTopic(View):
     def get(self, request):
         form = AddTopicForm()
         topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
-        print(topics)
         context = {'form': form, 'topic_list': topics}
         return render(request, self.template, context)
     
     def post(self, request):
         form = AddTopicForm(request.POST)
         if not form.is_valid():
-            context = {'form': form}
+            topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
+            context = {'form': form, 'topic_list': topics}
             return render(request, self.template, context)
-        topic = Topic(name=form.cleaned_data['topic'])
+        
+        new_topic = form.cleaned_data['topic']
+        hasTopic = Topic.objects.filter(name=new_topic).exists()
+        if hasTopic:
+            topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
+            context = {'form': form, 'topic_list': topics, 
+                       'message': 'Topic with this name already exists!'}
+            return render(request, self.template, context)
+        
+        topic = Topic(name=new_topic)
         topic.save()
         return redirect(self.success_url)
 
