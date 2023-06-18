@@ -1,7 +1,7 @@
 from django import forms
 from leetquizzer.models import Problem, Topic, Difficulty
 
-textarea_widget = forms.Textarea(attrs={'rows':'3', 'class': 'form-control', 'style':'resize:none'})
+textarea_widget = forms.Textarea(attrs={'rows':'2', 'class': 'form-control', 'style':'resize:none'})
 textinput_widget = forms.TextInput(attrs={'class': 'form-control'})
 choice_widget=forms.Select(attrs={'class':'form-control'})
 topic = Topic.objects.all()
