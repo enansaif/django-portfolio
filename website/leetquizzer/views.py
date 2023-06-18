@@ -16,9 +16,11 @@ class MainMenu(View):
 class ProblemMenu(View):
     def get(self, request, problem_id):
         try:
-            return render(request, f"quizzes/{problem_id}.html")
+            problem = Problem.objects.get(pk=problem_id)
+            context = {'problem': problem}
+            return render(request, f"quizzes/{problem.number}.html", context)
         except TemplateDoesNotExist:
-            return render(request, 'quizzes/error_404.html')
+            return render(request, 'quizzes/base.html')
 
 class AddProblem(View):
     template = 'leetquizzer/create.html'
