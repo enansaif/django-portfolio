@@ -2,7 +2,7 @@ import csv
 from leetquizzer.models import Problem, Topic, Difficulty
 
 def run():
-    file = open("leetquizzer/questions/problems.csv")
+    file = open("leetquizzer/data/problems.csv")
     reader = csv.reader(file)
     next(reader)
     
