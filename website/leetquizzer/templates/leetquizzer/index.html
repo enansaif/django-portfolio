@@ -1,16 +1,19 @@
 {% extends "leetquizzer/base.html" %}
 
 {% block title %}
-<title>Problem List</title>
+<title>LeetQuizzer</title>
 {% endblock %}
 
 {% block content %}
+<h1 style="text-align: center;">Problem List</h1>
 {% if problem_list %}
 <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col"># <a href="{% url 'leetquizzer:create' %}" class="btn btn-dark p-0 px-2">+</a></th>
-        <th scope="col">Problem</th><th scope="col">Topic</th><th scope="col">Difficulty</th>
+        <th scope="col">Problem</th>
+        <th scope="col">Topic <a href="{% url 'leetquizzer:topic_menu' %}" class="btn btn-dark p-0">&#x25b4&#x25be</a></th>
+        <th scope="col">Difficulty <a href="{% url 'leetquizzer:difficulty_menu' %}" class="btn btn-dark p-0">&#x25b4&#x25be</a></th>
       </tr>
     </thead>
     <tbody>

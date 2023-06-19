@@ -13,6 +13,18 @@ class MainMenu(View):
         context = {'problem_list': problems}
         return render(request, 'leetquizzer/index.html', context)
 
+class TopicMenu(View):
+    def get(self, request):
+        problems = Problem.objects.order_by('topic__name')
+        context = {'problem_list': problems}
+        return render(request, 'leetquizzer/index.html', context)
+
+class DifficultyMenu(View):
+    def get(self, request):
+        problems = Problem.objects.order_by('difficulty__name')
+        context = {'problem_list': problems}
+        return render(request, 'leetquizzer/index.html', context)
+
 class ProblemMenu(View):
     def get(self, request, problem_id):
         try:
