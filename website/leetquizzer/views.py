@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
-from django.urls import reverse_lazy
 from django.template.exceptions import TemplateDoesNotExist
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import AddProblemForm, AddTopicForm, AddDifficultyForm
@@ -13,17 +13,20 @@ class MainMenu(View):
         context = {'problem_list': problems}
         return render(request, 'leetquizzer/index.html', context)
 
+
 class TopicMenu(View):
     def get(self, request):
         problems = Problem.objects.order_by('topic__name')
         context = {'problem_list': problems}
         return render(request, 'leetquizzer/index.html', context)
 
+
 class DifficultyMenu(View):
     def get(self, request):
         problems = Problem.objects.order_by('difficulty__name')
         context = {'problem_list': problems}
         return render(request, 'leetquizzer/index.html', context)
+
 
 class ProblemMenu(View):
     def get(self, request, problem_id):
@@ -33,6 +36,7 @@ class ProblemMenu(View):
             return render(request, f"quizzes/{problem.number}.html", context)
         except TemplateDoesNotExist:
             return render(request, 'quizzes/base.html')
+
 
 class AddProblem(View):
     template = 'leetquizzer/create.html'
@@ -67,6 +71,7 @@ class AddProblem(View):
         problem.save()
         return redirect(self.success_url)
 
+
 class AddTopic(View):
     template = 'leetquizzer/add_topic.html'
     success_url = reverse_lazy('leetquizzer:create')
@@ -95,6 +100,7 @@ class AddTopic(View):
         topic = Topic(name=new_topic)
         topic.save()
         return redirect(self.success_url)
+
 
 class AddDifficulty(View):
     template = 'leetquizzer/add_difficulty.html'
