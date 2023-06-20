@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.db.models import Count
@@ -31,8 +32,25 @@ class DifficultyMenu(View):
 class ProblemMenu(View):
     def get(self, request, problem_id):
         try:
+            num_questions = 4
+            question_list = []
+            problem_count = Problem.objects.all().count()
             problem = Problem.objects.get(pk=problem_id)
-            context = {'problem': problem}
+            question_list.append(problem.solution)
+            if problem.option1:
+                question_list.append(problem.option1)
+            if problem.option2:
+                question_list.append(problem.option2)
+            
+            picked = set([problem_id])
+            while problem_count >= num_questions and len(question_list) < num_questions:
+                index = problem_id
+                while index in picked:
+                    index = random.randint(0, problem_count - 1)
+                picked.add(index)
+                question_list.append(Problem.objects.get(pk=index).solution)
+            
+            context = {'question_list': question_list}
             return render(request, f"quizzes/{problem.number}.html", context)
         except TemplateDoesNotExist:
             return render(request, 'quizzes/base.html')
