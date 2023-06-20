@@ -1,8 +1,8 @@
-import csv
+import csv, argparse
 from leetquizzer.models import Problem, Topic, Difficulty
 
-def run():
-    file = open("leetquizzer/data/problems.csv")
+def run(filename):
+    file = open(f"leetquizzer/data/{filename}")
     reader = csv.reader(file)
     next(reader)
     
@@ -13,11 +13,11 @@ def run():
         hasName = Problem.objects.filter(name=name).exists()
         if hasNumber or hasName:
             continue
-        topic, _ = Topic.objects.get_or_create(name=row[2])
-        difficulty, _ = Difficulty.objects.get_or_create(name=row[3])
+        topic, _ = Topic.objects.get_or_create(name=row[3])
+        difficulty, _ = Difficulty.objects.get_or_create(name=row[4])
         
-        problem = Problem(number=number, name=name, topic=topic, difficulty=difficulty, 
-                          solution=row[4], option1=row[5], option2=row[6], edge_case=row[7])
+        problem = Problem(number=number, name=name, link=row[2], topic=topic, difficulty=difficulty, 
+                          solution=row[5], option1=row[6], option2=row[7], edge_case=row[8])
         problem.save()
         count += 1
     

@@ -62,6 +62,7 @@ class AddProblem(View):
         
         problem = Problem(name=form.cleaned_data['name'], 
                           number=form.cleaned_data['number'],
+                          link=form.cleaned_data['link'],
                           topic=form.cleaned_data['topic'], 
                           difficulty=form.cleaned_data['difficulty'],
                           edge_case=form.cleaned_data['edge_case'],
