@@ -27,13 +27,39 @@ class DifficultyMenu(View):
         return render(request, 'leetquizzer/index.html', context)
 
 def make_list(num_questions, problem):
+    """
+    Create a list of questions with wrong/right flag for a given problem.
+
+    Args:
+        num_questions (int): The desired number of questions in the list.
+        problem (Problem): The problem object representing the initial question.
+
+    Returns:
+        list: A list of tuples representing questions and their correctness.
+    
+    This function generates a list of questions by randomly selecting problems from a database
+    and adding their solutions to the list. The provided problem object is the initial question
+    that is guaranteed to be included in the result. The function then randomly selects additional
+    problems until the desired number of questions is reached. Each question's solution is added
+    to the list as a tuple, along with a string indicating whether the solution is right or wrong.
+    If available, the optional choices (option1 and option2) of the problems are also included as
+    tuples with the correctness set to wrong. The final list is shuffled to randomize the order
+    of the questions.
+
+    Note:
+        This function assumes the model (Problem) with the following attributes is already imported:
+        - solution: The solution to the problem/question.
+        - option1: Optional choice 1 for the problem.
+        - option2: Optional choice 2 for the problem.
+    """
     question_list = []
+    right, wrong = 'True', 'False'
     problem_count = Problem.objects.count()
-    question_list.append(problem.solution)
+    question_list.append((problem.solution, right))
     if problem.option1:
-        question_list.append(problem.option1)
+        question_list.append((problem.option1, wrong))
     if problem.option2:
-        question_list.append(problem.option2)
+        question_list.append((problem.option2, wrong))
     
     picked = set([problem.pk])
     while problem_count >= num_questions and len(question_list) < num_questions:
@@ -41,7 +67,7 @@ def make_list(num_questions, problem):
         while index in picked:
             index = random.randint(1, problem_count)
         picked.add(index)
-        question_list.append(Problem.objects.get(pk=index).solution)
+        question_list.append((Problem.objects.get(pk=index).solution, wrong))
     random.shuffle(question_list)
     return question_list
 
@@ -54,6 +80,18 @@ class ProblemMenu(View):
             return render(request, f"quizzes/{problem.number}.html", context)
         except TemplateDoesNotExist:
             return render(request, 'quizzes/base.html')
+    
+    def post(self, request, problem_id):
+        problem = Problem.objects.get(pk=problem_id)
+        answer = request.POST.get('answer', None)
+        success_message = "ABSOLUTELY CORRECT!!! &#128513"
+        fail_message = "WRONG!!! please try again later &#129402"
+        if answer == 'True':
+            message = success_message
+        else:
+            message = fail_message
+        context = {'question_list':[], 'message':message}
+        return render(request, f"quizzes/{problem.number}.html", context)
 
 class AddProblem(View):
     template = 'leetquizzer/create.html'
