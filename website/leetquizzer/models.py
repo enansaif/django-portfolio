@@ -19,6 +19,8 @@ class Problem(models.Model):
     name = models.CharField(max_length=100)
     number = models.PositiveIntegerField()
     link = models.URLField(max_length=150)
+    wrong = models.BooleanField(default=False)
+    time = models.DateTimeField(auto_now=True)
     topic = models.ForeignKey('Topic', on_delete=models.CASCADE)
     difficulty = models.ForeignKey('Difficulty', on_delete=models.CASCADE)
     edge_case = models.TextField(max_length=100, blank=True, null=True)

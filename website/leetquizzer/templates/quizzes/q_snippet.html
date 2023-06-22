@@ -1,25 +1,24 @@
-{% if question_list %}
-    <form action="", method="post">
-        {% csrf_token %}
-        <h1 class="lead pt-5">Pick Your Answer:</h1>
-        <ul class="list-group">
-            {% for question, is_correct in question_list %}
-            <li class="list-group-item p-2">
-                <div class="form-check" style="display: inline-flex;">
-                    <input class="form-check-input" type="radio" name="answer" id="{{ forloop.counter }}" 
-                            value="{{ is_correct}}" style="flex-shrink: 0; line-height: 1.45rem;" required>
-                    <label class="form-check-label ms-2" for="{{ forloop.counter }}" 
-                            style="line-height: 1.45rem;">{{ question }}</label>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-        <br>
-        <input type="submit" value="Submit" class="btn btn-secondary">
-    </form>
+{% if messages %}
+    {% for message in messages %}
+    <p class="lead">{{ message | safe }}</p>
+    {% endfor %}
 {% else %}
-<div class="container p-0 py-5">
-    <h2>{{ message | safe }}</h2>
-    <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary">Back To Question List</a>
-</div>
+<form action="", method="post">
+    {% csrf_token %}
+    <h1 class="lead pt-5">Pick Your Answer:</h1>
+    <ul class="list-group">
+        {% for question, is_correct in question_list %}
+        <li class="list-group-item p-2">
+            <div class="form-check" style="display: inline-flex;">
+                <input class="form-check-input" type="radio" name="answer" id="{{ forloop.counter }}" 
+                        value="{{ is_correct}}" style="flex-shrink: 0; line-height: 1.45rem;" required>
+                <label class="form-check-label ms-2" for="{{ forloop.counter }}" 
+                        style="line-height: 1.45rem;">{{ question }}</label>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <input type="submit" value="Submit" class="btn btn-secondary">
+</form>
 {% endif %}

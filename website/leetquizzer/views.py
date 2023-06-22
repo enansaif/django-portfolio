@@ -1,9 +1,10 @@
-import random
+import random, datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
 from django.template.exceptions import TemplateDoesNotExist
+from django.contrib import messages
 from django.db.utils import OperationalError
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm
@@ -66,16 +67,27 @@ class MainMenu(View):
         elif sorted_by == 'difficulty':
             problems = Problem.objects.order_by('difficulty__name')
         else:
-            problems = Problem.objects.all()
+            problems = Problem.objects.order_by('time')
         context = {'problem_list': problems}
         return render(request, 'leetquizzer/index.html', context)
+
+def success(request):
+    context = {'message': 'Too easy for you? &#128523;'}
+    return render(request, 'leetquizzer/result.html', context)
+
+def failure(request):
+    context = {'message': 'You have succesfully failed!!! &#128529;'}
+    return render(request, 'leetquizzer/result.html', context)
 
 class ProblemMenu(View):
     def get(self, request, problem_id):
         try:
             problem = Problem.objects.get(pk=problem_id)
-            q_list = make_list(num_questions=4, problem=problem)
-            context = {'question_list': q_list}
+            if 'q_list' not in request.session:
+                q_list = make_list(num_questions=4, problem=problem)
+                request.session['q_list'] = q_list
+                
+            context = {'question_list': request.session['q_list']}
             return render(request, f"quizzes/{problem.number}.html", context)
         except TemplateDoesNotExist:
             return render(request, 'quizzes/base.html')
@@ -84,13 +96,16 @@ class ProblemMenu(View):
         problem = Problem.objects.get(pk=problem_id)
         answer = request.POST.get('answer', None)
         success_message = "ABSOLUTELY CORRECT!!! &#128513"
-        fail_message = "WRONG!!! please try again later &#129402"
+        failure_message = "WRONG!!! please try again later &#129402"
+        request.session.pop('q_list')
         if answer == 'True':
-            message = success_message
+            messages.info(request, success_message)
+            problem.wrong = False
         else:
-            message = fail_message
-        context = {'question_list':[], 'message':message}
-        return render(request, f"quizzes/{problem.number}.html", context)
+            messages.info(request, failure_message)
+            problem.wrong = True
+        problem.save()
+        return redirect(self.request.path_info)
 
 class CreateProblem(View):
     try:

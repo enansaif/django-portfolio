@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<p><strong>* fields are required</strong></p>
+<p><strong>* marked fields are required</strong></p>
 <form action="" method="post" class="pt-1 fw-bolder">
     {% csrf_token %}
     {{ form.as_table }}

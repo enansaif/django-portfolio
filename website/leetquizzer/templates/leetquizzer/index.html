@@ -11,7 +11,7 @@
     <thead>
       <tr>
         <th scope="col"># <a href="{% url 'leetquizzer:create_problem' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></th>
-        <th scope="col">Problem</th>
+        <th scope="col">Problem <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2">&#8634;</a></th>
         <th scope="col">Link</th>
         <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' 'topic' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
         <th scope="col">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         {% for problem in problem_list %}
-        <tr>
+        <tr class="{% if problem.wrong %}table-danger{% endif %}">
             <th scope="row">{{problem.number}}</th>
             <td><a href="{% url 'leetquizzer:problem_menu' problem.pk %}" class="link-dark link-underline-opacity-0" style="display: block;">{{ problem.name }}</a></td>
             <td><a href="{{ problem.link }}" class="link-dark link-underline-opacity-0">&#128279;</a></td>
