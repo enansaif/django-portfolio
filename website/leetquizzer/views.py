@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
 from django.template.exceptions import TemplateDoesNotExist
+from django.db.utils import OperationalError
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm
 
@@ -92,7 +93,10 @@ class ProblemMenu(View):
         return render(request, f"quizzes/{problem.number}.html", context)
 
 class CreateProblem(View):
-    set_difficulty(('Easy', 'Medium', 'Hard'))
+    try:
+        set_difficulty(('Easy', 'Medium', 'Hard'))
+    except OperationalError:
+        pass
     template = 'leetquizzer/create_problem.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
     
