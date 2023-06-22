@@ -8,7 +8,7 @@ topic = Topic.objects.all()
 difficulty = Difficulty.objects.all()
 
 
-class AddProblemForm(forms.Form):
+class CreateProblemForm(forms.Form):
     number = forms.IntegerField(label='Problem Id*', widget=textinput_widget)
     name = forms.CharField(max_length=100, label='Problem Name*', widget=textinput_widget)
     link = forms.URLField(max_length=150, label='LeetCode Link*', widget=textinput_widget)
@@ -20,9 +20,5 @@ class AddProblemForm(forms.Form):
     option2 = forms.CharField(max_length=300, required=False, label='Wrong 2', widget=textarea_widget)
 
 
-class AddTopicForm(forms.Form):
+class CreateTopicForm(forms.Form):
     topic = forms.CharField(max_length=20, label='Topic Name', widget=textinput_widget)
-
-
-class AddDifficultyForm(forms.Form):
-    difficulty = forms.CharField(max_length=10, label='Difficulty', widget=textinput_widget)

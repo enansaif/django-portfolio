@@ -5,26 +5,7 @@ from django.db.models import Count
 from django.views import View
 from django.template.exceptions import TemplateDoesNotExist
 from leetquizzer.models import Problem, Topic, Difficulty
-from leetquizzer.forms import AddProblemForm, AddTopicForm, AddDifficultyForm
-
-
-class MainMenu(View):
-    def get(self, request):
-        problems = Problem.objects.all()
-        context = {'problem_list': problems}
-        return render(request, 'leetquizzer/index.html', context)
-
-class TopicMenu(View):
-    def get(self, request):
-        problems = Problem.objects.order_by('topic__name')
-        context = {'problem_list': problems}
-        return render(request, 'leetquizzer/index.html', context)
-
-class DifficultyMenu(View):
-    def get(self, request):
-        problems = Problem.objects.order_by('difficulty__name')
-        context = {'problem_list': problems}
-        return render(request, 'leetquizzer/index.html', context)
+from leetquizzer.forms import CreateProblemForm, CreateTopicForm
 
 def make_list(num_questions, problem):
     """
@@ -71,6 +52,23 @@ def make_list(num_questions, problem):
     random.shuffle(question_list)
     return question_list
 
+def set_difficulty(levels):
+    if Difficulty.objects.count() < len(levels):
+        for level in levels:
+            difficulty, _ = Difficulty.objects.get_or_create(name=level)
+            difficulty.save()
+        
+class MainMenu(View):
+    def get(self, request, sorted_by=None):
+        if sorted_by == 'topic':
+            problems = Problem.objects.order_by('topic__name')
+        elif sorted_by == 'difficulty':
+            problems = Problem.objects.order_by('difficulty__name')
+        else:
+            problems = Problem.objects.all()
+        context = {'problem_list': problems}
+        return render(request, 'leetquizzer/index.html', context)
+
 class ProblemMenu(View):
     def get(self, request, problem_id):
         try:
@@ -93,17 +91,18 @@ class ProblemMenu(View):
         context = {'question_list':[], 'message':message}
         return render(request, f"quizzes/{problem.number}.html", context)
 
-class AddProblem(View):
-    template = 'leetquizzer/create.html'
+class CreateProblem(View):
+    set_difficulty(('Easy', 'Medium', 'Hard'))
+    template = 'leetquizzer/create_problem.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
     
     def get(self, request):
-        form = AddProblemForm()
+        form = CreateProblemForm()
         context = {'form': form}
         return render(request, self.template, context)
     
     def post(self, request):
-        form = AddProblemForm(request.POST)
+        form = CreateProblemForm(request.POST)
         if not form.is_valid():
             context = {'form': form}
             return render(request, self.template, context)
@@ -127,18 +126,18 @@ class AddProblem(View):
         problem.save()
         return redirect(self.success_url)
 
-class AddTopic(View):
-    template = 'leetquizzer/add_topic.html'
-    success_url = reverse_lazy('leetquizzer:create')
+class CreateTopic(View):
+    template = 'leetquizzer/create_topic.html'
+    success_url = reverse_lazy('leetquizzer:create_problem')
     
     def get(self, request):
-        form = AddTopicForm()
+        form = CreateTopicForm()
         topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
         context = {'form': form, 'topic_list': topics}
         return render(request, self.template, context)
     
     def post(self, request):
-        form = AddTopicForm(request.POST)
+        form = CreateTopicForm(request.POST)
         if not form.is_valid():
             topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
             context = {'form': form, 'topic_list': topics}
@@ -155,33 +154,3 @@ class AddTopic(View):
         topic = Topic(name=new_topic)
         topic.save()
         return redirect(self.success_url)
-
-class AddDifficulty(View):
-    template = 'leetquizzer/add_difficulty.html'
-    success_url = reverse_lazy('leetquizzer:create')
-    
-    def get(self, request):
-        form = AddDifficultyForm()
-        context = {'form': form}
-        return render(request, self.template, context)
-    
-    def post(self, request):
-        form = AddDifficultyForm(request.POST)
-        if not form.is_valid():
-            context = {'form': form}
-            return render(request, self.template, context)
-        
-        if Difficulty.objects.count() >= 3:
-            context = {'form': form, 'message': 'How many more difficulty levels do you want!?! -_-'}
-            return render(request, self.template, context)
-            
-        new_difficulty = form.cleaned_data['difficulty'].lower().capitalize()
-        hasDifficulty = Difficulty.objects.filter(name=new_difficulty).exists()
-        if hasDifficulty:
-            context = {'form': form, 'message': 'You have already set this difficulty level'}
-            return render(request, self.template, context)
-        
-        difficulty = Difficulty(name=new_difficulty)
-        difficulty.save()
-        return redirect(self.success_url)
-        

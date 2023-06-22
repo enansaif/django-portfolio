@@ -10,11 +10,11 @@
 <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col"># <a href="{% url 'leetquizzer:create' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></th>
+        <th scope="col"># <a href="{% url 'leetquizzer:create_problem' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></th>
         <th scope="col">Problem</th>
         <th scope="col">Link</th>
-        <th scope="col">Topic <a href="{% url 'leetquizzer:topic_menu' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
-        <th scope="col">Difficulty <a href="{% url 'leetquizzer:difficulty_menu' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' 'topic' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
       </tr>
     </thead>
     <tbody>
@@ -30,6 +30,6 @@
     </tbody>
   </table>
 {% else %}
-<p>no problems to show</p>
+<p>no problems to show <a href="{% url 'leetquizzer:create_problem' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></p>
 {% endif %}
 {% endblock %}
