@@ -1,1 +1,0 @@
-python manage.py runscript load_csv --script-args problems.csv

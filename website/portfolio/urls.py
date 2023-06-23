@@ -1,3 +1,6 @@
+"""
+Defines all endpoints of the portfolio application.
+"""
 from django.urls import path
 from . import views
 

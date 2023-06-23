@@ -13,7 +13,11 @@
                 <div class="card-body">
                   <p class="card-title lead">{{ project.name }}</p>
                   <p class="card-text">{{ project.description }}</p>
-                  <p class="card-text">{{ project.tools }}</p>
+                  <p class="card-text">Tools: 
+                    {% for tool in project.tools %}
+                    {{tool}}{% if forloop.counter < project.tools|length %},{% endif %}
+                    {% endfor %}
+                  </p>
                   <a class="social-btn" href="{{ project.url }}">Open Project</a>
                 </div>
             </div>
