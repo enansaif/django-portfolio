@@ -1,5 +1,8 @@
+"""
+Forms for LeetQuizzer database insertion
+"""
 from django import forms
-from leetquizzer.models import Problem, Topic, Difficulty
+from leetquizzer.models import Topic, Difficulty
 
 textarea_widget = forms.Textarea(attrs={'rows':'2', 'class': 'form-control', 'style':'resize:none'})
 textinput_widget = forms.TextInput(attrs={'class': 'form-control'})

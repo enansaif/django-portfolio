@@ -1,3 +1,6 @@
+"""
+Keeps track of all the endpoints for the leetquizzer app.
+"""
 from django.urls import path
 from . import views
 
