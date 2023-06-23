@@ -18,7 +18,7 @@
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_table }}
-    <input type="submit" class="btn btn-secondary mt-1" value="Submit">
+    <input type="submit" class="btn btn-secondary mt-1 mb-5" value="Submit">
 </form>
 {% if message %}
 <p><strong>{{ message }}</strong></p>
