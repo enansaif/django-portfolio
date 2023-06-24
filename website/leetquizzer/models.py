@@ -44,7 +44,6 @@ class Problem(models.Model):
         solution (str): The solution description of the problem.
         option1 (str): The first option for the problem (optional).
         option2 (str): The second option for the problem (optional).
-
     """
     name = models.CharField(max_length=100)
     number = models.PositiveIntegerField()

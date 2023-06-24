@@ -1,5 +1,5 @@
 """
-    Configuration file for the Leetquizzer app.
+Configuration file for the Leetquizzer app.
 """
 from django.apps import AppConfig
 

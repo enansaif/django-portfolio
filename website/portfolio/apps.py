@@ -1,6 +1,6 @@
 """
-    Configuration file for the Portfolio app.
-    """
+Configuration file for the Portfolio app.
+"""
 from django.apps import AppConfig
 
 
