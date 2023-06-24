@@ -224,17 +224,6 @@ class CreateProblem(View):
     def get(self, request):
         """
         Handle GET request for creating a new problem.
-
-        Args:
-            request (HttpRequest): The HTTP request object.
-
-        Returns:
-            HttpResponse: The rendered response with the create problem form.
-
-        Note:
-            This method creates a new instance of the CreateProblemForm and passes it as context 
-            to the template. The template is rendered with the form to allow the user to input 
-            the problem details.
         """
         form = CreateProblemForm()
         context = {'form': form}
@@ -242,9 +231,6 @@ class CreateProblem(View):
     def post(self, request):
         """
         Handle POST request for creating a new problem.
-
-        Args:
-            request (HttpRequest): The HTTP request object.
 
         Returns:
             HttpResponseRedirect: Redirects to the success URL after creating the problem.
@@ -295,28 +281,12 @@ class CreateTopic(View):
     Attributes:
         template (str): The name of the template to render.
         success_url (str): The URL to redirect to after successfully creating the topic.
-
-    Methods:
-        get(request): Handles the GET request for creating a new topic.
-        post(request): Handles the POST request for creating a new topic.
     """
     template = 'leetquizzer/create_topic.html'
     success_url = reverse_lazy('leetquizzer:create_problem')
     def get(self, request):
         """
         Handle GET request for creating a new topic.
-
-        Args:
-            request (HttpRequest): The HTTP request object.
-
-        Returns:
-            HttpResponse: The rendered response with the create topic form and the list of existing 
-            topics.
-
-        Note:
-            This method creates a new instance of the CreateTopicForm and retrieves the list of 
-            existing topics. The template is rendered with the form and the list of topics to 
-            allow the user to input the topic details.
         """
         form = CreateTopicForm()
         topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
@@ -326,16 +296,10 @@ class CreateTopic(View):
         """
         Handle POST request for creating a new topic.
 
-        Args:
-            request (HttpRequest): The HTTP request object.
-
         Returns:
             HttpResponseRedirect: Redirects to the success URL after creating the topic.
             HttpResponse: The rendered response with the create topic form and error message 
             if form validation fails.
-
-        Raises:
-            None
 
         Note:
             This method performs form validation by checking if the form is valid. If the form 
