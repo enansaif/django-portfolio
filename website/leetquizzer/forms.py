@@ -25,14 +25,6 @@ class CreateProblemForm(forms.Form):
         edge_case (str): The edge case description of the problem (optional).
         option1 (str): The first wrong answer option (optional).
         option2 (str): The second wrong answer option (optional).
-
-    Usage:
-        To create a new problem form and render it in a template:
-        ```
-        form = CreateProblemForm()
-        context = {'form': form}
-        return render(request, 'template.html', context)
-        ```
     """
     number = forms.IntegerField(label='Problem Id*', widget=textinput_widget)
     name = forms.CharField(max_length=100, label='Problem Name*', widget=textinput_widget)

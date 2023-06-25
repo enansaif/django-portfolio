@@ -40,9 +40,6 @@ def project_info():
     - 'description': A description of the project.
     - 'tools': A list of tools/technologies used in the project.
     - 'url': The URL or route for accessing the project.
-
-    Note:
-        Make sure to import the 'reverse' in order to generate the 'url' value.
     """
     project_list = []
     leetquizzer = {
@@ -65,6 +62,16 @@ def projects(request):
 class ContactView(View):
     """
     Contact view of the portfolio application.
+
+    This view handles the rendering of the contact page and processing of the contact form.
+    It displays the contact form to the user and validates the form submission. Upon 
+    successful submission, it sends an email notification and redirects the user to a 
+    success page.
+
+    Attributes:
+        template (str): The template to render for the contact page.
+        success_url (str): The URL to redirect to after successful form submission.
+        success_message (str): The success message to display upon successful form submission.
     """
     template = 'portfolio/contact.html'
     success_url = reverse_lazy('portfolio:contact')
@@ -79,6 +86,11 @@ class ContactView(View):
     def post(self, request):
         """
         Validates the contact form.
+
+        Validates the submitted contact form. If the form is valid,
+        it sends an email notification, displays a success message,
+        and redirects the user to the success URL. If the form is invalid,
+        it renders the contact page with the form and error messages.
         """
         form = ContactForm(request.POST)
         if not form.is_valid():

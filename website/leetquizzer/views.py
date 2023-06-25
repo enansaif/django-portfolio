@@ -25,18 +25,11 @@ def make_list(num_questions, problem):
     
     This function generates a list of questions by randomly selecting problems from a database
     and adding their solutions to the list. The provided problem object is the initial question
-    that is guaranteed to be included in the result. The function then randomly selects additional
+    that is guaranteed to be included in the list. The function then randomly selects additional
     problems until the desired number of questions is reached. Each question's solution is added
     to the list as a tuple, along with a string indicating whether the solution is right or wrong.
-    If available, the optional choices (option1 and option2) of the problems are also included as
-    tuples with the correctness set to wrong. The final list is shuffled to randomize the order
-    of the questions.
-
-    Note:
-        This function assumes the model (Problem) with the following attributes is already imported:
-        - solution: The solution to the problem/question.
-        - option1: Optional choice 1 for the problem.
-        - option2: Optional choice 2 for the problem.
+    If available, the optional choices (option1 and option2) of the problems are also included.
+    The final list is shuffled to randomize the order of the questions.
     """
     question_list = []
     right, wrong = 'True', 'False'
@@ -62,23 +55,6 @@ def set_difficulty(levels):
 
     Args:
         levels (list): A list of difficulty level names.
-
-    This function sets the difficulty levels in the database by creating or retrieving the 
-    Difficulty objects. It takes a list of difficulty level names as input.
-
-    If the number of existing Difficulty objects in the database is less than the length of 
-    the provided 'levels' list, it iterates over each level in the 'levels' list and creates 
-    a new Difficulty object if it doesn't already exist. The 'name' attribute of the Difficulty 
-    object is set using the level name from the list.
-
-    After creating or retrieving the Difficulty objects, they are saved to the database.
-
-    Note:
-        Make sure to properly configure the models and database connection before running this 
-        function.
-
-    Example:
-        set_difficulty(['Easy', 'Medium', 'Hard'])  # Sets the difficulty levels in the database.
     """
     if Difficulty.objects.count() < len(levels):
         for level in levels:
@@ -100,7 +76,6 @@ class MainMenu(View):
         Handle GET request for the main menu page.
 
         Args:
-            request (HttpRequest): The HTTP request object.
             sorted_by (str, optional): The sorting parameter. Can be 'topic', 'difficulty', or None.
 
         Returns:
@@ -144,7 +119,6 @@ class ProblemMenu(View):
         Handle GET request for the problem menu page.
 
         Args:
-            request (HttpRequest): The HTTP request object.
             problem_id (int): The ID of the problem to display.
 
         Returns:
@@ -173,7 +147,6 @@ class ProblemMenu(View):
         Handle POST request for the problem menu page.
 
         Args:
-            request (HttpRequest): The HTTP request object.
             problem_id (int): The ID of the problem.
 
         Returns:
