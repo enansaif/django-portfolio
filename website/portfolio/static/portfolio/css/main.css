@@ -10,7 +10,7 @@
 .variable {color: orange;}
 .self {color: green;}
 .value {color: darkslategrey;}
-.ide {background-color: whitesmoke;}
+.ide {background-color: white;}
 
 .social-btn {
     transition: var(--default-transition-duration);

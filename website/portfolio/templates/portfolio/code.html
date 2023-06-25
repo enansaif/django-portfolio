@@ -3,7 +3,7 @@
 {% block code %}
 <!--Code Section-->
 <div class="row pt-5 pb-5">
-    <div class="border p-5 ide">
+    <div class="border p-5 pb-2 ide">
         01 <span class="function">class</span> <span class="value">Saife Shuhaib Md</span>:<br>
         <div class="constructor">
             02 <span class="dot">....</span><span class="function">constructor(<span class="self">self</span>)</span>:<br>
@@ -30,6 +30,7 @@
             17 <span class="dot">....</span><span class="function">education()</span>:<br>
             18 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">2016 - 2021</span>' : '<span class="value">B.Sc. in ETE - Chittagong University of Engineering & Technology</span>'}<br>
         </div>
+        <a href="{% url 'portfolio:about' %}" style="text-decoration: none; color:var(--theme-orange)"><p class="text-center p-0">&#8634;</p></a>
     </div>
 </div>
 {% endblock %}

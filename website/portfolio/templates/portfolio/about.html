@@ -17,6 +17,33 @@
         </p>
     </div>
     {% block code %}
+    <div class="row py-5">
+        <div class="border p-5 pb-1 ide" style="font-size: 1.15rem;">
+            <p>
+                I am currently working as a software engineer in <span class="value">Dhaka, Bangladesh</span>.<br>You can send me an 
+                <span class="value"><a href = "mailto: enansaifme33@gmail.com">email</a></span> or connect with me on <a href="https://www.linkedin.com/in/enansaif/" target="_blank">LinkedIn</a>.
+            </p>
+            <br>
+            <p>
+                <strong>Experience:</strong> I am currently working at BJIT Limited since <span class="variable">11/2021</span>.
+            </p>
+            <br>
+            <p>
+                <strong>Skills:</strong> Here are some of my skills:
+                <ul>
+                    <li><span class="variable">Language:</span> Python, C++, JavaScript, HTML, CSS</li>
+                    <li><span class="variable">Frameworks:</span> Django, Flask, PyTorch, OpenCV, Numpy, Pandas, Bootstrap</li>
+                    <li><span class="variable">Database:</span> MySQL, MongoDB</li>
+                    <li><span class="variable">Common:</span> Git, Linux</li>
+                </ul>
+            </p>
+            <br>
+            <p>
+                <strong>Education:</strong> I have completed my B.Sc. in Telecommunication Engineering from<br>Chittagong University of Engineering & Technology (2016 - 2021).
+            </p>
+            <a href="{% url 'portfolio:code' %}" style="text-decoration: none; color:var(--theme-orange)"><p class="text-center p-0">codify</p></a>
+        </div>
+    </div>
     {% endblock %}
     <!--Stats Section-->
     <div class="row" style="width: 100%;">

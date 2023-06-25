@@ -136,7 +136,7 @@ class ProblemMenu(View):
             problem = Problem.objects.get(pk=problem_id)
             key = f"q{problem_id}"
             if key not in request.session:
-                q_list = make_list(num_questions=4, problem=problem)
+                q_list = make_list(num_questions=3, problem=problem)
                 request.session[key] = q_list
             context = {'question_list': request.session[key]}
             return render(request, f"quizzes/{problem.number}.html", context)

@@ -19,6 +19,12 @@ def about(request):
     """
     Serves the about page.
     """
+    return render(request, 'portfolio/about.html')
+
+def code(request):
+    """
+    Serves the codified about page.
+    """
     return render(request, 'portfolio/code.html')
 
 def resume(request):
@@ -75,7 +81,7 @@ class ContactView(View):
     """
     template = 'portfolio/contact.html'
     success_url = reverse_lazy('portfolio:contact')
-    success_message = "Thanks for getting in touch I'll reply to you as soon as possible"
+    success_message = "Thanks for getting in touch! I'll reply to you as soon as possible."
     def get(self, request):
         """
         Serves the contact page.

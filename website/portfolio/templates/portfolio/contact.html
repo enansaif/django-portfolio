@@ -10,7 +10,7 @@
         <form action="", method="post">
             {% csrf_token %}
             {{ form.as_table }}
-            <input type="submit" class="social-btn mt-1 form-control" value="Submit">
+            <input type="submit" class="social-btn mt-1 form-control" value="Send">
         </form>
         {% if messages %}
             {% for message in messages %}
