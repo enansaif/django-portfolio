@@ -1,55 +1,73 @@
 {% extends "quizzes/base.html" %}
 {% block quiz %}
   <div>
-    <h1>Problem: 2746 - Decremental String Concatenation</h1>
-    <p>You are given a 0-indexed array words containing n strings.</p>
-    <p>Let's define a join operation join(x, y) between two strings x and y as concatenating them into xy. However, if the last character of x is equal to the first character of y, one of them is deleted.</p>
-    <p>For example, join("ab", "ba") = "aba" and join("ab", "cde") = "abcde".</p>
-    <p>You are to perform n - 1 join operations. Let str0 = words[0]. Starting from i = 1 up to i = n - 1, for the ith operation, you can do one of the following:</p>
-    <ul>
-        <li>Make stri = join(stri - 1, words[i])</li>
-        <li>Make stri = join(words[i], stri - 1)</li>
-    </ul>
-    <p>Your task is to minimize the length of strn - 1.</p>
-    <p>Return an integer denoting the minimum possible length of strn - 1.</p>
-
-    <div class="example">
-        <h2>Example 1:</h2>
-        <p>Input: words = ["aa","ab","bc"]</p>
-        <p>Output: <span class="example-output">4</span></p>
-        <p>Explanation: In this example, we can perform join operations in the following order to minimize the length of str2:</p>
-        <p>str0 = "aa"</p>
-        <p>str1 = join(str0, "ab") = "aab"</p>
-        <p>str2 = join(str1, "bc") = "aabc"</p>
-        <p>It can be shown that the minimum possible length of str2 is 4.</p>
+    <h1>Decremental String Concatenation</h1>
+    <div class="problem-description">
+        <p>
+            You are given a 0-indexed array words containing n strings.
+        </p>
+        <p>
+            Let's define a join operation join(x, y) between two strings x and y as concatenating them into xy. However, if the last character of x is equal to the first character of y, one of them is deleted.
+        </p>
+        <p>
+            For example join("ab", "ba") = "aba" and join("ab", "cde") = "abcde".
+        </p>
+        <p>
+            You are to perform n - 1 join operations. Let str0 = words[0]. Starting from i = 1 up to i = n - 1, for the ith operation, you can do one of the following:
+        </p>
+        <ul>
+            <li>Make stri = join(stri - 1, words[i])</li>
+            <li>Make stri = join(words[i], stri - 1)</li>
+        </ul>
+        <p>
+            Your task is to minimize the length of strn - 1.
+        </p>
     </div>
-
-    <div class="example">
-        <h2>Example 2:</h2>
-        <p>Input: words = ["ab","b"]</p>
-        <p>Output: <span class="example-output">2</span></p>
-        <p>Explanation: In this example, str0 = "ab", there are two ways to get str1:</p>
-        <p>join(str0, "b") = "ab" or join("b", str0) = "bab".</p>
-        <p>The first string, "ab", has the minimum length. Hence, the answer is 2.</p>
+    <div class="code-section">
+        <h3>Example 1:</h3>
+        <code>
+        Input:
+        words = ["aa","ab","bc"]
+        Output: 4
+        </code>
+        <p>Explanation: In this example, we can perform join operations in the following order to minimize the length of str2:<br>
+        str0 = "aa"<br>
+        str1 = join(str0, "ab") = "aab"<br>
+        str2 = join(str1, "bc") = "aabc"<br>
+        It can be shown that the minimum possible length of str2 is 4.</p>
     </div>
-
-    <div class="example">
-        <h2>Example 3:</h2>
-        <p>Input: words = ["aaa","c","aba"]</p>
-        <p>Output: <span class="example-output">6</span></p>
-        <p>Explanation: In this example, we can perform join operations in the following order to minimize the length of str2:</p>
-        <p>str0 = "aaa"</p>
-        <p>str1 = join(str0, "c") = "aaac"</p>
-        <p>str2 = join("aba", str1) = "abaaac"</p>
-        <p>It can be shown that the minimum possible length of str2 is 6.</p>
+    <div class="code-section">
+        <h3>Example 2:</h3>
+        <code>
+        Input:
+        words = ["ab","b"]
+        Output: 2
+        </code>
+        <p>Explanation: In this example, str0 = "ab", there are two ways to get str1:<br>
+        join(str0, "b") = "ab" or join("b", str0) = "bab".<br>
+        The first string, "ab", has the minimum length. Hence, the answer is 2.</p>
     </div>
-
-    <h2>Constraints:</h2>
-    <ul>
-        <li>1 <= words.length <= 1000</li>
-        <li>1 <= words[i].length <= 50</li>
-        <li>Each character in words[i] is an English lowercase letter</li>
-    </ul>
+    <div class="code-section">
+        <h3>Example 3:</h3>
+        <code>
+        Input:
+        words = ["aaa","c","aba"]
+        Output: 6
+        </code>
+        <p>Explanation: In this example, we can perform join operations in the following order to minimize the length of str2:<br>
+        str0 = "aaa"<br>
+        str1 = join(str0, "c") = "aaac"<br>
+        str2 = join("aba", str1) = "abaaac"<br>
+        It can be shown that the minimum possible length of str2 is 6.</p>
+    </div>
+    <div class="code-section">
+        <h3>Constraints:</h3>
+        <ul>
+            <li>1 &le; words.length &le; 1000</li>
+            <li>1 &le; words[i].length &le; 50</li>
+            <li>Each character in words[i] is an English lowercase letter</li>
+        </ul>
+    </div>
   </div>
   {% include "quizzes/q_snippet.html" %}
 {% endblock %}

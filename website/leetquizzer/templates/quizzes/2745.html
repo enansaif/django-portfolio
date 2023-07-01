@@ -1,32 +1,44 @@
 {% extends "quizzes/base.html" %}
 {% block quiz %}
   <div>
-    <h1>Problem: 2745 - Construct the Longest New String</h1>
-    <p>You are given three integers x, y, and z.</p>
-    <p>You have x strings equal to "AA", y strings equal to "BB", and z strings equal to "AB". You want to choose some (possibly all or none) of these strings and concatenate them in some order to form a new string. This new string must not contain "AAA" or "BBB" as a substring.</p>
-    <p>Return the maximum possible length of the new string.</p>
-    <p>A substring is a contiguous non-empty sequence of characters within a string.</p>
-
-    <div class="example">
-        <h2>Example 1:</h2>
-        <p>Input: x = 2, y = 5, z = 1</p>
-        <p>Output: <span class="example-output">12</span></p>
-        <p>Explanation: We can concatenate the strings "BB", "AA", "BB", "AA", "BB", and "AB" in that order. Then, our new string is "BBAABBAABBAB".</p>
-        <p>That string has length 12, and we can show that it is impossible to construct a string of longer length.</p>
+    <h1>Construct the Longest New String</h1>
+    <div class="problem-description">
+        <p>
+            You are given three integers x, y, and z.
+        </p>
+        <p>
+            You have x strings equal to "AA", y strings equal to "BB", and z strings equal to "AB". You want to choose some (possibly all or none) of these strings and concatenate them in some order to form a new string. This new string must not contain "AAA" or "BBB" as a substring.
+        </p>
+        <p>
+            Return the maximum possible length of the new string.
+        </p>
     </div>
-
-    <div class="example">
-        <h2>Example 2:</h2>
-        <p>Input: x = 3, y = 2, z = 2</p>
-        <p>Output: <span class="example-output">14</span></p>
-        <p>Explanation: We can concatenate the strings "AB", "AB", "AA", "BB", "AA", "BB", and "AA" in that order. Then, our new string is "ABABAABBAABBAA".</p>
-        <p>That string has length 14, and we can show that it is impossible to construct a string of longer length.</p>
+    <div class="code-section">
+        <h3>Example 1:</h3>
+        <code>
+        Input:
+        x = 2, y = 5, z = 1
+        Output: 12
+        </code>
+        <p>Explanation: We can concatenate the strings "BB", "AA", "BB", "AA", "BB", and "AB" in that order. Then, our new string is "BBAABBAABBAB". <br>
+        That string has length 12, and we can show that it is impossible to construct a string of longer length.</p>
     </div>
-
-    <h2>Constraints:</h2>
-    <ul>
-        <li>1 <= x, y, z <= 50</li>
-    </ul>
+    <div class="code-section">
+        <h3>Example 2:</h3>
+        <code>
+        Input:
+        x = 3, y = 2, z = 2
+        Output: 14
+        </code>
+        <p>Explanation: We can concatenate the strings "AB", "AB", "AA", "BB", "AA", "BB", and "AA" in that order. Then, our new string is "ABABAABBAABBAA". <br>
+        That string has length 14, and we can show that it is impossible to construct a string of longer length.</p>
+    </div>
+    <div class="code-section">
+        <h3>Constraints:</h3>
+        <ul>
+            <li>1 &le; x, y, z &le; 50</li>
+        </ul>
+    </div>
   </div>
   {% include "quizzes/q_snippet.html" %}
 {% endblock %}
