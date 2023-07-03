@@ -12,9 +12,9 @@
       <tr>
         <th scope="col"># <a href="{% url 'leetquizzer:create_problem' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></th>
         <th scope="col">Problem <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2">&#8634;</a></th>
-        <th scope="col">Link</th>
+        <th scope="col" style="width: 5%;"></th>
         <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' 'topic' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
-        <th scope="col">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col" style="width: 15%;">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
       </tr>
     </thead>
     <tbody>
@@ -24,7 +24,12 @@
             <td><a href="{% url 'leetquizzer:problem_menu' problem.pk %}" class="link-dark link-underline-opacity-0" style="display: block;">{{ problem.name }}</a></td>
             <td><a href="{{ problem.link }}" class="link-dark link-underline-opacity-0">&#128279;</a></td>
             <td>{{problem.topic}}</td>
-            <td>{{problem.difficulty}}</td>
+            <td><div class="container d-flex justify-content-between align-items-center">
+              {{problem.difficulty}}
+              <a href="{% url 'leetquizzer:update_problem' problem.pk %}" class="link-dark link-underline-opacity-0 px-2">
+                &#9965;
+              </a>
+            </div></td>
         </tr>
         {% endfor %}
     </tbody>

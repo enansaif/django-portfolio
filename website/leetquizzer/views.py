@@ -2,7 +2,7 @@
 LeetQuizzer application views.
 """
 import random
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
@@ -241,6 +241,24 @@ class CreateProblem(View):
         problem.save()
         return redirect(self.success_url)
 
+
+class UpdateProblem(View):
+    def get(self, request, problem_id):
+        problem = get_object_or_404(Problem, pk=problem_id)
+        initial_dict = {
+        "number": problem.number,
+        "name": problem.name,
+        "link": problem.link,
+        "topic": problem.topic,
+        "difficulty": problem.difficulty,
+        "solution": problem.solution,
+        "edge_case": problem.edge_case,
+        "option1": problem.option1,
+        "option2": problem.option2,
+        }
+        form = CreateProblemForm(initial=initial_dict)
+        context = {'form': form}
+        return render(request, 'leetquizzer/update_problem.html', context)
 
 class CreateTopic(View):
     """
