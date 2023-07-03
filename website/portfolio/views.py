@@ -21,12 +21,6 @@ def about(request):
     """
     return render(request, 'portfolio/about.html')
 
-def code(request):
-    """
-    Serves the codified about page.
-    """
-    return render(request, 'portfolio/code.html')
-
 def resume(request):
     """
     Serves the resume page.

@@ -16,9 +16,39 @@
             while adhering to industry best practices.
         </p>
     </div>
-    {% block code %}
-    <div class="row py-5">
-        <div class="border p-5 pb-1 ide" style="font-size: 1.15rem;">
+    <!--Code Section-->
+    <div class="row pt-5" id="code-section" style="display: none;">
+        <div class="border p-5 ide">
+            01 <span class="function">class</span> <span class="value">Saife Shuhaib Md</span>:<br>
+            <div class="constructor">
+                02 <span class="dot">....</span><span class="function">constructor(<span class="self">self</span>)</span>:<br>
+                03 <span class="dot">........</span><span class="self">self</span>.<span class="variable">name</span> = '<span class="value">Saife Shuhaib Md</span>'<br>
+                04 <span class="dot">........</span><span class="self">self</span>.<span class="variable">location</span> = '<span class="value">Dhaka, Bangladesh</span>'<br>
+                05 <span class="dot">........</span><span class="self">self</span>.<span class="variable">email</span> = '<span class="value">enansaifme33@gmail.com</span>'<br>
+                06 <span class="dot">........</span><span class="self">self</span>.<span class="variable">linkedIn</span> = '<span class="value">linkedin.com/in/enansaif</span>'<br>
+            </div>
+            07<br>
+            <div class="experience">
+                08 <span class="dot">....</span><span class="function">experience()</span>:<br>
+                09 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">11/2021 - Current</span>' : '<span class="value">Software Engineer - BJIT Limited</span>'}<br>
+            </div>
+            10<br>
+            <div class="skills-list">
+                11 <span class="dot">....</span><span class="function">skills()</span>:<br>
+                12 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">Language</span>' : <span class="value">['Python', 'C++', 'JavaScript', 'HTML', 'CSS'],</span><br>
+                13 <span class="dot">.....................</span>'<span class="variable">Frameworks</span>' : <span class="value">['Django', 'Flask', 'PyTorch', OpenCV, 'Numpy', 'Pandas', 'Bootstrap'],</span><br>
+                14 <span class="dot">.....................</span>'<span class="variable">Database</span>' : <span class="value">['MySQL', 'MongoDB'],</span><br>
+                15 <span class="dot">.....................</span>'<span class="variable">Common</span>' : <span class="value">['Git', 'Linux']</span>}<br>
+            </div>
+            16<br>
+            <div class="education">
+                17 <span class="dot">....</span><span class="function">education()</span>:<br>
+                18 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">2016 - 2021</span>' : '<span class="value">B.Sc. in ETE - Chittagong University of Engineering & Technology</span>'}<br>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-5" id="text-section">
+        <div class="border p-5 ide" style="font-size: 1.15rem;">
             <p>
                 I am currently working as a software engineer in <span class="value">Dhaka, Bangladesh</span>.<br>You can send me an 
                 <span class="value"><a href = "mailto: enansaifme33@gmail.com">email</a></span> or connect with me on <a href="https://www.linkedin.com/in/enansaif/" target="_blank">LinkedIn</a>.
@@ -41,14 +71,13 @@
             <p>
                 <strong>Education:</strong> I have completed my B.Sc. in Telecommunication Engineering from<br>Chittagong University of Engineering & Technology (2016 - 2021).
             </p>
-            <a href="{% url 'portfolio:code' %}" style="text-decoration: none; color:var(--theme-orange)"><p class="text-center p-0">codify</p></a>
         </div>
     </div>
-    {% endblock %}
+    <button onclick="swap()" class="social-btn py-1 m-0">cod!fy</button>
     <!--Stats Section-->
     <div class="row" style="width: 100%;">
         <div class="col d-flex flex-column align-items-center">
-            <h1 class="pb-5 fw-light fs-2 fst-italic">&lt!--stats_section--&gt</h1>
+            <h1 class="p-5 fw-light fs-2 fst-italic">&lt!--stats_section--&gt</h1>
             <h2><pre>&ltLanguage Skills&gt</pre></h2>
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item border-0"><i class="devicon-python-plain skills" title="Python"></i></li>
@@ -138,4 +167,17 @@
         </div>
     </div>
 </div>
+<script>
+    function swap() {
+      var code = document.getElementById("code-section");
+      var text = document.getElementById("text-section");
+      if (code.style.display === "none") {
+        code.style.display = "block";
+        text.style.display = "none";
+      } else {
+        code.style.display = "none";
+        text.style.display = "block";
+      }
+    }
+</script>
 {% endblock %}
