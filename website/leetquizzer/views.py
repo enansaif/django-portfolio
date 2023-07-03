@@ -138,7 +138,7 @@ class ProblemMenu(View):
             if key not in request.session:
                 q_list = make_list(num_questions=3, problem=problem)
                 request.session[key] = q_list
-            context = {'question_list': request.session[key]}
+            context = {'question_list': request.session[key], 'link': problem.link}
             return render(request, f"quizzes/{problem.number}.html", context)
         except TemplateDoesNotExist:
             return render(request, self.failure_url)
@@ -243,7 +243,23 @@ class CreateProblem(View):
 
 
 class UpdateProblem(View):
+    """
+    A class-based view for updating a problem object.
+
+    Attributes:
+        template (str): The path to the template used for rendering the update form.
+        success_url (str): The URL to redirect to after successfully updating the problem.
+    """
+    template = 'leetquizzer/update_problem.html'
+    success_url = reverse_lazy('leetquizzer:main_menu')
     def get(self, request, problem_id):
+        """
+        Retrieves the problem object with the given problem_id and renders the update form
+        with pre-filled data based on the problem's current values.
+
+        Args:
+            problem_id (int): The ID of the problem to be updated.
+        """
         problem = get_object_or_404(Problem, pk=problem_id)
         initial_dict = {
         "number": problem.number,
@@ -258,7 +274,41 @@ class UpdateProblem(View):
         }
         form = CreateProblemForm(initial=initial_dict)
         context = {'form': form}
-        return render(request, 'leetquizzer/update_problem.html', context)
+        return render(request, self.template, context)
+    def post(self, request, problem_id):
+        """
+        Handles the form submission and updates the problem object with the submitted data.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            problem_id (int): The ID of the problem to be updated.
+        """
+        form = CreateProblemForm(request.POST)
+        if not form.is_valid():
+            context = {'form': form}
+            return render(request, self.template, context)
+        problem = Problem.objects.get(pk=problem_id)
+        initial_name, new_name = problem.name, form.cleaned_data['name']
+        initial_number, new_number = problem.number, form.cleaned_data['number']
+        has_name = Problem.objects.filter(name=new_name).exists()
+        has_number = Problem.objects.filter(number=new_number).exists()
+        if ((new_name != initial_name and has_name) or
+            (new_number != initial_number and has_number)):
+            context = {'form': form,
+                       'message': 'Problem with this name or number already exists!'}
+            return render(request, self.template, context)
+        problem.name = new_name
+        problem.number = new_number
+        problem.link = form.cleaned_data['link']
+        problem.topic = form.cleaned_data['topic']
+        problem.difficulty = form.cleaned_data['difficulty']
+        problem.edge_case = form.cleaned_data['edge_case']
+        problem.solution = form.cleaned_data['solution']
+        problem.option1 = form.cleaned_data['option1']
+        problem.option2 = form.cleaned_data['option2']
+        problem.save()
+        return redirect(self.success_url)
+
 
 class CreateTopic(View):
     """
