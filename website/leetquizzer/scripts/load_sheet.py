@@ -12,6 +12,9 @@ def run():
     It retrieves the problem information from the spreadsheet and creates new Problem objects
     in the database if they don't already exist. The function uses the Problem, Topic, 
     and Difficulty models from the leetquizzer app.
+    
+    Note:
+        Make sure the database exists.
 
     Command:
         python manage.py runscript load_sheet

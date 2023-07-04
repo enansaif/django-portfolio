@@ -1,8 +1,11 @@
+"""
+All utility functions used by leetquizzer application's views.py
+"""
 import random
 import openai
-from collections import deque
-from website.settings import OPENAI_ORGANIZATION, OPENAI_API_KEY
+from openai.error import RateLimitError
 from leetquizzer.models import Problem, Difficulty
+from website.settings import OPENAI_ORGANIZATION, OPENAI_API_KEY
 
 def make_list(num_questions, problem):
     """
@@ -53,22 +56,44 @@ def set_difficulty(levels):
             difficulty, _ = Difficulty.objects.get_or_create(name=level)
             difficulty.save()
 
-def generate_HTML(problem):
+def generate_webpage(problem):
+    """
+    Generates an HTML page using the problem description from the provided link.
+
+    The function utilizes the OpenAI GPT-3.5 Turbo model to generate the HTML content
+    based on the problem description obtained from the link. It then writes the generated
+    content to an HTML file with a filename corresponding to the problem number.
+
+    Args:
+        problem (Problem): The problem object containing the link to the problem description.
+
+    Raises:
+        RateLimitError: If the rate limit for the OpenAI API is exceeded.
+    """
     openai.organization = OPENAI_ORGANIZATION
     openai.api_key = OPENAI_API_KEY
-    content = problem.link + "generate an HTML page using the problem description from the link."
-    completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": content}],
-    temperature = 1)
-
-    html = completion.choices[0].message.content
-    lines = deque(html.splitlines())
-    while lines[0] != '<body>':
-        lines.popleft()
-    while lines[-1] != '</body>':
-        lines.pop()
-    file_path = 'leetquizzer/templates/quizzes/' + f'{problem.number}.html'
-    with open(file_path, 'w') as f:
-        for line in lines:
-            f.write(line)
+    content = problem.link + " generate an HTML page using the problem description from the link."
+    try:
+        completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": content}],
+        temperature = 1)
+    except RateLimitError:
+        print('Rate limit for the OpenAI API has exceeded!!!')
+    else:
+        lines = completion.choices[0].message.content.splitlines()
+        start, end = lines.index('<body>'), lines.index('</body>')
+        prefixes = ['{% extends "quizzes/base.html" %}', '{% block quiz %}', '<div>']
+        suffixes = ['</div>', '{% include "quizzes/q_snippet.html" %}', '{% endblock %}']
+        file_path = 'leetquizzer/templates/quizzes/' + f'{problem.number}.html'
+        with open(file_path, 'w', encoding="utf-8") as f:
+            for prefix in prefixes:
+                f.write(prefix)
+                f.write('\n')
+            for line in lines[start + 1:end]:
+                f.write(line)
+                f.write('\n')
+            for suffix in suffixes:
+                f.write(suffix)
+                f.write('\n')
+            

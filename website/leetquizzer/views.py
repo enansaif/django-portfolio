@@ -10,7 +10,8 @@ from django.contrib import messages
 from django.db.utils import OperationalError
 from leetquizzer.models import Problem, Topic
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm
-from leetquizzer.utils.functions import make_list, set_difficulty, generate_HTML
+from leetquizzer.utils.functions import make_list, set_difficulty
+from leetquizzer.utils.functions import generate_webpage
 
 
 class MainMenu(View):
@@ -138,6 +139,7 @@ class CreateProblem(View):
     Attributes:
         template (str): The name of the template to render.
         success_url (str): The URL to redirect to after successfully creating the problem.
+        generate_html (bool): Whether to automatically generate HTML for the problem
     """
     try:
         set_difficulty(('Easy', 'Medium', 'Hard'))
@@ -145,6 +147,7 @@ class CreateProblem(View):
         pass
     template = 'leetquizzer/create_problem.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
+    generate_html = False
     def get(self, request):
         """
         Handle GET request for creating a new problem.
@@ -190,7 +193,8 @@ class CreateProblem(View):
                           option1=form.cleaned_data['option1'],
                           option2=form.cleaned_data['option2'])
         problem.save()
-        #generate_HTML(problem)
+        if self.generate_html:
+            generate_webpage(problem)
         return redirect(self.success_url)
 
 

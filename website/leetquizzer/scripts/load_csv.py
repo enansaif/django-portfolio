@@ -19,6 +19,7 @@ def run(filename):
 
     Note: 
         The CSV file should be located in the 'leetquizzer/data/' directory.
+        Make sure the database exists.
 
     Command:
         python manage.py runscript load_csv --script-args <str:filename>
