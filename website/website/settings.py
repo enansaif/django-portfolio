@@ -36,6 +36,10 @@ EMAIL_HOST_PASSWORD = 'lyjeypqxnhqqbkef'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
+# OpenAI authentication
+OPENAI_ORGANIZATION = "org-4RxFtLdMlRUx1admrrnc9czd"
+OPENAI_API_KEY = "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"
+
 # Application definition
 
 INSTALLED_APPS = [
