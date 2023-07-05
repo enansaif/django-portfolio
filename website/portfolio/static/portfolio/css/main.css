@@ -1,7 +1,8 @@
 :root {
     --theme-blue: #55bae2;
     --theme-orange: #f3b542;
-    --default-transition-duration: 0.1s;
+    --color-primary: white;
+    --transition-duration: 0.1s;
 }
 
 /* main.py about section */
@@ -13,9 +14,9 @@
 .ide {background-color: white;}
 
 .social-btn {
-    transition: var(--default-transition-duration);
+    transition: var(--transition-duration);
     background-color: var(--theme-orange);
-    color: white;
+    color: var(--color-primary);
     text-decoration: none;
     padding: 10px;
     margin: 10px;
@@ -24,15 +25,15 @@
 }
   
 .social-btn:hover {
-    transition:var(--default-transition-duration);
+    transition:var(--transition-duration);
     background-color: var(--theme-blue);
-    color: white;
+    color: var(--color-primary);
 }
 
 .skills {
     font-size: 20px;
     background-color: black;
-    color: white;
+    color: var(--color-primary);
     padding: 2px;
     border-radius: 2px;
 }
