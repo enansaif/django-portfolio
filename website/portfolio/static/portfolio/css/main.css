@@ -10,8 +10,6 @@
 .function {color:blue;}
 .variable {color: orange;}
 .self {color: green;}
-.value {color: darkslategrey;}
-.ide {background-color: white;}
 
 .social-btn {
     transition: var(--transition-duration);

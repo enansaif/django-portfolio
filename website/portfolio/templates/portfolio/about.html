@@ -5,179 +5,163 @@
 {% endblock %}
 
 {% block content %}
-<div class="container p-5 d-flex flex-column justify-content-center align-items-center">
-    <div class="row">
-        <p class="col" style="text-align: center; font-size: x-large;">
-            I am a passionate Backend Software Engineer specializing in artificial intelligence (AI). 
-            My main expertise lies in leveraging AI and deep learning skills to develop efficient backend 
-            applications and RESTful APIs. With proficiency in Python, C++, and JavaScript, I utilize 
-            frameworks like Django, Flask, PyTorch, OpenCV, DeepFace, Dlib and MediaPipe to seamlessly integrate 
-            AI solutions into complex infrastructures. My focus is on optimizing performance and scalability 
-            while adhering to industry best practices.
-        </p>
+<div class="container" style="font-family: 'Courier New', Courier, monospace">
+    <!-- About -->
+    <div class="row right-left1">
+        <div class="col d-flex justify-content-end align-items-center">
+            <h1 class="display-6">About</h1>
+        </div>
+        <div class="col-xxl-9 shadow p-3 pb-0 m-3 rounded">
+            <p class="lead">I am a passionate Backend Software Engineer specializing in artificial intelligence (AI). 
+                My main expertise lies in leveraging AI and deep learning skills to develop efficient backend 
+                applications and RESTful APIs. With proficiency in Python, C++, and JavaScript, I utilize 
+                frameworks like Django, Flask, PyTorch, OpenCV, DeepFace, Dlib and MediaPipe to seamlessly integrate 
+                AI solutions into complex infrastructures. My focus is on optimizing performance and scalability 
+                while adhering to industry best practices.</p>
+        </div>
     </div>
-    <!--Code Section-->
-    <div class="row pt-5" id="code-section" style="display: none;">
-        <div class="border p-5 ide">
-            01 <span class="function">class</span> <span class="value">Saife Shuhaib Md</span>:<br>
-            <div class="constructor">
-                02 <span class="dot">....</span><span class="function">constructor(<span class="self">self</span>)</span>:<br>
-                03 <span class="dot">........</span><span class="self">self</span>.<span class="variable">name</span> = '<span class="value">Saife Shuhaib Md</span>'<br>
-                04 <span class="dot">........</span><span class="self">self</span>.<span class="variable">location</span> = '<span class="value">Dhaka, Bangladesh</span>'<br>
-                05 <span class="dot">........</span><span class="self">self</span>.<span class="variable">email</span> = '<span class="value">enansaifme33@gmail.com</span>'<br>
-                06 <span class="dot">........</span><span class="self">self</span>.<span class="variable">linkedIn</span> = '<span class="value">linkedin.com/in/enansaif</span>'<br>
-            </div>
-            07<br>
-            <div class="experience">
-                08 <span class="dot">....</span><span class="function">experience()</span>:<br>
-                09 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">11/2021 - Current</span>' : '<span class="value">Software Engineer - BJIT Limited</span>'}<br>
-            </div>
-            10<br>
-            <div class="skills-list">
-                11 <span class="dot">....</span><span class="function">skills()</span>:<br>
-                12 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">Language</span>' : <span class="value">['Python', 'C++', 'JavaScript', 'HTML', 'CSS'],</span><br>
-                13 <span class="dot">.....................</span>'<span class="variable">Frameworks</span>' : <span class="value">['Django', 'Flask', 'PyTorch', OpenCV, 'Numpy', 'Pandas', 'Bootstrap'],</span><br>
-                14 <span class="dot">.....................</span>'<span class="variable">Database</span>' : <span class="value">['MySQL', 'MongoDB'],</span><br>
-                15 <span class="dot">.....................</span>'<span class="variable">Common</span>' : <span class="value">['Git', 'Linux']</span>}<br>
-            </div>
-            16<br>
-            <div class="education">
-                17 <span class="dot">....</span><span class="function">education()</span>:<br>
-                18 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">2016 - 2021</span>' : '<span class="value">B.Sc. in ETE - Chittagong University of Engineering & Technology</span>'}<br>
+    <!-- Details -->
+    <div class="row left-right1">
+        <div class="col order-xxl-2 d-flex justify-content-start align-items-center">
+            <h1 class="display-6">Details</h1>
+        </div>
+        <div class="col-xxl-9 order-xxl-1 shadow p-3 m-3 rounded">
+            <div style="font-size: 0.9rem;">
+                01 <span class="function">class</span> <span class="value">Saife Shuhaib Md</span>:<br>
+                <div class="constructor">
+                    02 <span class="dot">....</span><span class="function">constructor(<span class="self">self</span>)</span>:<br>
+                    03 <span class="dot">........</span><span class="self">self</span>.<span class="variable">name</span> = 'Saife Shuhaib Md'<br>
+                    04 <span class="dot">........</span><span class="self">self</span>.<span class="variable">location</span> = 'Dhaka, Bangladesh'<br>
+                    05 <span class="dot">........</span><span class="self">self</span>.<span class="variable">email</span> = 'enansaifme33@gmail.com'<br>
+                    06 <span class="dot">........</span><span class="self">self</span>.<span class="variable">linkedIn</span> = 'linkedin.com/in/enansaif'<br>
+                </div>
+                07<br>
+                <div class="experience">
+                    08 <span class="dot">....</span><span class="function">experience()</span>:<br>
+                    09 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">11/2021 - Current</span>' : 'BJIT Limited'}<br>
+                </div>
+                10<br>
+                <div class="skills-list">
+                    11 <span class="dot">....</span><span class="function">skills()</span>:<br>
+                    12 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">Language</span>' : ['Python', 'C++', 'JavaScript', 'HTML', 'CSS'],<br>
+                    13 <span class="dot">................</span>'<span class="variable">Frameworks</span>' : ['Django', 'Flask', 'PyTorch', OpenCV, 'Numpy', 'Pandas', 'Bootstrap'],<br>
+                    14 <span class="dot">................</span>'<span class="variable">Database</span>' : ['MySQL', 'MongoDB'],<br>
+                    15 <span class="dot">................</span>'<span class="variable">Common</span>' : ['Git', 'Linux']}<br>
+                </div>
+                16<br>
+                <div class="education">
+                    17 <span class="dot">....</span><span class="function">education()</span>:<br>
+                    18 <span class="dot">........</span><span class="function">return</span> {'<span class="variable">2016 - 2021</span>' : '<span class="value">B.Sc. in ETE - Chittagong University of Engineering & Technology</span>'}<br>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row pt-5" id="text-section">
-        <div class="border p-5 ide" style="font-size: 1.15rem;">
-            <p>
-                I am currently working as a software engineer in <span class="value">Dhaka, Bangladesh</span>.<br>You can send me an 
-                <span class="value"><a href = "mailto: enansaifme33@gmail.com">email</a></span> or connect with me on <a href="https://www.linkedin.com/in/enansaif/" target="_blank">LinkedIn</a>.
-            </p>
-            <br>
-            <p>
-                <strong>Experience:</strong> I am currently working at BJIT Limited since <span class="variable">11/2021</span>.
-            </p>
-            <br>
-            <p>
-                <strong>Skills:</strong> Here are some of my skills:
-                <ul>
-                    <li><span class="variable">Language:</span> Python, C++, JavaScript, HTML, CSS</li>
-                    <li><span class="variable">Frameworks:</span> Django, Flask, PyTorch, OpenCV, Numpy, Pandas, Bootstrap</li>
-                    <li><span class="variable">Database:</span> MySQL, MongoDB</li>
-                    <li><span class="variable">Common:</span> Git, Linux</li>
+    <!-- Languages -->
+    <div class="row right-left2">
+        <div class="col d-flex justify-content-end align-items-center">
+            <h1 class="display-6">Languages</h1>
+        </div>
+        <div class="col-xxl-9 shadow p-3 pb-0 m-3 rounded">
+            <div class="col d-flex flex-column align-items-center">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item border-0"><i class="devicon-python-plain skills" title="Python"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-cplusplus-plain skills" title="Cplusplus"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-javascript-plain skills" title="JavaScript"></i></li>
                 </ul>
-            </p>
-            <br>
-            <p>
-                <strong>Education:</strong> I have completed my B.Sc. in Telecommunication Engineering from<br>Chittagong University of Engineering & Technology (2016 - 2021).
-            </p>
-        </div>
-    </div>
-    <button onclick="swap()" class="social-btn py-1 m-0">cod!fy</button>
-    <!--Stats Section-->
-    <div class="row" style="width: 100%;">
-        <div class="col d-flex flex-column align-items-center">
-            <h1 class="p-5 fw-light fs-2 fst-italic">&lt!--stats_section--&gt</h1>
-            <h2><pre>&ltLanguage Skills&gt</pre></h2>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item border-0"><i class="devicon-python-plain skills" title="Python"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-cplusplus-plain skills" title="Cplusplus"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-javascript-plain skills" title="JavaScript"></i></li>
-            </ul>
-            <div style="width: 100%;">
-            <h6>Python</h6>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 98%" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">98%</div>
-            </div><br>
-            <h6>C++</h6>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-            </div><br>
-            <h6>JavaScript</h6>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
-            </div><br>
+                <div style="width: 100%;">
+                <h6>Python</h6>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 98%" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">98%</div>
+                </div><br>
+                <h6>C++</h6>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                </div><br>
+                <h6>JavaScript</h6>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                </div><br>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row" style="width: 100%;">
-        <div class="col d-flex flex-column align-items-center">
-            <h2><pre>&ltWeb Skills&gt</pre></h2>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item border-0"><i class="devicon-django-plain skills" title="Django"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-flask-original skills" title="Flask"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-html5-plain skills" title="HTML"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-css3-plain skills" title="CSS"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-bootstrap-plain skills" title="Bootstrap"></i></li>
-            </ul>
-            <div style="width: 100%;">
-                <h6>Django</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
-                </div><br>
-                <h6>Flask</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
-                </div><br>
-                <h6>HTML</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
-                </div><br>
-                <h6>CSS</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
-                </div><br>
-                <h6>Bootstrap</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                </div><br>
+    <!-- Web Skills -->
+    <div class="row left-right2">
+        <div class="col order-xxl-2 d-flex justify-content-start align-items-center">
+            <h1 class="display-6">Web Skills</h1>
+        </div>
+        <div class="col-xxl-9 order-xxl-1 shadow p-3 m-3 rounded">
+            <div class="col d-flex flex-column align-items-center">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item border-0"><i class="devicon-django-plain skills" title="Django"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-flask-original skills" title="Flask"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-html5-plain skills" title="HTML"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-css3-plain skills" title="CSS"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-bootstrap-plain skills" title="Bootstrap"></i></li>
+                </ul>
+                <div style="width: 100%;">
+                    <h6>Django</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                    </div><br>
+                    <h6>Flask</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                    </div><br>
+                    <h6>HTML</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                    </div><br>
+                    <h6>CSS</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                    </div><br>
+                    <h6>Bootstrap</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                    </div><br>
+                </div>
             </div>
         </div>
-        <div class="col d-flex flex-column align-items-center">
-            <h2><pre>&ltAI/ML Skills&gt</pre></h2>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item border-0"><i class="devicon-pytorch-original skills" title="PyTorch"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-tensorflow-original skills" title="TensorFlow"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-opencv-plain skills" title="OpenCV"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-pandas-original skills" title="Pandas"></i></li>
-                <li class="list-group-item border-0"><i class="devicon-numpy-original skills" title="Numpy"></i></li>
-            </ul>
-            <div style="width: 100%;">
-                <h6>PyTorch</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
-                </div><br>
-                <h6>TensorFlow</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                </div><br>
-                <h6>OpenCV</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-                </div><br>
-                <h6>Pandas</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                </div><br>
-                <h6>Numpy</h6>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
-                </div><br>
+    </div>
+    <!-- AI Skills -->
+    <div class="row right-left3">
+        <div class="col d-flex justify-content-end align-items-center">
+            <h1 class="display-6">AI Skills</h1>
+        </div>
+        <div class="col-xxl-9 shadow p-3 pb-0 m-3 rounded">
+            <div class="col d-flex flex-column align-items-center">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item border-0"><i class="devicon-pytorch-original skills" title="PyTorch"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-tensorflow-original skills" title="TensorFlow"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-opencv-plain skills" title="OpenCV"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-pandas-original skills" title="Pandas"></i></li>
+                    <li class="list-group-item border-0"><i class="devicon-numpy-original skills" title="Numpy"></i></li>
+                </ul>
+                <div style="width: 100%;">
+                    <h6>PyTorch</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
+                    </div><br>
+                    <h6>TensorFlow</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                    </div><br>
+                    <h6>OpenCV</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                    </div><br>
+                    <h6>Pandas</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                    </div><br>
+                    <h6>Numpy</h6>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                    </div><br>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    function swap() {
-      var code = document.getElementById("code-section");
-      var text = document.getElementById("text-section");
-      if (code.style.display === "none") {
-        code.style.display = "block";
-        text.style.display = "none";
-      } else {
-        code.style.display = "none";
-        text.style.display = "block";
-      }
-    }
-</script>
 {% endblock %}

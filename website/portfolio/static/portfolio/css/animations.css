@@ -1,7 +1,21 @@
+:root {
+    --animation-duration: 400ms;
+}
+/* fade in page animation */
 .fade-in {
     animation: fadein 0.8s;
 }
 
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* image frame circular animation */
 .frame {
     position: relative;
     width: 100%;
@@ -16,8 +30,17 @@
     position: absolute;
     inset: -10px 50px;
     background: linear-gradient(180deg, var(--theme-orange), var(--theme-blue));
-    animation: circle 4s linear infinite;
+    animation: circle 8s linear infinite;
     transition: var(--transition-duration);
+}
+
+@keyframes circle {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .frame:hover::before {
@@ -50,20 +73,56 @@
     object-fit: cover;
 }
 
-@keyframes fadein {
-    from {
-        opacity: 0;
+/* about section left-right animation */
+.right-left1 {
+    animation: rightToLeft var(--animation-duration) ease-out forwards;
+    transform: translateX(150%);
+}
+
+.left-right1 {
+    animation: leftToRight var(--animation-duration) ease-out forwards var(--animation-duration);
+    transform: translateX(-150%);
+}
+
+.right-left2 {
+    animation: rightToLeft var(--animation-duration) ease-out forwards calc(var(--animation-duration) * 2);
+    transform: translateX(150%);
+}
+
+.left-right2 {
+    animation: leftToRight var(--animation-duration) ease-out forwards calc(var(--animation-duration) * 3);
+    transform: translateX(-150%);
+}
+
+.right-left3 {
+    animation: rightToLeft var(--animation-duration) ease-out forwards calc(var(--animation-duration) * 4);
+    transform: translateX(150%);
+}
+
+@keyframes leftToRight {
+    0% {
+        transform: translateX(-150%);
     }
-    to {
-        opacity: 1;
+
+    80% {
+        transform: translateX(5%);
+    }
+
+    100% {
+        transform: translateX(0%);
     }
 }
 
-@keyframes circle {
+@keyframes rightToLeft {
     0% {
-        transform: rotate(0deg);
+        transform: translateX(150%);
     }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
     100% {
-        transform: rotate(360deg);
+        transform: translateX(0%);
     }
 }
