@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
 from django.template.exceptions import TemplateDoesNotExist
+from django.core.exceptions import FieldError
 from django.contrib import messages
 from django.db.utils import OperationalError
 from leetquizzer.models import Problem, Topic
@@ -23,6 +24,7 @@ class MainMenu(View):
     template. The list of problems can be sorted based on the specified 'sorted_by' parameter, 
     which can be 'topic', 'difficulty', or None.
     """
+    failure_url = 'leetquizzer/base.html'
     def get(self, request, sorted_by=None):
         """
         Handle GET request for the main menu page.
@@ -40,14 +42,15 @@ class MainMenu(View):
             If 'sorted_by' is 'difficulty', the problems are sorted by difficulty name.
             If 'sorted_by' is None, the problems are sorted by time (default order).
         """
-        if sorted_by == 'topic':
-            problems = Problem.objects.order_by('topic__name')
-        elif sorted_by == 'difficulty':
-            problems = Problem.objects.order_by('difficulty__name')
-        else:
-            problems = Problem.objects.order_by('time')
-        context = {'problem_list': problems}
-        return render(request, 'leetquizzer/index.html', context)
+        try:
+            if sorted_by:
+                problems = Problem.objects.order_by(sorted_by)
+            else:
+                problems = Problem.objects.order_by('time')
+            context = {'problem_list': problems, 'current': sorted_by}
+            return render(request, 'leetquizzer/index.html', context)
+        except FieldError:
+            return render(request, self.failure_url)
 
 
 class ProblemMenu(View):
@@ -85,7 +88,7 @@ class ProblemMenu(View):
             'problem_id' as the key.
         """
         try:
-            problem = Problem.objects.get(pk=problem_id)
+            problem = get_object_or_404(Problem, pk=problem_id)
             key = f"q{problem_id}"
             if key not in request.session:
                 q_list = make_list(num_questions=3, problem=problem)
@@ -112,7 +115,7 @@ class ProblemMenu(View):
             object is updated accordingly and saved. The response is redirected back to the current 
             page.
         """
-        problem = Problem.objects.get(pk=problem_id)
+        problem = get_object_or_404(Problem, pk=problem_id)
         key = f"q{problem_id}"
         answer = request.POST.get('answer', None)
         request.session.pop(key)
@@ -243,7 +246,7 @@ class UpdateProblem(View):
         if not form.is_valid():
             context = {'form': form}
             return render(request, self.template, context)
-        problem = Problem.objects.get(pk=problem_id)
+        problem = get_object_or_404(Problem, pk=problem_id)
         initial_name, new_name = problem.name, form.cleaned_data['name']
         initial_number, new_number = problem.number, form.cleaned_data['number']
         has_name = Problem.objects.filter(name=new_name).exists()
@@ -263,6 +266,20 @@ class UpdateProblem(View):
         problem.option1 = form.cleaned_data['option1']
         problem.option2 = form.cleaned_data['option2']
         problem.save()
+        return redirect(self.success_url)
+
+
+class DeleteProblem(View):
+    """
+    Class to handle deleting a problem
+    """
+    success_url = reverse_lazy('leetquizzer:main_menu')
+    def post(self, request, problem_id):
+        """
+        Get the problem form database and delete it
+        """
+        problem = get_object_or_404(Problem, pk=problem_id)
+        problem.delete()
         return redirect(self.success_url)
 
 

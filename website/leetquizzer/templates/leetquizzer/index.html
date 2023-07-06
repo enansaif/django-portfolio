@@ -13,8 +13,16 @@
         <th scope="col"># <a href="{% url 'leetquizzer:create_problem' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></th>
         <th scope="col">Problem <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2">&#8634;</a></th>
         <th scope="col" style="width: 5%;"></th>
-        <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' 'topic' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
-        <th scope="col" style="width: 15%;">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        {% if current == 'topic__name' %}
+        <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' '-topic__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        {% else %}
+        <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' 'topic__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        {% endif %}
+        {% if current == 'difficulty__name' %}
+        <th scope="col" style="width: 15%;">Difficulty <a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        {% else %}
+        <th scope="col" style="width: 15%;">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -26,9 +34,15 @@
             <td>{{problem.topic}}</td>
             <td><div class="container d-flex justify-content-between align-items-center">
               {{problem.difficulty}}
-              <a href="{% url 'leetquizzer:update_problem' problem.pk %}" class="link-dark px-2">
-                <i class="bi bi-gear"></i>
-              </a>
+              <div class="d-flex">
+                <a href="{% url 'leetquizzer:update_problem' problem.pk %}" class="link-dark px-2">
+                  <i class="bi bi-gear"></i>
+                </a>
+                <form action="{% url 'leetquizzer:delete_problem' problem.pk %}" method="post" onsubmit="return confirm('Are you sure about this ?')">
+                  {% csrf_token %}
+                  <button name="delete" value="delete" class="bg-transparent border-0 p-0"><i class="bi bi-trash3"></i></button>
+                </form>
+              </div>
             </div></td>
         </tr>
         {% endfor %}
