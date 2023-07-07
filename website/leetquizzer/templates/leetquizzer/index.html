@@ -5,24 +5,25 @@
 {% endblock %}
 
 {% block content %}
-<h1 style="text-align: center;">Problem List</h1>
+<h1 class="text-center">Problem List</h1>
 {% if problem_list %}
 <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col"><a href="{% url 'leetquizzer:create_problem' %}" class="link-dark link-underline-opacity-0"><b>&plus;Add</b></a></th>
-        <th scope="col"><a href="{% url 'leetquizzer:main_menu' %}" class="link-dark link-underline-opacity-0"><b>Problem &#8634;</b></a></th>
-        <th scope="col" style="width: 5%;"></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' %}" class="link-dark link-underline-opacity-0"><b>Problem&#8634;</b></a></th>
+        <th scope="col" class="d-none d-md-table-cell"></th>
         {% if current == 'topic__name' %}
-        <th scope="col"><a href="{% url 'leetquizzer:main_menu' '-topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic &udarr;</b></a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' '-topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic&udarr;</b></a></th>
         {% else %}
-        <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic &udarr;</b></a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic&udarr;</b></a></th>
         {% endif %}
         {% if current == 'difficulty__name' %}
-        <th scope="col"><a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty &udarr;</b></a></th>
+        <th scope="col" class="d-none d-md-table-cell"><a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty&udarr;</b></a></th>
         {% else %}
-        <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty &udarr;</b></a></th>
+        <th scope="col" class="d-none d-md-table-cell"><a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty&udarr;</b></a></th>
         {% endif %}
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -30,11 +31,11 @@
         <tr class="{% if problem.wrong %}table-danger{% endif %}">
             <th scope="row">{{problem.number}}</th>
             <td><a href="{% url 'leetquizzer:problem_menu' problem.pk %}" class="link-dark link-underline-opacity-0" style="display: block;">{{ problem.name }}</a></td>
-            <td><a href="{{ problem.link }}" class="link-dark"><i class="bi bi-box-arrow-up-right"></i></a></td>
+            <td class="d-none d-md-table-cell"><a href="{{ problem.link }}" class="link-dark"><i class="bi bi-box-arrow-up-right"></i></a></td>
             <td>{{problem.topic}}</td>
-            <td><div class="container d-flex justify-content-between align-items-center">
-              {{problem.difficulty}}
-              <div class="d-flex">
+            <td class="d-none d-md-table-cell">{{problem.difficulty}}</td>
+            <td>
+              <div class="container d-flex justify-content-end align-items-center">
                 <a href="{% url 'leetquizzer:update_problem' problem.pk %}" class="link-dark px-2">
                   <i class="bi bi-gear"></i>
                 </a>
@@ -43,7 +44,7 @@
                   <button name="delete" value="delete" class="bg-transparent border-0 p-0"><i class="bi bi-trash3"></i></button>
                 </form>
               </div>
-            </div></td>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
