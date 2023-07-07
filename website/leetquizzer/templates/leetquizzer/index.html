@@ -10,18 +10,18 @@
 <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col"># <a href="{% url 'leetquizzer:create_problem' %}" class="btn btn-secondary p-0 px-2"><strong>&plus;</strong></a></th>
-        <th scope="col">Problem <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2">&#8634;</a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:create_problem' %}" class="link-dark link-underline-opacity-0"><b>&plus;Add</b></a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' %}" class="link-dark link-underline-opacity-0"><b>Problem &#8634;</b></a></th>
         <th scope="col" style="width: 5%;"></th>
         {% if current == 'topic__name' %}
-        <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' '-topic__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' '-topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic &udarr;</b></a></th>
         {% else %}
-        <th scope="col">Topic <a href="{% url 'leetquizzer:main_menu' 'topic__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic &udarr;</b></a></th>
         {% endif %}
         {% if current == 'difficulty__name' %}
-        <th scope="col" style="width: 15%;">Difficulty <a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty &udarr;</b></a></th>
         {% else %}
-        <th scope="col" style="width: 15%;">Difficulty <a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="btn btn-secondary p-0 px-2">&udarr;</a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty &udarr;</b></a></th>
         {% endif %}
       </tr>
     </thead>
