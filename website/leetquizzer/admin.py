@@ -1,3 +1,8 @@
+"""
+leetQuizzer admin module.
+"""
 from django.contrib import admin
+from .models import Problem, Topic
 
-# Register your models here.
+admin.site.register(Problem)
+admin.site.register(Topic)
