@@ -5,20 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="container py-5 fade-in">
-    <div class="container col-lg-8">
-        <form action="", method="post">
-            {% csrf_token %}
-            {{ form.as_table }}
-            <input type="submit" class="social-btn mt-1 form-control" value="Send">
-        </form>
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-warning p-5 m-5 text-center" role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+<div class="container col-lg-8 py-5 fade-in">
+    <form action="", method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" class="btn btn-warning mt-1 form-control" value="Send">
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning p-5 m-5 text-center" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
