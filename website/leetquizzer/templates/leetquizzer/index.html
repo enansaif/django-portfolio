@@ -10,7 +10,7 @@
 <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col"><a href="{% url 'leetquizzer:create_problem' %}" class="link-dark link-underline-opacity-0"><b>&plus;Add</b></a></th>
+        <th scope="col" class="d-none d-md-table-cell"><a href="{% url 'leetquizzer:create_problem' %}" class="link-dark link-underline-opacity-0"><b>&plus;Add</b></a></th>
         <th scope="col"><a href="{% url 'leetquizzer:main_menu' %}" class="link-dark link-underline-opacity-0"><b>Problem&#8634;</b></a></th>
         <th scope="col" class="d-none d-md-table-cell"></th>
         {% if current == 'topic__name' %}
@@ -19,22 +19,22 @@
         <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'topic__name' %}" class="link-dark link-underline-opacity-0"><b>Topic&udarr;</b></a></th>
         {% endif %}
         {% if current == 'difficulty__name' %}
-        <th scope="col" class="d-none d-md-table-cell"><a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty&udarr;</b></a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' '-difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty&udarr;</b></a></th>
         {% else %}
-        <th scope="col" class="d-none d-md-table-cell"><a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty&udarr;</b></a></th>
+        <th scope="col"><a href="{% url 'leetquizzer:main_menu' 'difficulty__name' %}" class="link-dark link-underline-opacity-0"><b>Difficulty&udarr;</b></a></th>
         {% endif %}
-        <th scope="col"></th>
+        <th scope="col" class="d-none d-md-table-cell"></th>
       </tr>
     </thead>
     <tbody>
         {% for problem in problem_list %}
         <tr class="{% if problem.wrong %}table-danger{% endif %}">
-            <th scope="row">{{problem.number}}</th>
+            <td class="d-none d-md-table-cell">{{problem.number}}</td>
             <td><a href="{% url 'leetquizzer:problem_menu' problem.pk %}" class="link-dark link-underline-opacity-0" style="display: block;">{{ problem.name }}</a></td>
             <td class="d-none d-md-table-cell"><a href="{{ problem.link }}" class="link-dark"><i class="bi bi-box-arrow-up-right"></i></a></td>
             <td>{{problem.topic}}</td>
-            <td class="d-none d-md-table-cell">{{problem.difficulty}}</td>
-            <td>
+            <td>{{problem.difficulty}}</td>
+            <td class="d-none d-md-table-cell">
               <div class="container d-flex justify-content-end align-items-center">
                 <a href="{% url 'leetquizzer:update_problem' problem.pk %}" class="link-dark px-2">
                   <i class="bi bi-gear"></i>
