@@ -13,8 +13,9 @@
     </form>
     {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-warning p-5 m-5 text-center" role="alert">
+        <div class="alert alert-success alert-dismissible fade show p-5 m-5 text-center" role="alert">
             {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
     {% endif %}

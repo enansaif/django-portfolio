@@ -1,13 +1,15 @@
 {% if messages %}
     {% for message in messages %}
-    <div class="p-5 m-5">
-        {{ message }}
+    <div class="alert alert-light alert-dismissible fade show p-5 m-5" role="alert">
+        <div class="container d-flex flex-column align-items-center">
+            {{ message }}
+            <div class="p-2">
+                <a href="{{ request.get_full_path }}" class="btn btn-secondary p-0 px-2">&#8634;</a>
+                <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2"><i class="bi bi-card-checklist"></i></a>
+            </div>
+        </div>
     </div>
     {% endfor %}
-    <div>
-        <a href="{{ request.get_full_path }}" class="btn btn-secondary p-0 px-2">&#8634;</a>
-        <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2">&vltri;</a>
-    </div>
 {% else %}
 <form action="", method="post">
     {% csrf_token %}

@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("", include('portfolio.urls')),
     path("admin/", admin.site.urls),
+    path("", include('portfolio.urls')),
     path("quizzer/", include('leetquizzer.urls')),
+    path("auth/", include('authenticator.urls')),
+    path("auth/", include('django.contrib.auth.urls')),
 ]
 
 admin.site.index_title = "Website"
