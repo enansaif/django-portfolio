@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.exceptions import TemplateDoesNotExist
 from django.core.exceptions import FieldError
 from django.contrib import messages
@@ -130,7 +131,7 @@ class ProblemMenu(View):
         return redirect(self.request.path_info)
 
 
-class CreateProblem(View):
+class CreateProblem(LoginRequiredMixin, View):
     """
     View class for creating a new problem.
 
@@ -201,7 +202,7 @@ class CreateProblem(View):
         return redirect(self.success_url)
 
 
-class UpdateProblem(View):
+class UpdateProblem(LoginRequiredMixin, View):
     """
     A class-based view for updating a problem object.
 
@@ -269,7 +270,7 @@ class UpdateProblem(View):
         return redirect(self.success_url)
 
 
-class DeleteProblem(View):
+class DeleteProblem(LoginRequiredMixin, View):
     """
     Class to handle deleting a problem
     """

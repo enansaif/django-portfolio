@@ -39,10 +39,12 @@
                 <a href="{% url 'leetquizzer:update_problem' problem.pk %}" class="link-dark px-2">
                   <i class="bi bi-gear"></i>
                 </a>
+                {% if user.is_authenticated %}
                 <form action="{% url 'leetquizzer:delete_problem' problem.pk %}" method="post" onsubmit="return confirm('Are you sure about this ?')">
                   {% csrf_token %}
                   <button name="delete" value="delete" class="bg-transparent border-0 p-0"><i class="bi bi-trash3"></i></button>
                 </form>
+                {% endif %}
               </div>
             </td>
         </tr>

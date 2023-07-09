@@ -2,10 +2,18 @@
 Delivers the views related to authentication
 """
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import View
+
+def logout_view(request):
+    """
+    View for handling logout requests
+    """
+    success_url = reverse_lazy('portfolio:base')
+    logout(request)
+    return redirect(request.GET.get('next', success_url))
 
 class LoginUser(View):
     """
@@ -32,6 +40,6 @@ class LoginUser(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(self.success_url)
+            return redirect(request.GET.get('next', self.success_url))
         messages.error(request, "Invalid username or password")
         return redirect(self.request.path_info)

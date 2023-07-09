@@ -21,8 +21,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('portfolio.urls')),
     path("quizzer/", include('leetquizzer.urls')),
-    path("auth/", include('authenticator.urls')),
-    path("auth/", include('django.contrib.auth.urls')),
+    path("accounts/", include('authenticator.urls')),
+    path("accounts/", include('django.contrib.auth.urls')),
 ]
 
 admin.site.index_title = "Website"
