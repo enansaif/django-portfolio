@@ -126,3 +126,15 @@
         transform: translateX(0%);
     }
 }
+
+/* contact section drop animation */
+.dropFromTop {
+    animation: drop var(--animation-duration) ease-out forwards;
+    transform: translateY(-150%);
+}
+
+@keyframes drop {
+    0% {transform: translateY(-100%);}
+    75% {transform: translateY(12.5%);}
+    100% {transform: translateY(0%);}
+}
