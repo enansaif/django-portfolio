@@ -3,9 +3,12 @@ All utility functions used by leetquizzer application's views.py
 """
 import random
 import openai
+import requests
+from ast import literal_eval
 from openai.error import RateLimitError
+from requests.exceptions import ReadTimeout
 from leetquizzer.models import Problem, Difficulty
-from website.settings import OPENAI_ORGANIZATION, OPENAI_API_KEY
+from website.settings import OPENAI_ORGANIZATION, OPENAI_API_KEY, LEETCODE_URL
 
 def make_list(num_questions, problem):
     """
@@ -56,7 +59,7 @@ def set_difficulty(levels):
             difficulty, _ = Difficulty.objects.get_or_create(name=level)
             difficulty.save()
 
-def generate_webpage(problem):
+def generate_webpage_gpt(problem):
     """
     Generates an HTML page using the problem description from the provided link.
 
@@ -96,4 +99,61 @@ def generate_webpage(problem):
             for suffix in suffixes:
                 f.write(suffix)
                 f.write('\n')
+
+def get_info(title_slug):
+    """
+    Retrieve information about a question from LeetCode API based on its title slug.
+
+    Args:
+        title_slug (str): The title slug of the question.
+
+    Returns:
+        dict: A dictionary containing the question information including questionFrontendId, 
+        title, titleSlug, difficulty, and content. If the request fails or the response is 
+        invalid, an empty dictionary is returned.
+    """
+    info_query = {
+        "query":"""
+            query questionTitle($titleSlug: String!) {
+                question(titleSlug: $titleSlug) {
+                    questionFrontendId
+                    title
+                    titleSlug
+                    difficulty
+                    content
+                }
+            }
+        """,
+        "variables": {"titleSlug":f'{title_slug}'}, 
+        "operationName": "questionTitle"
+    }
+    try:
+        response = requests.post(url=LEETCODE_URL, json=info_query, timeout=5)
+        if response.status_code == 200:
+            try:
+                response_dict = literal_eval(response.content.decode('utf-8'))
+                return response_dict['data']['question']
+            except ValueError:
+                print("Error while decoding")
+        else:
+            print("Didn't get response")
+    except ReadTimeout:
+        print("Request Timeout")
+    return {}
+
+def generate_webpage(content, problem):
+    lines = content.splitlines()
+    prefixes = ['{% extends "quizzes/base.html" %}', '{% block quiz %}', '<div>']
+    suffixes = ['</div>', '{% include "quizzes/q_snippet.html" %}', '{% endblock %}']
+    file_path = 'leetquizzer/templates/quizzes/' + f'{problem.number}.html'
+    with open(file_path, 'w', encoding="utf-8") as f:
+        for prefix in prefixes:
+            f.write(prefix)
+            f.write('\n')
+        for line in lines:
+            f.write(line)
+            f.write('\n')
+        for suffix in suffixes:
+            f.write(suffix)
+            f.write('\n')
             

@@ -10,10 +10,10 @@ from django.template.exceptions import TemplateDoesNotExist
 from django.core.exceptions import FieldError
 from django.contrib import messages
 from django.db.utils import OperationalError
-from leetquizzer.models import Problem, Topic
+from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm
 from leetquizzer.utils.functions import make_list, set_difficulty
-from leetquizzer.utils.functions import generate_webpage
+from leetquizzer.utils.functions import get_info, generate_webpage
 
 
 class MainMenu(View):
@@ -151,7 +151,6 @@ class CreateProblem(LoginRequiredMixin, View):
         pass
     template = 'leetquizzer/create_problem.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
-    generate_html = False
     def get(self, request):
         """
         Handle GET request for creating a new problem.
@@ -181,24 +180,27 @@ class CreateProblem(LoginRequiredMixin, View):
         if not form.is_valid():
             context = {'form': form}
             return render(request, self.template, context)
-        has_name = Problem.objects.filter(name=form.cleaned_data['name']).exists()
-        has_number = Problem.objects.filter(number=form.cleaned_data['number']).exists()
+        question_link = form.cleaned_data['link']
+        endpoints = question_link.split('/')
+        info_dict = get_info(endpoints[-2])
+        has_name = Problem.objects.filter(name=info_dict['title']).exists()
+        has_number = Problem.objects.filter(number=info_dict['questionFrontendId']).exists()
         if has_name or has_number:
             context = {'form': form,
                        'message': 'Problem with this name or number already exists!'}
             return render(request, self.template, context)
-        problem = Problem(name=form.cleaned_data['name'],
-                          number=form.cleaned_data['number'],
-                          link=form.cleaned_data['link'],
+        difficulty, _ = Difficulty.objects.get_or_create(name=info_dict['difficulty'])
+        problem = Problem(name=info_dict['title'],
+                          number=info_dict['questionFrontendId'],
+                          link=question_link,
                           topic=form.cleaned_data['topic'],
-                          difficulty=form.cleaned_data['difficulty'],
+                          difficulty=difficulty,
                           edge_case=form.cleaned_data['edge_case'],
                           solution=form.cleaned_data['solution'],
                           option1=form.cleaned_data['option1'],
                           option2=form.cleaned_data['option2'])
         problem.save()
-        if self.generate_html:
-            generate_webpage(problem)
+        generate_webpage(info_dict['content'], problem)
         return redirect(self.success_url)
 
 
