@@ -1,10 +1,10 @@
 """
 All utility functions used by leetquizzer application's views.py
 """
+from ast import literal_eval
 import random
 import openai
 import requests
-from ast import literal_eval
 from openai.error import RateLimitError
 from requests.exceptions import ReadTimeout
 from leetquizzer.models import Problem, Difficulty
@@ -89,16 +89,13 @@ def generate_webpage_gpt(problem):
         prefixes = ['{% extends "quizzes/base.html" %}', '{% block quiz %}', '<div>']
         suffixes = ['</div>', '{% include "quizzes/q_snippet.html" %}', '{% endblock %}']
         file_path = 'leetquizzer/templates/quizzes/' + f'{problem.number}.html'
-        with open(file_path, 'w', encoding="utf-8") as f:
+        with open(file_path, 'w', encoding="utf-8") as html_file:
             for prefix in prefixes:
-                f.write(prefix)
-                f.write('\n')
+                html_file.writelines([prefix, '\n'])
             for line in lines[start + 1:end]:
-                f.write(line)
-                f.write('\n')
+                html_file.writelines([line, '\n'])
             for suffix in suffixes:
-                f.write(suffix)
-                f.write('\n')
+                html_file.writelines([suffix, '\n'])
 
 def get_info(title_slug):
     """
@@ -141,19 +138,31 @@ def get_info(title_slug):
         print("Request Timeout")
     return {}
 
-def generate_webpage(content, problem):
-    lines = content.splitlines()
-    prefixes = ['{% extends "quizzes/base.html" %}', '{% block quiz %}', '<div>']
-    suffixes = ['</div>', '{% include "quizzes/q_snippet.html" %}', '{% endblock %}']
-    file_path = 'leetquizzer/templates/quizzes/' + f'{problem.number}.html'
-    with open(file_path, 'w', encoding="utf-8") as f:
+def generate_webpage(content, problem, root_path):
+    """
+    Generate a webpage for a given problem with the provided content.
+
+    Parameters:
+    - content (str): The content of the webpage.
+    - problem: An object representing the problem, containing attributes like `number` and `name`.
+
+    This function generates a webpage for a given problem by writing the content
+    into an HTML file. The file is created based on the problem's number and stored
+    in the 'leetquizzer/templates/quizzes' directory.
+
+    Note: The function assumes the existence of base HTML templates to properly
+    structure the generated webpage.
+    """
+    title = f"<h1>{problem.number} - {problem.name}</h1>"
+    prefixes = ['{% extends "quizzes/base.html" %}', '{% block quiz %}']
+    suffixes = ['{% include "quizzes/q_snippet.html" %}', '{% endblock %}']
+    file_path = root_path + f'{problem.number}.html'
+    with open(file_path, 'w', encoding="utf-8") as html_file:
         for prefix in prefixes:
-            f.write(prefix)
-            f.write('\n')
-        for line in lines:
-            f.write(line)
-            f.write('\n')
+            html_file.writelines([prefix, '\n'])
+        html_file.writelines([title, '\n'])
+        for line in content.splitlines():
+            html_file.writelines([line, '\n'])
         for suffix in suffixes:
-            f.write(suffix)
-            f.write('\n')
+            html_file.writelines([suffix, '\n'])
             

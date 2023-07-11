@@ -34,6 +34,20 @@ class CreateProblemForm(forms.Form):
                               widget=textarea_widget)
 
 
+class UpdateProblemForm(forms.Form):
+    """
+    Form for creating a problem.
+    """
+    topic = forms.ModelChoiceField(queryset=topic, label='Topic*', widget=choice_widget)
+    solution = forms.CharField(max_length=300, label='Solution*', widget=textarea_widget)
+    edge_case = forms.CharField(max_length=100, required=False, label='Edge Case',
+                                widget=textinput_widget)
+    option1 = forms.CharField(max_length=300, required=False, label='Wrong Answer',
+                              widget=textarea_widget)
+    option2 = forms.CharField(max_length=300, required=False, label='Wrong Answer',
+                              widget=textarea_widget)
+
+
 class CreateTopicForm(forms.Form):
     """
     Form for creating a topic.

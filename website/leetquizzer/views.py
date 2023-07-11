@@ -1,6 +1,7 @@
 """
 LeetQuizzer application views.
 """
+import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Count
@@ -9,10 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.exceptions import TemplateDoesNotExist
 from django.core.exceptions import FieldError
 from django.contrib import messages
-from django.db.utils import OperationalError
 from leetquizzer.models import Problem, Topic, Difficulty
-from leetquizzer.forms import CreateProblemForm, CreateTopicForm
-from leetquizzer.utils.functions import make_list, set_difficulty
+from leetquizzer.forms import CreateProblemForm, CreateTopicForm, UpdateProblemForm
+from leetquizzer.utils.functions import make_list
 from leetquizzer.utils.functions import get_info, generate_webpage
 
 
@@ -145,12 +145,10 @@ class CreateProblem(LoginRequiredMixin, View):
         success_url (str): The URL to redirect to after successfully creating the problem.
         generate_html (bool): Whether to automatically generate HTML for the problem
     """
-    try:
-        set_difficulty(('Easy', 'Medium', 'Hard'))
-    except OperationalError:
-        pass
     template = 'leetquizzer/create_problem.html'
+    failure_url = 'leetquizzer/base.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
+    question_path = 'leetquizzer/templates/quizzes/'
     def get(self, request):
         """
         Handle GET request for creating a new problem.
@@ -183,24 +181,24 @@ class CreateProblem(LoginRequiredMixin, View):
         question_link = form.cleaned_data['link']
         endpoints = question_link.split('/')
         info_dict = get_info(endpoints[-2])
-        has_name = Problem.objects.filter(name=info_dict['title']).exists()
+        if not info_dict:
+            return redirect(self.failure_url)
         has_number = Problem.objects.filter(number=info_dict['questionFrontendId']).exists()
-        if has_name or has_number:
-            context = {'form': form,
-                       'message': 'Problem with this name or number already exists!'}
+        if has_number:
+            context = {'form': form, 'message': 'Problem already exists!'}
             return render(request, self.template, context)
         difficulty, _ = Difficulty.objects.get_or_create(name=info_dict['difficulty'])
-        problem = Problem(name=info_dict['title'],
-                          number=info_dict['questionFrontendId'],
-                          link=question_link,
-                          topic=form.cleaned_data['topic'],
+        problem = Problem(link=question_link,
                           difficulty=difficulty,
+                          name=info_dict['title'],
+                          number=info_dict['questionFrontendId'],
+                          topic=form.cleaned_data['topic'],
                           edge_case=form.cleaned_data['edge_case'],
                           solution=form.cleaned_data['solution'],
                           option1=form.cleaned_data['option1'],
                           option2=form.cleaned_data['option2'])
         problem.save()
-        generate_webpage(info_dict['content'], problem)
+        generate_webpage(info_dict['content'], problem, self.question_path)
         return redirect(self.success_url)
 
 
@@ -224,17 +222,13 @@ class UpdateProblem(LoginRequiredMixin, View):
         """
         problem = get_object_or_404(Problem, pk=problem_id)
         initial_dict = {
-        "number": problem.number,
-        "name": problem.name,
-        "link": problem.link,
         "topic": problem.topic,
-        "difficulty": problem.difficulty,
         "solution": problem.solution,
         "edge_case": problem.edge_case,
         "option1": problem.option1,
         "option2": problem.option2,
         }
-        form = CreateProblemForm(initial=initial_dict)
+        form = UpdateProblemForm(initial=initial_dict)
         context = {'form': form}
         return render(request, self.template, context)
     def post(self, request, problem_id):
@@ -245,25 +239,12 @@ class UpdateProblem(LoginRequiredMixin, View):
             request (HttpRequest): The HTTP request object.
             problem_id (int): The ID of the problem to be updated.
         """
-        form = CreateProblemForm(request.POST)
+        form = UpdateProblemForm(request.POST)
         if not form.is_valid():
             context = {'form': form}
             return render(request, self.template, context)
         problem = get_object_or_404(Problem, pk=problem_id)
-        initial_name, new_name = problem.name, form.cleaned_data['name']
-        initial_number, new_number = problem.number, form.cleaned_data['number']
-        has_name = Problem.objects.filter(name=new_name).exists()
-        has_number = Problem.objects.filter(number=new_number).exists()
-        if ((new_name != initial_name and has_name) or
-            (new_number != initial_number and has_number)):
-            context = {'form': form,
-                       'message': 'Problem with this name or number already exists!'}
-            return render(request, self.template, context)
-        problem.name = new_name
-        problem.number = new_number
-        problem.link = form.cleaned_data['link']
         problem.topic = form.cleaned_data['topic']
-        problem.difficulty = form.cleaned_data['difficulty']
         problem.edge_case = form.cleaned_data['edge_case']
         problem.solution = form.cleaned_data['solution']
         problem.option1 = form.cleaned_data['option1']
@@ -276,6 +257,7 @@ class DeleteProblem(LoginRequiredMixin, View):
     """
     Class to handle deleting a problem
     """
+    question_path = 'leetquizzer/templates/quizzes/'
     success_url = reverse_lazy('leetquizzer:main_menu')
     def post(self, request, problem_id):
         """
@@ -283,6 +265,9 @@ class DeleteProblem(LoginRequiredMixin, View):
         """
         problem = get_object_or_404(Problem, pk=problem_id)
         problem.delete()
+        file_path = self.question_path + f'{problem.number}.html'
+        if os.path.exists(file_path):
+            os.remove(file_path)
         return redirect(self.success_url)
 
 
