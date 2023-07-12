@@ -1,0 +1,35 @@
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-light alert-dismissible fade show p-5 m-5" role="alert">
+        <div class="container d-flex flex-column align-items-center">
+            {{ message }}
+            <div class="p-2">
+                <a href="{{ request.get_full_path }}" class="btn btn-secondary p-0 px-2">&#8634;</a>
+                <a href="{% url 'leetquizzer:main_menu' %}" class="btn btn-secondary p-0 px-2"><i class="bi bi-card-checklist"></i></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+<form action="", method="post">
+    {% csrf_token %}
+    <h1 class="lead pt-5">Pick Your Answer:</h1>
+    <ul class="list-group">
+        {% for question, is_correct in question_list %}
+        <li class="list-group-item">
+            <div class="form-check" style="display: inline-flex;">
+                <input class="form-check-input" type="radio" name="answer" id="{{ forloop.counter }}" 
+                        value="{{ is_correct}}" style="flex-shrink: 0; line-height: 1.45rem;" required>
+                <label class="form-check-label ms-2" for="{{ forloop.counter }}" 
+                        style="line-height: 1.45rem;">{{ question }}</label>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <div class="mb-5">
+        <input type="submit" value="Submit" class="btn btn-secondary">
+        <a href="{{ link }}" class="btn btn-secondary">LeetCode <i class="bi bi-box-arrow-up-right"></i></a>
+    </div>
+</form>
+{% endif %}

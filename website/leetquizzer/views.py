@@ -12,7 +12,7 @@ from django.core.exceptions import FieldError
 from django.contrib import messages
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm, UpdateProblemForm
-from leetquizzer.utils.functions import make_list
+from leetquizzer.utils.functions import make_qa_list
 from leetquizzer.utils.functions import get_info, generate_webpage
 
 
@@ -57,6 +57,40 @@ class MainMenu(View):
 class ProblemMenu(View):
     """
     View class for the problem menu page.
+    """
+    failure_url = 'leetquizzer/base.html'
+    def get(self, request, problem_id):
+        """
+        Handle GET request for the problem menu page.
+        """
+        try:
+            problem = get_object_or_404(Problem, pk=problem_id)
+            q_list = make_qa_list(problem)
+            context = {'question_list': q_list, 'link': problem.link,
+                       'quiz_url': f"quizzes/{problem.number}.html"}
+            return render(request, "leetquizzer/problem.html", context)
+        except TemplateDoesNotExist:
+            return render(request, self.failure_url)
+    def post(self, request, problem_id):
+        """
+        Handle POST request for the problem menu page.
+
+        """
+        problem = get_object_or_404(Problem, pk=problem_id)
+        form_dict = request.POST.dict()
+        form_dict.pop('csrfmiddlewaretoken')
+        isWrong = False
+        for value in form_dict.values():
+            if value == '0':
+                isWrong = True
+        problem.wrong = isWrong
+        problem.save()
+        return redirect(reverse_lazy('leetquizzer:main_menu'))
+
+
+class ProblemMenuV1(View):
+    """
+    View class for the problem menu page.
 
     This class-based view handles the GET and POST requests for the problem menu page.
     It retrieves a specific problem from the database and renders the corresponding quiz template.
@@ -92,7 +126,7 @@ class ProblemMenu(View):
             problem = get_object_or_404(Problem, pk=problem_id)
             key = f"q{problem_id}"
             if key not in request.session:
-                q_list = make_list(problem)
+                q_list = make_qa_list(problem)
                 request.session[key] = q_list
             context = {'question_list': request.session[key], 'link': problem.link,
                        'quiz_url': f"quizzes/{problem.number}.html"}

@@ -39,6 +39,18 @@ def make_list(problem):
     random.shuffle(question_list)
     return question_list
 
+def make_qa_list(problem):
+    questions = []
+    if problem.option1:
+        questions.append({'question': 'What will be the brute force approach?',
+                          'answer': problem.option1})
+    if problem.option2:
+        questions.append({'question': 'Can you improve uppon the brute force approach?',
+                          'answer': problem.option2})
+    questions.append({'question': 'What is the most efficient approach?',
+                      'answer': problem.solution})
+    return questions
+
 def set_difficulty(levels):
     """
     Set difficulty levels in the database.
