@@ -67,7 +67,7 @@ class ProblemMenu(View):
         success_message (str): The success message to display when the answer is correct.
         failure_message (str): The failure message to display when the answer is incorrect.
     """
-    failure_url = 'quizzes/base.html'
+    failure_url = 'leetquizzer/base.html'
     success_message = "ABSOLUTELY CORRECT!!!"
     failure_message = "WRONG!!! please try again later"
     def get(self, request, problem_id):
@@ -94,9 +94,9 @@ class ProblemMenu(View):
             if key not in request.session:
                 q_list = make_list(problem)
                 request.session[key] = q_list
-            context = {'question_list': request.session[key], 'link': problem.link, 
+            context = {'question_list': request.session[key], 'link': problem.link,
                        'quiz_url': f"quizzes/{problem.number}.html"}
-            return render(request, "quizzes/base.html", context)
+            return render(request, "leetquizzer/problem.html", context)
         except TemplateDoesNotExist:
             return render(request, self.failure_url)
     def post(self, request, problem_id):
