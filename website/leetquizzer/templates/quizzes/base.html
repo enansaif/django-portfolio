@@ -22,8 +22,8 @@
     <div class="container" style="font-family: monospace">
         <div class="container col-md-8 lh-1 d-flex flex-column justify-content-center align-items-center">
             <div>
-                {% block quiz %}
-                {% endblock %}
+                {% include quiz_url %}
+                {% include "quizzes/q_snippet.html" %}
             </div>
         </div>
     </div>

@@ -92,10 +92,11 @@ class ProblemMenu(View):
             problem = get_object_or_404(Problem, pk=problem_id)
             key = f"q{problem_id}"
             if key not in request.session:
-                q_list = make_list(num_questions=3, problem=problem)
+                q_list = make_list(problem)
                 request.session[key] = q_list
-            context = {'question_list': request.session[key], 'link': problem.link}
-            return render(request, f"quizzes/{problem.number}.html", context)
+            context = {'question_list': request.session[key], 'link': problem.link, 
+                       'quiz_url': f"quizzes/{problem.number}.html"}
+            return render(request, "quizzes/base.html", context)
         except TemplateDoesNotExist:
             return render(request, self.failure_url)
     def post(self, request, problem_id):

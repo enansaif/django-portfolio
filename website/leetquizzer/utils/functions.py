@@ -7,10 +7,10 @@ import openai
 import requests
 from openai.error import RateLimitError
 from requests.exceptions import ReadTimeout
-from leetquizzer.models import Problem, Difficulty
+from leetquizzer.models import Difficulty
 from website.settings import OPENAI_ORGANIZATION, OPENAI_API_KEY, LEETCODE_URL
 
-def make_list(num_questions, problem):
+def make_list(problem):
     """
     Create a list of questions with wrong/right flag for a given problem.
 
@@ -31,19 +31,11 @@ def make_list(num_questions, problem):
     """
     question_list = []
     right, wrong = 'True', 'False'
-    problem_count = Problem.objects.count()
     question_list.append((problem.solution, right))
     if problem.option1:
         question_list.append((problem.option1, wrong))
     if problem.option2:
         question_list.append((problem.option2, wrong))
-    picked = set([problem.pk])
-    while problem_count >= num_questions and len(question_list) < num_questions:
-        index = problem.pk
-        while index in picked:
-            index = random.randint(1, problem_count)
-        picked.add(index)
-        question_list.append((Problem.objects.get(pk=index).solution, wrong))
     random.shuffle(question_list)
     return question_list
 
@@ -154,15 +146,9 @@ def generate_webpage(content, problem, root_path):
     structure the generated webpage.
     """
     title = f"<h1>{problem.number} - {problem.name}</h1>"
-    prefixes = ['{% extends "quizzes/base.html" %}', '{% block quiz %}']
-    suffixes = ['{% include "quizzes/q_snippet.html" %}', '{% endblock %}']
     file_path = root_path + f'{problem.number}.html'
     with open(file_path, 'w', encoding="utf-8") as html_file:
-        for prefix in prefixes:
-            html_file.writelines([prefix, '\n'])
         html_file.writelines([title, '\n'])
         for line in content.splitlines():
             html_file.writelines([line, '\n'])
-        for suffix in suffixes:
-            html_file.writelines([suffix, '\n'])
             

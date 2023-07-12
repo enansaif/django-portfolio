@@ -18,20 +18,20 @@ class CreateProblemForm(forms.Form):
     Fields:
         link (str): The LeetCode link for the problem.
         topic (Topic): The topic associated with the problem.
-        solution (str): The solution description of the problem.
-        edge_case (str): The edge case description of the problem (optional).
-        option1 (str): The first wrong answer option (optional).
-        option2 (str): The second wrong answer option (optional).
+        solution (str): The best solution of the problem.
+        edge_case (str): The edge cases of the problem (optional).
+        option1 (str): The brute force solution (optional).
+        option2 (str): Any other unoptimized solution (optional).
     """
     link = forms.URLField(max_length=150, label='LeetCode Link*', widget=textinput_widget)
     topic = forms.ModelChoiceField(queryset=topic, label='Topic*', widget=choice_widget)
-    solution = forms.CharField(max_length=300, label='Solution*', widget=textarea_widget)
-    edge_case = forms.CharField(max_length=100, required=False, label='Edge Case',
-                                widget=textinput_widget)
-    option1 = forms.CharField(max_length=300, required=False, label='Wrong Answer',
+    solution = forms.CharField(max_length=300, label='Best Solution*', widget=textarea_widget)
+    option1 = forms.CharField(max_length=300, required=False, label='Brute Force',
                               widget=textarea_widget)
-    option2 = forms.CharField(max_length=300, required=False, label='Wrong Answer',
+    option2 = forms.CharField(max_length=300, required=False, label='Unoptimized',
                               widget=textarea_widget)
+    edge_case = forms.CharField(max_length=300, required=False, label='Edge Cases',
+                                widget=textarea_widget)
 
 
 class UpdateProblemForm(forms.Form):
@@ -39,13 +39,13 @@ class UpdateProblemForm(forms.Form):
     Form for creating a problem.
     """
     topic = forms.ModelChoiceField(queryset=topic, label='Topic*', widget=choice_widget)
-    solution = forms.CharField(max_length=300, label='Solution*', widget=textarea_widget)
-    edge_case = forms.CharField(max_length=100, required=False, label='Edge Case',
-                                widget=textinput_widget)
-    option1 = forms.CharField(max_length=300, required=False, label='Wrong Answer',
+    solution = forms.CharField(max_length=300, label='Best Solution*', widget=textarea_widget)
+    option1 = forms.CharField(max_length=300, required=False, label='Brute Force',
                               widget=textarea_widget)
-    option2 = forms.CharField(max_length=300, required=False, label='Wrong Answer',
+    option2 = forms.CharField(max_length=300, required=False, label='Unoptimized',
                               widget=textarea_widget)
+    edge_case = forms.CharField(max_length=300, required=False, label='Edge Cases',
+                                widget=textarea_widget)
 
 
 class CreateTopicForm(forms.Form):
