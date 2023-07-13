@@ -1,0 +1,4 @@
+<form action="{% url 'leetquizzer:delete_problem' problem.pk %}" method="post" onsubmit="return confirm('Are you sure about this ?')">
+    {% csrf_token %}
+    <button name="delete" value="delete" class="bg-transparent border-0 p-0" title="Delete Problem"><i class="bi bi-trash3"></i></button>
+</form>

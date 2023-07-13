@@ -40,6 +40,9 @@ def make_list(problem):
     return question_list
 
 def make_qa_list(problem):
+    """
+    Creates a question answer list for a given problem.
+    """
     questions = []
     if problem.option1:
         questions.append({'question': 'What will be the brute force approach?',
@@ -101,35 +104,13 @@ def generate_webpage_gpt(problem):
             for suffix in suffixes:
                 html_file.writelines([suffix, '\n'])
 
-def get_info(title_slug):
+def send_query(query):
     """
-    Retrieve information about a question from LeetCode API based on its title slug.
-
-    Args:
-        title_slug (str): The title slug of the question.
-
-    Returns:
-        dict: A dictionary containing the question information including questionFrontendId, 
-        title, titleSlug, difficulty, and content. If the request fails or the response is 
-        invalid, an empty dictionary is returned.
+    Sends a query to graphql server of leetcode. If response is valid, returns response else
+    returns an empty dictionary.
     """
-    info_query = {
-        "query":"""
-            query questionTitle($titleSlug: String!) {
-                question(titleSlug: $titleSlug) {
-                    questionFrontendId
-                    title
-                    titleSlug
-                    difficulty
-                    content
-                }
-            }
-        """,
-        "variables": {"titleSlug":f'{title_slug}'}, 
-        "operationName": "questionTitle"
-    }
     try:
-        response = requests.post(url=LEETCODE_URL, json=info_query, timeout=5)
+        response = requests.post(url=LEETCODE_URL, json=query, timeout=5)
         if response.status_code == 200:
             try:
                 response_dict = literal_eval(response.content.decode('utf-8'))
@@ -141,6 +122,50 @@ def get_info(title_slug):
     except ReadTimeout:
         print("Request Timeout")
     return {}
+
+def get_info(title_slug):
+    """
+    Retrieve information about a question from LeetCode API based on its title slug.
+
+    Args:
+        title_slug (str): The title slug of the question.
+
+    Returns:
+        dict: A dictionary containing the question information including questionFrontendId, 
+        title, and difficulty. If the request fails or the response is invalid, an empty 
+        dictionary is returned.
+    """
+    info_query = {
+        "query":"""
+            query questionTitle($titleSlug: String!) {
+                question(titleSlug: $titleSlug) {
+                    questionFrontendId
+                    title
+                    difficulty
+                }
+            }
+        """,
+        "variables": {"titleSlug":f'{title_slug}'}, 
+        "operationName": "questionTitle"
+    }
+    return send_query(info_query)
+
+def get_problem_description(title_slug):
+    """
+    Retrieve problem description from LeetCode API based on its title slug.
+    """
+    description_query = {
+        "query":"""
+            query questionTitle($titleSlug: String!) {
+                question(titleSlug: $titleSlug) {
+                    content
+                }
+            }
+        """,
+        "variables": {"titleSlug":f'{title_slug}'}, 
+        "operationName": "questionTitle"
+    }
+    return send_query(description_query)
 
 def generate_webpage(content, problem, root_path):
     """
