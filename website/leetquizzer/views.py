@@ -1,18 +1,17 @@
 """
 LeetQuizzer application views.
 """
+import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Count
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.template.exceptions import TemplateDoesNotExist
 from django.core.exceptions import FieldError
-from django.contrib import messages
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm, UpdateProblemForm
-from leetquizzer.utils.functions import make_qa_list, get_problem_description
-from leetquizzer.utils.functions import get_info
+from leetquizzer.utils.functions import get_question_list, generate_webpage
+from leetquizzer.utils.functions import get_problem_info, get_problem_desc
 
 
 class MainMenu(View):
@@ -56,54 +55,12 @@ class MainMenu(View):
 
 class ProblemMenu(View):
     """
-    View class for the problem menu page.
-    """
-    failure_url = 'leetquizzer/base.html'
-    def get(self, request, problem_id):
-        """
-        Handle GET request for the problem menu page.
-        """
-        problem = get_object_or_404(Problem, pk=problem_id)
-        q_list = make_qa_list(problem)
-        problem_description = get_problem_description(problem.link).get('content', {})
-        if problem_description:
-            context = {'question_list': q_list, 'problem': problem,
-                        'problem_desc': problem_description}
-            return render(request, "leetquizzer/problem.html", context)
-        return render(request, self.failure_url)
-
-    def post(self, request, problem_id):
-        """
-        Handle POST request for the problem menu page.
-        """
-        problem = get_object_or_404(Problem, pk=problem_id)
-        form_dict = request.POST.dict()
-        form_dict.pop('csrfmiddlewaretoken')
-        is_wrong = False
-        for value in form_dict.values():
-            if value == '0':
-                is_wrong = True
-        problem.wrong = is_wrong
-        problem.save()
-        return redirect(reverse_lazy('leetquizzer:main_menu'))
-
-
-class ProblemMenuV1(View):
-    """
-    View class for the problem menu page.
-
     This class-based view handles the GET and POST requests for the problem menu page.
-    It retrieves a specific problem from the database and renders the corresponding quiz template.
-    The view supports storing and retrieving question lists in the session for each problem.
-
-    Attributes:
-        failure_url (str): The URL of the base template to render in case of failure.
-        success_message (str): The success message to display when the answer is correct.
-        failure_message (str): The failure message to display when the answer is incorrect.
+    It retrieves a specific problem from the database and renders the corresponding 
+    flashcard template.
     """
-    failure_url = 'leetquizzer/base.html'
-    success_message = "ABSOLUTELY CORRECT!!!"
-    failure_message = "WRONG!!! please try again later"
+    success_url = reverse_lazy('leetquizzer:main_menu')
+    template = "leetquizzer/problem.html"
     def get(self, request, problem_id):
         """
         Handle GET request for the problem menu page.
@@ -114,25 +71,13 @@ class ProblemMenuV1(View):
         Returns:
             HttpResponse: The rendered response with the corresponding quiz template and the 
             question list context.
-
-        Note:
-            This method retrieves the problem from the database based on the provided 'problem_id'.
-            If the question list for the problem is not stored in the session, it generates a new 
-            question list using the 'make_list' function.The rendered template depends on the 
-            problem's 'number' attribute. The question list is stored in the session using the 
-            'problem_id' as the key.
         """
-        try:
-            problem = get_object_or_404(Problem, pk=problem_id)
-            key = f"q{problem_id}"
-            if key not in request.session:
-                q_list = make_qa_list(problem)
-                request.session[key] = q_list
-            context = {'question_list': request.session[key], 'link': problem.link,
-                       'quiz_url': f"quizzes/{problem.number}.html"}
-            return render(request, "leetquizzer/problem.html", context)
-        except TemplateDoesNotExist:
-            return render(request, self.failure_url)
+        problem = get_object_or_404(Problem, pk=problem_id)
+        question_list = get_question_list(problem)
+        context = {'question_list': question_list, 'problem_link': problem.link,
+                   'quiz_url': f'quizzes/{problem.number}-{problem.name}.html'}
+        return render(request, self.template, context)
+
     def post(self, request, problem_id):
         """
         Handle POST request for the problem menu page.
@@ -142,28 +87,17 @@ class ProblemMenuV1(View):
 
         Returns:
             HttpResponseRedirect: Redirects to the current page after processing the POST request.
-
-        Note:
-            This method retrieves the problem from the database based on the provided 'problem_id'.
-            The answer is retrieved from the request's POST data. The question list for the problem 
-            is removed from the session. The success or failure messages are stored in the messages 
-            framework based on the correctness of the answer. The 'wrong' attribute of the problem 
-            object is updated accordingly and saved. The response is redirected back to the current 
-            page.
         """
         problem = get_object_or_404(Problem, pk=problem_id)
-        key = f"q{problem_id}"
-        answer = request.POST.get('answer', None)
-        request.session.pop(key)
-        _ = list(messages.get_messages(request))
-        if answer == 'True':
-            messages.info(request, self.success_message)
-            problem.wrong = False
-        else:
-            messages.info(request, self.failure_message)
-            problem.wrong = True
+        form_dict = request.POST.dict()
+        form_dict.pop('csrfmiddlewaretoken')
+        is_wrong = False
+        for value in form_dict.values():
+            if value == '0':
+                is_wrong = True
+        problem.wrong = is_wrong
         problem.save()
-        return redirect(self.request.path_info)
+        return redirect(self.success_url)
 
 
 class CreateProblem(LoginRequiredMixin, View):
@@ -183,6 +117,7 @@ class CreateProblem(LoginRequiredMixin, View):
     template = 'leetquizzer/problem_create.html'
     failure_url = 'leetquizzer/base.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
+    root_path = 'leetquizzer/templates/quizzes/'
     def get(self, request):
         """
         Handle GET request for creating a new problem.
@@ -214,7 +149,7 @@ class CreateProblem(LoginRequiredMixin, View):
             return render(request, self.template, context)
         question_link = form.cleaned_data['link']
         endpoints = question_link.split('/')
-        info_dict = get_info(endpoints[-2])
+        info_dict = get_problem_info(endpoints[-2])
         if not info_dict:
             return redirect(self.failure_url)
         number = info_dict['questionFrontendId']
@@ -233,6 +168,8 @@ class CreateProblem(LoginRequiredMixin, View):
                           option1=form.cleaned_data['option1'],
                           option2=form.cleaned_data['option2'])
         problem.save()
+        content = get_problem_desc(endpoints[-2]).get('content', {})
+        generate_webpage(content, problem, self.root_path)
         return redirect(self.success_url)
 
 
@@ -292,12 +229,16 @@ class DeleteProblem(LoginRequiredMixin, View):
     Class to handle deleting a problem
     """
     success_url = reverse_lazy('leetquizzer:main_menu')
+    root_path = 'leetquizzer/templates/quizzes/'
     def post(self, _, problem_id):
         """
         Get the problem form database and delete it
         """
         problem = get_object_or_404(Problem, pk=problem_id)
         problem.delete()
+        file_path = self.root_path + f'{problem.number}-{problem.name}.html'
+        if os.path.exists(file_path):
+            os.remove(file_path)
         return redirect(self.success_url)
 
 

@@ -6,6 +6,8 @@ from leetquizzer.models import Topic, Difficulty
 
 textarea_widget = forms.Textarea(attrs={'rows':'2', 'class': 'form-control', 'style':'resize:none'})
 textinput_widget = forms.TextInput(attrs={'class': 'form-control'})
+link_widget = forms.TextInput(attrs={'class': 'form-control',
+                             'placeholder': 'https://leetcode.com/problems/<problem-title>/'})
 choice_widget=forms.Select(attrs={'class':'form-control'})
 topic = Topic.objects.all()
 difficulty = Difficulty.objects.all()
@@ -23,7 +25,7 @@ class CreateProblemForm(forms.Form):
         option1 (str): The brute force solution (optional).
         option2 (str): Any other unoptimized solution (optional).
     """
-    link = forms.URLField(max_length=150, label='LeetCode Link*', widget=textinput_widget)
+    link = forms.URLField(max_length=150, label='LeetCode Link*', widget=link_widget)
     topic = forms.ModelChoiceField(queryset=topic, label='Topic*', widget=choice_widget)
     solution = forms.CharField(max_length=300, label='Best Solution*', widget=textarea_widget)
     option1 = forms.CharField(max_length=300, required=False, label='Brute Force',
