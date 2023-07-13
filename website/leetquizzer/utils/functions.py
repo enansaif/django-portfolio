@@ -145,7 +145,7 @@ def get_info(title_slug):
                 }
             }
         """,
-        "variables": {"titleSlug":f'{title_slug}'}, 
+        "variables": {"titleSlug":f'{title_slug}'},
         "operationName": "questionTitle"
     }
     return send_query(info_query)

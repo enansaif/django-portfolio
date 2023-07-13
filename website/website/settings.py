@@ -45,7 +45,7 @@ OPENAI_ORGANIZATION = env('ORGANIZATION')
 OPENAI_API_KEY = env('API_KEY')
 
 # LeetCode url
-LEETCODE_URL = "https://leetcode.com/graphql"
+LEETCODE_URL = "https://leetcode.com/graphql/"
 
 # Application definition
 
