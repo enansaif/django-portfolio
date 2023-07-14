@@ -32,7 +32,7 @@
             <td class="d-none d-md-table-cell">{{problem.number}}</td>
             <td><a href="{% url 'leetquizzer:problem_menu' problem.pk %}" class="link-dark link-underline-opacity-0" style="display: block;">{{ problem.name }}</a></td>
             <td class="d-none d-md-table-cell"><a href="https://leetcode.com/problems/{{ problem.link }}/" class="link-dark" title="LeetCode"><i class="bi bi-box-arrow-up-right"></i></a></td>
-            <td>{{problem.topic}}</td>
+            <td><a href="{% url 'leetquizzer:update_topic' problem.topic_id %}" class="link-dark link-underline-opacity-0" style="display: block;">{{problem.topic}}</a></td>
             <td>{{problem.difficulty}}</td>
             <td class="d-none d-md-table-cell">
               <div class="container d-flex justify-content-end align-items-center">

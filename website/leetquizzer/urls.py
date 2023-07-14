@@ -13,4 +13,5 @@ urlpatterns = [
     path('problem/<int:problem_id>/delete_problem/', views.DeleteProblem.as_view(), name='delete_problem'),
     path('problem/create_problem/', views.CreateProblem.as_view(), name='create_problem'),
     path('problem/create_topic/', views.CreateTopic.as_view(), name='create_topic'),
+    path('problem/update_topic/<topic_id>/', views.UpdateTopic.as_view(), name='update_topic'),
 ]

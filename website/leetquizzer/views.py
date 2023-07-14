@@ -123,7 +123,7 @@ class CreateProblem(LoginRequiredMixin, View):
         Handle GET request for creating a new problem.
         """
         form = CreateProblemForm()
-        context = {'form': form}
+        context = {'form': form, 'page_title': 'Create Problem'}
         return render(request, self.template, context)
     def post(self, request):
         """
@@ -145,7 +145,7 @@ class CreateProblem(LoginRequiredMixin, View):
         """
         form = CreateProblemForm(request.POST)
         if not form.is_valid():
-            context = {'form': form}
+            context = {'form': form, 'page_title': 'Create Problem'}
             return render(request, self.template, context)
         question_link = form.cleaned_data['link']
         endpoints = question_link.split('/')
@@ -155,7 +155,8 @@ class CreateProblem(LoginRequiredMixin, View):
         number = info_dict['questionFrontendId']
         has_number = Problem.objects.filter(number=number).exists()
         if has_number:
-            context = {'form': form, 'message': 'Problem already exists!'}
+            context = {'form': form, 'page_title': 'Create Problem',
+                       'message': 'Problem already exists!'}
             return render(request, self.template, context)
         difficulty, _ = Difficulty.objects.get_or_create(name=info_dict['difficulty'])
         problem = Problem(link=endpoints[-2],
@@ -181,7 +182,7 @@ class UpdateProblem(LoginRequiredMixin, View):
         template (str): The path to the template used for rendering the update form.
         success_url (str): The URL to redirect to after successfully updating the problem.
     """
-    template = 'leetquizzer/problem_update.html'
+    template = 'leetquizzer/problem_create.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
     def get(self, request, problem_id):
         """
@@ -200,7 +201,7 @@ class UpdateProblem(LoginRequiredMixin, View):
         "option2": problem.option2,
         }
         form = UpdateProblemForm(initial=initial_dict)
-        context = {'form': form}
+        context = {'form': form, 'page_title': 'Update Problem'}
         return render(request, self.template, context)
     def post(self, request, problem_id):
         """
@@ -212,7 +213,7 @@ class UpdateProblem(LoginRequiredMixin, View):
         """
         form = UpdateProblemForm(request.POST)
         if not form.is_valid():
-            context = {'form': form}
+            context = {'form': form, 'page_title': 'Update Problem'}
             return render(request, self.template, context)
         problem = get_object_or_404(Problem, pk=problem_id)
         problem.topic = form.cleaned_data['topic']
@@ -263,7 +264,7 @@ class CreateTopic(View):
         """
         form = CreateTopicForm()
         topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
-        context = {'form': form, 'topic_list': topics}
+        context = {'page_title': 'Create Topic', 'form': form, 'topic_list': topics}
         return render(request, self.template, context)
     def post(self, request):
         """
@@ -285,15 +286,53 @@ class CreateTopic(View):
         form = CreateTopicForm(request.POST)
         if not form.is_valid():
             topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
-            context = {'form': form, 'topic_list': topics}
+            context = {'page_title': 'Create Topic', 'form': form, 'topic_list': topics}
             return render(request, self.template, context)
         new_topic = form.cleaned_data['topic'].lower().title()
         has_topic = Topic.objects.filter(name=new_topic).exists()
         if has_topic:
             topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
-            context = {'form': form, 'topic_list': topics,
+            context = {'page_title': 'Create Topic', 'form': form, 'topic_list': topics,
                        'message': 'Topic with this name already exists!'}
             return render(request, self.template, context)
         topic = Topic(name=new_topic)
+        topic.save()
+        return redirect(self.success_url)
+
+
+class UpdateTopic(View):
+    """
+    View class for creating a new topic.
+    """
+    template = 'leetquizzer/topic_create.html'
+    success_url = reverse_lazy('leetquizzer:main_menu')
+    def get(self, request, topic_id):
+        """
+        Handle GET request for creating a new topic.
+        """
+        topic = get_object_or_404(Topic, pk=topic_id)
+        init_dict = {'topic': topic}
+        form = CreateTopicForm(initial=init_dict)
+        topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
+        context = {'page_title': 'Update Topic', 'form': form, 'topic_list': topics}
+        return render(request, self.template, context)
+    def post(self, request, topic_id):
+        """
+        Handle POST request for creating a new topic.
+        """
+        form = CreateTopicForm(request.POST)
+        if not form.is_valid():
+            topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
+            context = {'page_title': 'Update Topic', 'form': form, 'topic_list': topics}
+            return render(request, self.template, context)
+        new_topic = form.cleaned_data['topic'].lower().title()
+        has_topic = Topic.objects.filter(name=new_topic).exists()
+        if has_topic:
+            topics = Topic.objects.annotate(Count('problem')).values_list('name', 'problem__count')
+            context = {'page_title': 'Update Topic', 'form': form, 'topic_list': topics,
+                       'message': 'Topic with this name already exists!'}
+            return render(request, self.template, context)
+        topic = get_object_or_404(Topic, pk=topic_id)
+        topic.name = new_topic
         topic.save()
         return redirect(self.success_url)
