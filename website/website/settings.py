@@ -40,10 +40,6 @@ EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-# OpenAI authentication
-OPENAI_ORGANIZATION = env('ORGANIZATION')
-OPENAI_API_KEY = env('API_KEY')
-
 # LeetCode url
 LEETCODE_URL = "https://leetcode.com/graphql/"
 
@@ -139,10 +135,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'portfolio/static/'),
     os.path.join(BASE_DIR, 'authenticator/static/'),
+    os.path.join(BASE_DIR, 'leetquizzer/static/'),
 ]
 
 # Default primary key field type

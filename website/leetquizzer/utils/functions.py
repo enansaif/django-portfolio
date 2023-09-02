@@ -29,15 +29,12 @@ def send_query(query):
     try:
         response = requests.post(url=LEETCODE_URL, json=query, timeout=5)
         if response.status_code == 200:
-            try:
-                response_dict = ast.literal_eval(response.content.decode('utf-8'))
-                return response_dict['data']['question']
-            except ValueError:
-                print("Error while decoding")
-        else:
-            print("Didn't get response")
+            response_dict = ast.literal_eval(response.content.decode('utf-8'))
+            return response_dict['data']['question']
     except ReadTimeout:
-        print("Request Timeout")
+        print("Timeout")
+    except ValueError:
+        print("Error decoding response")
     return {}
 
 def get_problem_info(title_slug):

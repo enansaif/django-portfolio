@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import FieldError
 from leetquizzer.models import Problem, Topic, Difficulty
 from leetquizzer.forms import CreateProblemForm, CreateTopicForm, UpdateProblemForm
-from leetquizzer.utils.functions import get_question_list, generate_webpage
+from leetquizzer.utils.functions import get_question_list
 from leetquizzer.utils.functions import get_problem_info, get_problem_desc
 
 
@@ -75,7 +75,8 @@ class ProblemMenu(View):
         problem = get_object_or_404(Problem, pk=problem_id)
         question_list = get_question_list(problem)
         context = {'question_list': question_list, 'problem_link': problem.link,
-                   'quiz_url': f'quizzes/{problem.number}-{problem.name}.html'}
+                   'problem_title': f"<h1>{problem.number} - {problem.name}</h1>",
+                   'problem_description': get_problem_desc(problem.link).get('content', {})}
         return render(request, self.template, context)
 
     def post(self, request, problem_id):
@@ -112,10 +113,8 @@ class CreateProblem(LoginRequiredMixin, View):
     Attributes:
         template (str): The name of the template to render.
         success_url (str): The URL to redirect to after successfully creating the problem.
-        failure_url (str): The URL to redirect to after failed creating the problem.
     """
     template = 'leetquizzer/problem_create.html'
-    failure_url = 'leetquizzer/base.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
     root_path = 'leetquizzer/templates/quizzes/'
     def get(self, request):
@@ -151,7 +150,9 @@ class CreateProblem(LoginRequiredMixin, View):
         endpoints = question_link.split('/')
         info_dict = get_problem_info(endpoints[-2])
         if not info_dict:
-            return redirect(self.failure_url)
+            context = {'form': form, 'page_title': 'Create Problem',
+                       'message': 'Url not formatted correctly!'}
+            return render(request, self.template, context)
         number = info_dict['questionFrontendId']
         has_number = Problem.objects.filter(number=number).exists()
         if has_number:
@@ -169,8 +170,6 @@ class CreateProblem(LoginRequiredMixin, View):
                           option1=form.cleaned_data['option1'],
                           option2=form.cleaned_data['option2'])
         problem.save()
-        content = get_problem_desc(endpoints[-2]).get('content', {})
-        generate_webpage(content, problem, self.root_path)
         return redirect(self.success_url)
 
 

@@ -1,13 +1,13 @@
 <form action="", method="post" id="quiz_form">
     {% csrf_token %}
         {% for question in question_list %}
-        <div class="p-5 shadow rounded" id="question{{forloop.counter0}}" {% if forloop.counter0 > 0 %}style="display:none;"{% endif %}>
+        <div class="p-5 shadow rounded fade-in" id="question{{forloop.counter0}}" {% if forloop.counter0 > 0 %}style="display:none;"{% endif %}>
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <p>{{question.question}}</p>
                 <a class="btn btn-secondary m-1" href="#quiz_form" onclick="toggleAnswer('question{{forloop.counter0}}', 'answer{{forloop.counter0}}');">Reveal</a>
             </div>
         </div>
-        <div class="p-5 shadow rounded" id="answer{{forloop.counter0}}" style="display:none;">
+        <div class="p-5 shadow rounded fade-in" id="answer{{forloop.counter0}}" style="display:none;">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <p>{{question.answer}}</p>
                 <div class="d-flex justify-content-center align-items-center">
