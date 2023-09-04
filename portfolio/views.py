@@ -21,12 +21,6 @@ def about(request):
     """
     return render(request, 'portfolio/about.html')
 
-def resume(request):
-    """
-    Serves the resume page.
-    """
-    return render(request, 'portfolio/resume.html')
-
 def project_info():
     """
     Retrieve information about projects.
