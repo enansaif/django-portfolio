@@ -236,9 +236,6 @@ class DeleteProblem(LoginRequiredMixin, View):
         """
         problem = get_object_or_404(Problem, pk=problem_id)
         problem.delete()
-        file_path = self.root_path + f'{problem.number}-{problem.name}.html'
-        if os.path.exists(file_path):
-            os.remove(file_path)
         return redirect(self.success_url)
 
 
