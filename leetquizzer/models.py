@@ -12,6 +12,7 @@ class Topic(models.Model):
         name (str): The name of the topic.
     """
     name = models.CharField(max_length=20)
+
     def __str__(self):
         return f"{self.name}"
 
@@ -24,6 +25,7 @@ class Difficulty(models.Model):
         name (str): The name of the difficulty level.
     """
     name = models.CharField(max_length=10)
+
     def __str__(self):
         return f"{self.name}"
 
@@ -56,6 +58,6 @@ class Problem(models.Model):
     option1 = models.TextField(max_length=300, blank=True, null=True)
     option2 = models.TextField(max_length=300, blank=True, null=True)
     edge_case = models.TextField(max_length=300, blank=True, null=True)
+
     def __str__(self):
         return f"{self.number}. {self.name}"
-    

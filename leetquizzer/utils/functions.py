@@ -6,6 +6,7 @@ import requests
 from requests.exceptions import ReadTimeout
 from website.settings import LEETCODE_URL
 
+
 def get_question_list(problem):
     """
     Creates a question answer list for a given problem.
@@ -20,6 +21,7 @@ def get_question_list(problem):
     questions.append({'question': 'What is the most efficient approach?',
                       'answer': problem.solution})
     return questions
+
 
 def send_query(query):
     """
@@ -37,6 +39,7 @@ def send_query(query):
         print("Error decoding response")
     return {}
 
+
 def get_problem_info(title_slug):
     """
     Retrieve information about a question from LeetCode API based on its title slug.
@@ -50,7 +53,7 @@ def get_problem_info(title_slug):
         dictionary is returned.
     """
     info_query = {
-        "query":"""
+        "query": """
             query questionTitle($titleSlug: String!) {
                 question(titleSlug: $titleSlug) {
                     questionFrontendId
@@ -59,27 +62,29 @@ def get_problem_info(title_slug):
                 }
             }
         """,
-        "variables": {"titleSlug":f'{title_slug}'},
+        "variables": {"titleSlug": f'{title_slug}'},
         "operationName": "questionTitle"
     }
     return send_query(info_query)
+
 
 def get_problem_desc(title_slug):
     """
     Retrieve problem description from LeetCode API based on its title slug.
     """
     description_query = {
-        "query":"""
+        "query": """
             query questionTitle($titleSlug: String!) {
                 question(titleSlug: $titleSlug) {
                     content
                 }
             }
         """,
-        "variables": {"titleSlug":f'{title_slug}'}, 
+        "variables": {"titleSlug": f'{title_slug}'},
         "operationName": "questionTitle"
     }
     return send_query(description_query)
+
 
 def generate_webpage(content, problem, root_path):
     """
@@ -102,4 +107,3 @@ def generate_webpage(content, problem, root_path):
         html_file.writelines([title, '\n'])
         for line in content.splitlines():
             html_file.writelines([line, '\n'])
-            

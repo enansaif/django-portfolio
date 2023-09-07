@@ -1,25 +1,20 @@
 {% extends "portfolio/base.html" %}
-
-{% block title %}
-<title>Contact</title>
-{% endblock %}
-
+{% block title %}<title>Contact</title>{% endblock %}
 {% block content %}
-<div class="container col-lg-8 py-5">
-    {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-light fade show p-5 m-5 text-center shadow rounded fade-in" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% else %}
-    <div class="shadow rounded dropFromTop p-2">
-        <form action="", method="post">
-            {% csrf_token %}
-            {{ form.as_table }}
-            <input type="submit" class="btn btn-light mt-1 form-control" value="Send">
-        </form>
+    <div class="container col-lg-8 py-5">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-light fade show p-5 m-5 text-center shadow rounded fade-in"
+                     role="alert">{{ message }}</div>
+            {% endfor %}
+        {% else %}
+            <div class="shadow rounded dropFromTop p-2">
+                <form action="", method="post">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                    <input type="submit" class="btn btn-light mt-1 form-control" value="Send">
+                </form>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 {% endblock %}

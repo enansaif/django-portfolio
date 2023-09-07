@@ -9,17 +9,20 @@ from django.views import View
 from website.settings import EMAIL_HOST_USER
 from .forms import ContactForm
 
+
 def base(request):
     """
     Serves as the main entry point to the website.
     """
     return render(request, 'portfolio/base.html')
 
+
 def about(request):
     """
     Serves the about page.
     """
     return render(request, 'portfolio/about.html')
+
 
 def project_info():
     """
@@ -44,6 +47,7 @@ def project_info():
     }
     project_list.append(leetquizzer)
     return project_list
+
 
 def projects(request):
     """
@@ -70,6 +74,7 @@ class ContactView(View):
     template = 'portfolio/contact.html'
     success_url = reverse_lazy('portfolio:contact')
     success_message = "Thanks for getting in touch! I'll reply to you as soon as possible."
+
     def get(self, request):
         """
         Serves the contact page.
@@ -77,6 +82,7 @@ class ContactView(View):
         form = ContactForm()
         context = {'form': form}
         return render(request, self.template, context)
+
     def post(self, request):
         """
         Validates the contact form.

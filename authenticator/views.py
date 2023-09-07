@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import View
 
+
 def logout_view(request):
     """
     View for handling logout requests
@@ -15,6 +16,7 @@ def logout_view(request):
     logout(request)
     return redirect(request.GET.get('next', success_url))
 
+
 class LoginUser(View):
     """
     View class for handling user login.
@@ -22,15 +24,16 @@ class LoginUser(View):
     GET: Renders the login form.
 
     POST: Authenticates the user with the provided username and password.
-    If the authentication is successful, logs in the user and redirects to the success URL.
+    If the authentication is successful, logs in the user and redirects to the request URL.
     Otherwise, displays an error message and redirects back to the login page.
     """
-    success_url = reverse_lazy('portfolio:base')
+
     def get(self, request):
         """
         Handles GET requests to render the login form.
         """
         return render(request, 'auth/login.html')
+
     def post(self, request):
         """
          Handles POST requests to authenticate the user.
@@ -40,6 +43,6 @@ class LoginUser(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(request.GET.get('next', self.success_url))
+            return redirect(request.GET.get('next', self.request.path_info))
         messages.error(request, "Invalid username or password")
         return redirect(self.request.path_info)

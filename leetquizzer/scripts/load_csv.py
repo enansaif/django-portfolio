@@ -4,6 +4,7 @@ Script to add problems to the database from a CSV file.
 import csv
 from leetquizzer.models import Problem, Topic, Difficulty
 
+
 def run(filename):
     """
     Add problems to the database from a CSV file.
@@ -35,10 +36,10 @@ def run(filename):
         if has_number or has_name:
             continue
         topic, _ = Topic.objects.get_or_create(name=row[3].lower().title())
-        difficulty, _ = Difficulty.objects.get_or_create(name=row[4].lower().capitalize())
+        difficulty, _ = Difficulty.objects.get_or_create(
+            name=row[4].lower().capitalize())
         problem = Problem(number=number, name=name, link=row[2], topic=topic, difficulty=difficulty,
                           solution=row[5], option1=row[6], option2=row[7], edge_case=row[8])
         problem.save()
         count += 1
     print(f"{count} Problems added to Database")
-    

@@ -4,6 +4,7 @@ Script to add problems to the database from a google sheets file.
 import pandas as pd
 from leetquizzer.models import Problem, Topic, Difficulty
 
+
 def run():
     """
     Fetches data from a Google Spreadsheet and adds new problems to the database.
@@ -12,7 +13,7 @@ def run():
     It retrieves the problem information from the spreadsheet and creates new Problem objects
     in the database if they don't already exist. The function uses the Problem, Topic, 
     and Difficulty models from the leetquizzer app.
-    
+
     Note:
         Make sure the database exists.
 
@@ -30,9 +31,10 @@ def run():
         has_name = Problem.objects.filter(name=name).exists()
         if has_number or has_name:
             continue
-        topic, _ = Topic.objects.get_or_create(name=dataframe['topic'][i].lower().title())
+        topic, _ = Topic.objects.get_or_create(
+            name=dataframe['topic'][i].lower().title())
         difficulty, _ = Difficulty.objects.get_or_create(
-                        name=dataframe['difficulty'][i].lower().capitalize())
+            name=dataframe['difficulty'][i].lower().capitalize())
         problem = Problem(number=number, name=name, link=dataframe['link'][i], topic=topic,
                           difficulty=difficulty, solution=dataframe['solution'][i],
                           option1=dataframe['option1'][i], option2=dataframe['option2'][i],
@@ -40,4 +42,3 @@ def run():
         problem.save()
         count += 1
     print(f"{count} Problems added to Database")
-    

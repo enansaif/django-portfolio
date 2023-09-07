@@ -1,28 +1,26 @@
 {% extends "portfolio/base.html" %}
-
-{% block title %}
-<title>Projects</title>
-{% endblock %}
-
+{% block title %}<title>Projects</title>{% endblock %}
 {% block content %}
-<div class="container fade-in">
-    <div class="row">
-        {% for project in project_list %}
-        <div class="col pt-5 d-flex justify-content-around align-items-center">
-            <div class="card shadow rounded" style="width: 18rem;">
-                <div class="card-body">
-                  <p class="card-title lead">{{ project.name }}</p>
-                  <p class="card-text">{{ project.description }}</p>
-                  <p class="card-text">Tools: 
-                    {% for tool in project.tools %}
-                    {{tool}}{% if forloop.counter < project.tools|length %},{% endif %}
-                    {% endfor %}
-                  </p>
-                  <a class="social-btn" href="{{ project.url }}">Open Project</a>
+    <div class="container fade-in">
+        <div class="row">
+            {% for project in project_list %}
+                <div class="col pt-5 d-flex justify-content-around align-items-center">
+                    <div class="card shadow rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <p class="card-title lead">{{ project.name }}</p>
+                            <p class="card-text">{{ project.description }}</p>
+                            <p class="card-text">
+                                Tools:
+                                {% for tool in project.tools %}
+                                    {{ tool }}
+                                    {% if forloop.counter < project.tools|length %},{% endif %}
+                                {% endfor %}
+                            </p>
+                            <a class="social-btn" href="{{ project.url }}">Open Project</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 {% endblock %}

@@ -1,6 +1,7 @@
 :root {
     --animation-duration: 400ms;
 }
+
 /* fade in page animation */
 .fade-in {
     animation: fadein 0.8s;
@@ -10,6 +11,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -38,6 +40,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -134,7 +137,15 @@
 }
 
 @keyframes drop {
-    0% {transform: translateY(-100%);}
-    75% {transform: translateY(12.5%);}
-    100% {transform: translateY(0%);}
+    0% {
+        transform: translateY(-100%);
+    }
+
+    75% {
+        transform: translateY(12.5%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
 }

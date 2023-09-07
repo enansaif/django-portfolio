@@ -8,18 +8,29 @@
 body {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    overflow-y: scroll; 
+    overflow-y: scroll;
 }
 
 body::-webkit-scrollbar {
-    display: none; 
+    display: none;
 }
 
 /* main.py about section */
-.dot {opacity: 0.1;}
-.function {color:blue;}
-.variable {color: orange;}
-.self {color: green;}
+.dot {
+    opacity: 0.1;
+}
+
+.function {
+    color: blue;
+}
+
+.variable {
+    color: orange;
+}
+
+.self {
+    color: green;
+}
 
 .social-btn {
     transition: var(--transition-duration);
@@ -31,9 +42,9 @@ body::-webkit-scrollbar {
     border-radius: 10px;
     border: none;
 }
-  
+
 .social-btn:hover {
-    transition:var(--transition-duration);
+    transition: var(--transition-duration);
     background-color: var(--theme-blue);
     color: var(--color-primary);
 }
