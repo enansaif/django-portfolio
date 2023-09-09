@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
 
 
 def logout_view(request):
@@ -54,12 +54,12 @@ class Signup(View):
     success_url = reverse_lazy('portfolio:base')
 
     def get(self, request):
-        form = UserCreationForm()
+        form = SignUpForm()
         return render(request, "auth/signup.html", {"form": form})
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect(request.GET.get('next', self.success_url))
-        return redirect(self.request.path_info)
+        return render(request, "auth/signup.html", {"form": form})
