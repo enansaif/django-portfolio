@@ -42,11 +42,14 @@ class MainMenu(View):
             If 'sorted_by' is 'difficulty', the problems are sorted by difficulty name.
             If 'sorted_by' is None, the problems are sorted by time (default order).
         """
+        if not request.user.is_authenticated:
+            context = {'problem_list': {}}
+            return render(request, self.template, context)
         try:
             if sorted_by:
-                problems = Problem.objects.order_by(sorted_by)
+                problems = Problem.objects.filter(user=request.user).order_by(sorted_by)
             else:
-                problems = Problem.objects.order_by('time')
+                problems = Problem.objects.filter(user=request.user).order_by('time')
             context = {'problem_list': problems, 'current': sorted_by}
             return render(request, self.template, context)
         except FieldError:
@@ -157,7 +160,7 @@ class CreateProblem(LoginRequiredMixin, View):
                        'message': 'Url not formatted correctly!'}
             return render(request, self.template, context)
         number = info_dict['questionFrontendId']
-        has_number = Problem.objects.filter(number=number).exists()
+        has_number = Problem.objects.filter(user=request.user).filter(number=number).exists()
         if has_number:
             context = {'form': form, 'page_title': 'Create Problem',
                        'message': 'Problem already exists!'}
@@ -165,6 +168,7 @@ class CreateProblem(LoginRequiredMixin, View):
         difficulty, _ = Difficulty.objects.get_or_create(
             name=info_dict['difficulty'])
         problem = Problem(link=endpoints[-2],
+                          user=request.user,
                           difficulty=difficulty,
                           number=number,
                           name=info_dict['title'],
@@ -298,14 +302,14 @@ class CreateTopic(View):
                        'form': form, 'topic_list': topics}
             return render(request, self.template, context)
         new_topic = form.cleaned_data['topic'].lower().title()
-        has_topic = Topic.objects.filter(name=new_topic).exists()
+        has_topic = Topic.objects.filter(user=request.user).filter(name=new_topic).exists()
         if has_topic:
             topics = Topic.objects.annotate(
                 Count('problem')).values_list('name', 'problem__count')
             context = {'page_title': 'Create Topic', 'form': form, 'topic_list': topics,
                        'message': 'Topic with this name already exists!'}
             return render(request, self.template, context)
-        topic = Topic(name=new_topic)
+        topic = Topic(name=new_topic, user=request.user)
         topic.save()
         return redirect(self.success_url)
 
@@ -342,7 +346,7 @@ class UpdateTopic(View):
                        'form': form, 'topic_list': topics}
             return render(request, self.template, context)
         new_topic = form.cleaned_data['topic'].lower().title()
-        has_topic = Topic.objects.filter(name=new_topic).exists()
+        has_topic = Topic.objects.filter(user=request.user).filter(name=new_topic).exists()
         if has_topic:
             topics = Topic.objects.annotate(
                 Count('problem')).values_list('name', 'problem__count')

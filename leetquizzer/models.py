@@ -2,6 +2,7 @@
 LeetQuizzer database models
 """
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Topic(models.Model):
@@ -12,6 +13,7 @@ class Topic(models.Model):
         name (str): The name of the topic.
     """
     name = models.CharField(max_length=20)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}"
@@ -48,6 +50,7 @@ class Problem(models.Model):
         edge_case (str): The edge cases of the problem (optional).
     """
     name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.PositiveIntegerField()
     link = models.URLField(max_length=150)
     wrong = models.BooleanField(default=False)
