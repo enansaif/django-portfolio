@@ -61,5 +61,9 @@ class Signup(View):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
+            user = authenticate(
+                username=form.cleaned_data["username"],
+                password=form.cleaned_data["password1"])
+            login(self.request, user)
             return redirect(request.GET.get('next', self.success_url))
         return render(request, "auth/signup.html", {"form": form})

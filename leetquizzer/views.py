@@ -47,9 +47,11 @@ class MainMenu(View):
             return render(request, self.template, context)
         try:
             if sorted_by:
-                problems = Problem.objects.filter(user=request.user).order_by(sorted_by)
+                problems = Problem.objects.filter(
+                    user=request.user).order_by(sorted_by)
             else:
-                problems = Problem.objects.filter(user=request.user).order_by('time')
+                problems = Problem.objects.filter(
+                    user=request.user).order_by('time')
             context = {'problem_list': problems, 'current': sorted_by}
             return render(request, self.template, context)
         except FieldError:
@@ -63,6 +65,7 @@ class ProblemMenu(View):
     flashcard template.
     """
     success_url = reverse_lazy('leetquizzer:main_menu')
+    failure_url = 'leetquizzer/base.html'
     template = "leetquizzer/problem.html"
 
     def get(self, request, problem_id):
@@ -77,6 +80,8 @@ class ProblemMenu(View):
             question list context.
         """
         problem = get_object_or_404(Problem, pk=problem_id)
+        if problem.user != request.user:
+            return render(request, self.failure_url)
         question_list = get_question_list(problem)
         context = {'question_list': question_list, 'problem_link': problem.link,
                    'problem_title': f"<h1>{problem.number} - {problem.name}</h1>",
@@ -160,7 +165,8 @@ class CreateProblem(LoginRequiredMixin, View):
                        'message': 'Url not formatted correctly!'}
             return render(request, self.template, context)
         number = info_dict['questionFrontendId']
-        has_number = Problem.objects.filter(user=request.user).filter(number=number).exists()
+        has_number = Problem.objects.filter(
+            user=request.user).filter(number=number).exists()
         if has_number:
             context = {'form': form, 'page_title': 'Create Problem',
                        'message': 'Problem already exists!'}
@@ -191,6 +197,7 @@ class UpdateProblem(LoginRequiredMixin, View):
     """
     template = 'leetquizzer/problem_create.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
+    failure_url = 'leetquizzer/base.html'
 
     def get(self, request, problem_id):
         """
@@ -201,6 +208,8 @@ class UpdateProblem(LoginRequiredMixin, View):
             problem_id (int): The ID of the problem to be updated.
         """
         problem = get_object_or_404(Problem, pk=problem_id)
+        if problem.user != request.user:
+            return render(request, self.failure_url)
         initial_dict = {
             "topic": problem.topic,
             "solution": problem.solution,
@@ -271,7 +280,7 @@ class CreateTopic(View):
         Handle GET request for creating a new topic.
         """
         form = CreateTopicForm()
-        topics = Topic.objects.annotate(
+        topics = Topic.objects.filter(user=request.user).annotate(
             Count('problem')).values_list('name', 'problem__count')
         context = {'page_title': 'Create Topic',
                    'form': form, 'topic_list': topics}
@@ -296,15 +305,16 @@ class CreateTopic(View):
         """
         form = CreateTopicForm(request.POST)
         if not form.is_valid():
-            topics = Topic.objects.annotate(
+            topics = Topic.objects.filter(user=request.user).annotate(
                 Count('problem')).values_list('name', 'problem__count')
             context = {'page_title': 'Create Topic',
                        'form': form, 'topic_list': topics}
             return render(request, self.template, context)
         new_topic = form.cleaned_data['topic'].lower().title()
-        has_topic = Topic.objects.filter(user=request.user).filter(name=new_topic).exists()
+        has_topic = Topic.objects.filter(
+            user=request.user).filter(name=new_topic).exists()
         if has_topic:
-            topics = Topic.objects.annotate(
+            topics = Topic.objects.filter(user=request.user).annotate(
                 Count('problem')).values_list('name', 'problem__count')
             context = {'page_title': 'Create Topic', 'form': form, 'topic_list': topics,
                        'message': 'Topic with this name already exists!'}
@@ -320,15 +330,18 @@ class UpdateTopic(View):
     """
     template = 'leetquizzer/topic_create.html'
     success_url = reverse_lazy('leetquizzer:main_menu')
+    failure_url = 'leetquizzer/base.html'
 
     def get(self, request, topic_id):
         """
         Handle GET request for creating a new topic.
         """
         topic = get_object_or_404(Topic, pk=topic_id)
+        if topic.user != request.user:
+            return render(request, self.failure_url)
         init_dict = {'topic': topic}
         form = CreateTopicForm(initial=init_dict)
-        topics = Topic.objects.annotate(
+        topics = Topic.objects.filter(user=request.user).annotate(
             Count('problem')).values_list('name', 'problem__count')
         context = {'page_title': 'Update Topic',
                    'form': form, 'topic_list': topics}
@@ -340,15 +353,16 @@ class UpdateTopic(View):
         """
         form = CreateTopicForm(request.POST)
         if not form.is_valid():
-            topics = Topic.objects.annotate(
+            topics = Topic.objects.filter(user=request.user).annotate(
                 Count('problem')).values_list('name', 'problem__count')
             context = {'page_title': 'Update Topic',
                        'form': form, 'topic_list': topics}
             return render(request, self.template, context)
         new_topic = form.cleaned_data['topic'].lower().title()
-        has_topic = Topic.objects.filter(user=request.user).filter(name=new_topic).exists()
+        has_topic = Topic.objects.filter(
+            user=request.user).filter(name=new_topic).exists()
         if has_topic:
-            topics = Topic.objects.annotate(
+            topics = Topic.objects.filter(user=request.user).annotate(
                 Count('problem')).values_list('name', 'problem__count')
             context = {'page_title': 'Update Topic', 'form': form, 'topic_list': topics,
                        'message': 'Topic with this name already exists!'}
