@@ -1,6 +1,6 @@
 /* fade in page animation */
 .fade-in {
-    animation: fadein 1s;
+    animation: fadein 0.8s;
 }
 
 @keyframes fadein {
