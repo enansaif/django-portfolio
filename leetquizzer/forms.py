@@ -61,7 +61,7 @@ class UpdateProblemForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
-        super(CreateProblemForm, self).__init__(*args, **kwargs)
+        super(UpdateProblemForm, self).__init__(*args, **kwargs)
         self.fields['topic'].queryset = Topic.objects.filter(user=user)
 
 
