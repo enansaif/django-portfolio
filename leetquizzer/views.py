@@ -131,7 +131,7 @@ class CreateProblem(LoginRequiredMixin, View):
         """
         Handle GET request for creating a new problem.
         """
-        form = CreateProblemForm()
+        form = CreateProblemForm(user=request.user)
         context = {'form': form, 'page_title': 'Create Problem'}
         return render(request, self.template, context)
 
@@ -153,7 +153,7 @@ class CreateProblem(LoginRequiredMixin, View):
             a new Problem instance is created and saved to the database. The response is redirected 
             to the success URL.
         """
-        form = CreateProblemForm(request.POST)
+        form = CreateProblemForm(request.POST, user=request.user)
         if not form.is_valid():
             context = {'form': form, 'page_title': 'Create Problem'}
             return render(request, self.template, context)
@@ -217,7 +217,7 @@ class UpdateProblem(LoginRequiredMixin, View):
             "option1": problem.option1,
             "option2": problem.option2,
         }
-        form = UpdateProblemForm(initial=initial_dict)
+        form = UpdateProblemForm(initial=initial_dict, user=request.user)
         context = {'form': form, 'page_title': 'Update Problem'}
         return render(request, self.template, context)
 
@@ -229,7 +229,7 @@ class UpdateProblem(LoginRequiredMixin, View):
             request (HttpRequest): The HTTP request object.
             problem_id (int): The ID of the problem to be updated.
         """
-        form = UpdateProblemForm(request.POST)
+        form = UpdateProblemForm(request.POST, user=request.user)
         if not form.is_valid():
             context = {'form': form, 'page_title': 'Update Problem'}
             return render(request, self.template, context)

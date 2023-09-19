@@ -10,7 +10,6 @@ textinput_widget = forms.TextInput(attrs={'class': 'form-control'})
 link_widget = forms.TextInput(attrs={'class': 'form-control',
                                      'placeholder': 'https://leetcode.com/problems/<problem-title>/'})
 choice_widget = forms.Select(attrs={'class': 'form-control'})
-topic = Topic.objects.all()
 difficulty = Difficulty.objects.all()
 
 
@@ -29,7 +28,7 @@ class CreateProblemForm(forms.Form):
     link = forms.URLField(
         max_length=150, label='LeetCode Link*', widget=link_widget)
     topic = forms.ModelChoiceField(
-        queryset=topic, label='Topic*', widget=choice_widget)
+        queryset=None, label='Topic*', widget=choice_widget)
     solution = forms.CharField(
         max_length=300, label='Best Solution*', widget=textarea_widget)
     option1 = forms.CharField(max_length=300, required=False, label='Brute Force',
@@ -38,6 +37,11 @@ class CreateProblemForm(forms.Form):
                               widget=textarea_widget)
     edge_case = forms.CharField(max_length=300, required=False, label='Edge Cases',
                                 widget=textarea_widget)
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(CreateProblemForm, self).__init__(*args, **kwargs)
+        self.fields['topic'].queryset = Topic.objects.filter(user=user)
 
 
 class UpdateProblemForm(forms.Form):
@@ -45,7 +49,7 @@ class UpdateProblemForm(forms.Form):
     Form for creating a problem.
     """
     topic = forms.ModelChoiceField(
-        queryset=topic, label='Topic*', widget=choice_widget)
+        queryset=None, label='Topic*', widget=choice_widget)
     solution = forms.CharField(
         max_length=300, label='Best Solution*', widget=textarea_widget)
     option1 = forms.CharField(max_length=300, required=False, label='Brute Force',
@@ -54,6 +58,11 @@ class UpdateProblemForm(forms.Form):
                               widget=textarea_widget)
     edge_case = forms.CharField(max_length=300, required=False, label='Edge Cases',
                                 widget=textarea_widget)
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(CreateProblemForm, self).__init__(*args, **kwargs)
+        self.fields['topic'].queryset = Topic.objects.filter(user=user)
 
 
 class CreateTopicForm(forms.Form):
