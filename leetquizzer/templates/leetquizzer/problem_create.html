@@ -12,7 +12,7 @@
         </p>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <input type="submit" class="btn btn-secondary mt-1" value="Submit">
-            <a href="{% url 'leetquizzer:create_topic' %}" class="btn btn-secondary">+Topic</a>
+            <a href="{% url 'leetquizzer:create_topic' %}?next={{ request.path }}" class="btn btn-secondary">+Topic</a>
         </li>
     </form>
     {% if message %}

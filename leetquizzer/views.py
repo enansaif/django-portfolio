@@ -273,7 +273,7 @@ class CreateTopic(View):
         success_url (str): The URL to redirect to after successfully creating the topic.
     """
     template = 'leetquizzer/topic_create.html'
-    success_url = reverse_lazy('leetquizzer:create_problem')
+    success_url = reverse_lazy('leetquizzer:main_menu')
 
     def get(self, request):
         """
@@ -321,7 +321,7 @@ class CreateTopic(View):
             return render(request, self.template, context)
         topic = Topic(name=new_topic, user=request.user)
         topic.save()
-        return redirect(self.success_url)
+        return redirect(request.GET.get('next', self.success_url))
 
 
 class UpdateTopic(View):
