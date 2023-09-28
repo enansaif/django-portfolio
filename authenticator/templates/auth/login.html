@@ -17,6 +17,11 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password">
                     </div>
+                    <p>
+                        Don't have an account?
+                        <a href="{% url 'authenticator:signup' %}?next={{ request.GET.next }}"
+                           class="link-dark">Signup</a>
+                    </p>
                     <button type="submit" class="btn btn-light form-control">LOGIN</button>
                 </form>
                 {% if messages %}

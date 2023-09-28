@@ -10,6 +10,11 @@
                 <form action="", method="post">
                     {% csrf_token %}
                     {{ form }}
+                    <p>
+                        Already have an account?
+                        <a href="{% url 'authenticator:login' %}?next={{ request.GET.next }}"
+                           class="link-dark">Login</a>
+                    </p>
                     <button type="submit" class="btn btn-light form-control mt-1">SIGNUP</button>
                 </form>
             </div>
