@@ -10,13 +10,14 @@
                             <p class="card-title lead">{{ project.name }}</p>
                             <p class="card-text">{{ project.description }}</p>
                             <p class="card-text">
-                                Tools:
+                                Technology:
                                 {% for tool in project.tools %}
                                     {{ tool }}
                                     {% if forloop.counter < project.tools|length %},{% endif %}
                                 {% endfor %}
                             </p>
-                            <a class="social-btn" href="{{ project.url }}">Open Project</a>
+                            <a class="social-btn m-0" href="{{ project.url }}">Project</a>
+                            <a class="social-btn-r m-0" href="{{ project.github }}">GitHub</a>
                         </div>
                     </div>
                 </div>

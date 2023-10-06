@@ -42,10 +42,20 @@ def project_info():
     leetquizzer = {
         'name': 'Leetquizzer',
         'description': 'A CRUD application for a quick review of my previously solved questions.',
-        'tools': ['Python', 'Django', 'Bootstrap'],
+        'tools': ['Python', 'Django', 'Bootstrap', 'GraphQL', 'JavaScript'],
         'url': reverse('leetquizzer:main_menu'),
+        'github': 'https://github.com/enansaif/flashcards',
+    }
+    portfolio = {
+        'name': 'Portfolio',
+        'description': '''My portfolio itself is a django app that routs to other django 
+                          applications.''',
+        'tools': ['Python', 'Django', 'HTML', 'CSS', 'Bootstrap'],
+        'url': reverse('portfolio:base'),
+        'github': 'https://github.com/enansaif/portfolio',
     }
     project_list.append(leetquizzer)
+    project_list.append(portfolio)
     return project_list
 
 
