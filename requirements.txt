@@ -4,3 +4,6 @@ django-extensions==3.2.3
 djlint==1.32.1
 requests==2.31.0
 urllib3==2.0.4
+onnxruntime==1.16.3
+chess==1.10.0
+numpy==1.26.3

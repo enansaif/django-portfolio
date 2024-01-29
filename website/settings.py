@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "authenticator",
     "portfolio",
     "leetquizzer",
+    "chess_app",
 ]
 
 MIDDLEWARE = [
@@ -142,6 +143,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'portfolio/static/'),
     os.path.join(BASE_DIR, 'authenticator/static/'),
     os.path.join(BASE_DIR, 'leetquizzer/static/'),
+    os.path.join(BASE_DIR, 'chess_app/static/'),
 ]
 
 # Default primary key field type
