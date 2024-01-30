@@ -39,6 +39,14 @@ def project_info():
     - 'url': The URL or route for accessing the project.
     """
     project_list = []
+    chessai = {
+        'name': 'Chess-AI',
+        'description': '''Play against AI. developed using Django, the chess.py library and chessboard.js library''',
+        'tools': ['Python', 'JavaScript', 'PyTorch', 'Bootstrap', 'chess.py'],
+        'url': reverse('chess_app:game_view'),
+        'github': 'https://github.com/enansaif/chess_project',
+    }
+    
     leetquizzer = {
         'name': 'Leetquizzer',
         'description': 'A CRUD application for a quick review of my previously solved questions.',
@@ -48,12 +56,12 @@ def project_info():
     }
     portfolio = {
         'name': 'Portfolio',
-        'description': '''My portfolio itself is a django app that routs to other django 
-                          applications.''',
+        'description': '''My portfolio itself is a django app that routs to other django applications.''',
         'tools': ['Python', 'Django', 'HTML', 'CSS', 'Bootstrap'],
         'url': reverse('portfolio:base'),
         'github': 'https://github.com/enansaif/portfolio',
     }
+    project_list.append(chessai)
     project_list.append(leetquizzer)
     project_list.append(portfolio)
     return project_list

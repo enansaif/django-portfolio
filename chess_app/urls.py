@@ -3,7 +3,7 @@ from . import views
 
 app_name = 'chess_app'
 urlpatterns = [
-    path('', views.home),
+    path('', views.home, name='game_view'),
     path('play_step/', views.play_step, name='play_step'),
     path('reset_game/', views.reset_game, name='reset_game'),
 ]

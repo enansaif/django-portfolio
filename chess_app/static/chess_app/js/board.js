@@ -5,7 +5,21 @@
  * @returns {string} - The URL for the image of the chess piece.
  */
 function pieceTheme(piece) {
-  return "static/chess_app/img/chesspieces/" + piece + ".png";
+  var pieces = {
+    "bB" : "https://i.ibb.co/WDd0Mfb/bB.png",
+    "bK" : "https://i.ibb.co/YWXYQQx/bK.png",
+    "bN" : "https://i.ibb.co/2jXmX0S/bN.png",
+    "bP" : "https://i.ibb.co/9m0TYr0/bP.png",
+    "bQ" : "https://i.ibb.co/bWsMVms/bQ.png",
+    "bR" : "https://i.ibb.co/dJ2hR5C/bR.png",
+    "wB" : "https://i.ibb.co/k9PRDf6/wB.png",
+    "wK" : "https://i.ibb.co/zVgcmzW/wK.png",
+    "wN" : "https://i.ibb.co/9h9d7Vx/wN.png",
+    "wP" : "https://i.ibb.co/J7bnzVh/wP.png",
+    "wQ" : "https://i.ibb.co/vBf011T/wQ.png",
+    "wR" : "https://i.ibb.co/ZSGf8JX/wR.png"
+  }
+  return pieces[piece]
 }
 
 /**
