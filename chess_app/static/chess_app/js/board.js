@@ -93,6 +93,8 @@ function onDrop(source, target) {
 
   if (isMoveComplete) {
     hitURL(game_url, move);
+  } else {
+    return "snapback";
   }
 }
 
