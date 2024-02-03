@@ -41,29 +41,31 @@ def project_info():
     project_list = []
     chessai = {
         'name': 'Chess-AI',
-        'description': '''Play against AI. developed using Django, the chess.py library and chessboard.js library''',
-        'tools': ['Python', 'JavaScript', 'PyTorch', 'Bootstrap', 'chess.py'],
+        'description': '''
+        A web application that allows users to play chess against AI bots, implemented using the 
+        traditional minimax algorithm and a convolutional neural network. This web app is developed 
+        using the Django framework, incorporating the chess.py library for backend functionality 
+        and the chessboard.js library for the frontend chessboard interface.
+        ''',
+        'tools': ['Python', 'JavaScript', 'PyTorch', 'onnxruntime' 'Bootstrap', 'chess.py', 'chessboard.js'],
         'url': reverse('chess_app:game_view'),
         'github': 'https://github.com/enansaif/chess_project',
     }
     
     leetquizzer = {
         'name': 'Leetquizzer',
-        'description': 'A CRUD application for a quick review of my previously solved questions.',
+        'description': '''
+        A CRUD application for a quick review of previously solved leetcode questions. Just share the link 
+        of the problem, choose a category, and upload your solutions. The app will then create a 
+        separate page for each problem by talking to the leetcode/graphql server using GraphQL queries.
+        ''',
         'tools': ['Python', 'Django', 'Bootstrap', 'GraphQL', 'JavaScript'],
         'url': reverse('leetquizzer:main_menu'),
         'github': 'https://github.com/enansaif/flashcards',
     }
-    portfolio = {
-        'name': 'Portfolio',
-        'description': '''My portfolio itself is a django app that routs to other django applications.''',
-        'tools': ['Python', 'Django', 'HTML', 'CSS', 'Bootstrap'],
-        'url': reverse('portfolio:base'),
-        'github': 'https://github.com/enansaif/portfolio',
-    }
+    
     project_list.append(chessai)
     project_list.append(leetquizzer)
-    project_list.append(portfolio)
     return project_list
 
 

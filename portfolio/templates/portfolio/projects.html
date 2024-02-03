@@ -2,26 +2,24 @@
 {% block title %}<title>Projects</title>{% endblock %}
 {% block content %}
     <div class="container fade-in">
-        <div class="row">
-            {% for project in project_list %}
-                <div class="col pt-5 d-flex justify-content-around align-items-center">
-                    <div class="card shadow rounded border-0" style="width: 18rem;">
-                        <div class="card-body">
-                            <p class="card-title lead">{{ project.name }}</p>
-                            <p class="card-text">{{ project.description }}</p>
-                            <p class="card-text">
-                                Technology:
-                                {% for tool in project.tools %}
-                                    {{ tool }}
-                                    {% if forloop.counter < project.tools|length %},{% endif %}
-                                {% endfor %}
-                            </p>
-                            <a class="social-btn m-0" href="{{ project.url }}">Project</a>
-                            <a class="social-btn-r m-0" href="{{ project.github }}">GitHub</a>
-                        </div>
+        {% for project in project_list %}
+            <div class="row pt-3">
+                <div class="card shadow rounded border-0">
+                    <div class="card-body">
+                        <p class="card-title lead">{{ project.name }}</p>
+                        <p class="card-text">{{ project.description }}</p>
+                        <p class="card-text">
+                            Technology:
+                            {% for tool in project.tools %}
+                                {{ tool }}
+                                {% if forloop.counter < project.tools|length %},{% endif %}
+                            {% endfor %}
+                        </p>
+                        <a class="social-btn m-0" href="{{ project.url }}">Project</a>
+                        <a class="social-btn-r m-0" href="{{ project.github }}">GitHub</a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
