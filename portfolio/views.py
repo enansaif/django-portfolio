@@ -47,7 +47,7 @@ def project_info():
         using the Django framework, incorporating the chess.py library for backend functionality 
         and the chessboard.js library for the frontend chessboard interface.
         ''',
-        'tools': ['Python', 'JavaScript', 'PyTorch', 'onnxruntime' 'Bootstrap', 'chess.py', 'chessboard.js'],
+        'tools': ['Python', 'JavaScript', 'PyTorch', 'onnxruntime', 'Bootstrap', 'chess.py', 'chessboard.js'],
         'url': reverse('chess_app:game_view'),
         'github': 'https://github.com/enansaif/chess_project',
     }
