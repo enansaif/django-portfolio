@@ -112,7 +112,6 @@ var config = {
   pieceTheme: pieceTheme,
   onDrop: onDrop,
   draggable: true,
-  showNotation: false,
 };
 var isMoveComplete = true;
 var board = Chessboard("board", config);

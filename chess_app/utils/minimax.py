@@ -1,5 +1,5 @@
 import chess
-from .functions import evaluate
+from .functions import calculate_score
 
 def predict(board, depth, is_ai):
     '''
@@ -15,8 +15,9 @@ def predict(board, depth, is_ai):
            The evaluation score is based on the current board position and the specified depth.
     '''
     if depth == 0 or board.is_game_over():
-        color = chess.BLACK if is_ai else chess.WHITE
-        return None, evaluate(board, color)
+        chessai_score = calculate_score(board, chess.BLACK)
+        player1_score = calculate_score(board, chess.WHITE)
+        return None, chessai_score - player1_score
     
     eval = -1*float('inf') if is_ai else float('inf')
     best_move = None

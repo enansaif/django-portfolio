@@ -93,26 +93,6 @@ def calculate_score(board, color):
 
     return material_score + position_score + check_score
 
-
-def evaluate(board, color):
-    """
-    Evaluate the overall position on the chess board for a given player.
-
-    Parameters:
-    - board (chess.Board): The chess board representing the current state of the game.
-    - color (chess.Color): The color for which to evaluate the position.
-
-    Returns:
-    int: The evaluation score for the specified player, taking into account the opponent's position.
-    """
-    ai_score = calculate_score(board, chess.BLACK)
-    player_score = calculate_score(board, chess.WHITE)
-
-    if color == chess.WHITE:
-        return player_score - ai_score
-    return ai_score - player_score
-
-
 def get_mapping(board, piece):
     s = str(board)
     s = re.sub(f"[^{piece}{piece.upper()} \n]", ".", str(board))
