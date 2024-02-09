@@ -35,7 +35,7 @@ function updateGame(json_data) {
   is_check = json_data["is_check"];
 
   let status = document.getElementById("status");
-  if (is_game_over) {
+  if (is_game_over || legal_moves.length === 0) {
     status.innerHTML =
       '<span class="bg-danger pb-1 px-2 rounded">Game Over</span>';
   } else if (is_check) {
@@ -93,6 +93,8 @@ function onDrop(source, target) {
 
   if (isMoveComplete) {
     hitURL(game_url, move);
+    var button = document.getElementById("undo-btn");
+    button.disabled = false;
   } else {
     return "snapback";
   }
@@ -104,6 +106,16 @@ function onDrop(source, target) {
 function resetGame() {
   if (isMoveComplete) {
     hitURL(reset_url, null);
+    var button = document.getElementById("undo-btn");
+    button.disabled = false;
+  }
+}
+
+function undoMove() {
+  if (isMoveComplete) {
+    hitURL(undo_move, null);
+    var button = document.getElementById("undo-btn");
+    button.disabled = true;
   }
 }
 
