@@ -25,7 +25,7 @@ def play(player1_move, board, predictor):
       copy_board = chess.Board(board.fen())
       if predictor == 'minimax':
          move, _ = minimax.predict(copy_board, depth=2, is_ai=True)
-      if predictor == 'chessai':
+      elif predictor == 'chessai':
          move = inference.predict(copy_board)
       else:
          move = random.choice(list(board.legal_moves))
