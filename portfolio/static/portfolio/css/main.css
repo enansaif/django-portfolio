@@ -6,9 +6,8 @@
 }
 
 body {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    overflow-y: scroll;
+    background-color: #272727;
+    color:white;
 }
 
 body::-webkit-scrollbar {
