@@ -1,7 +1,6 @@
 :root {
     --theme-blue: #55bae2;
     --theme-orange: #f3b542;
-    --color-primary: white;
     --transition-duration: 0.1s;
 }
 
@@ -10,67 +9,17 @@ body {
     color:white;
 }
 
-body::-webkit-scrollbar {
-    display: none;
+.slidein-card {
+    background-color: #292929;
 }
 
-/* main.py about section */
-.dot {
-    opacity: 0.1;
+.dark-form {
+    background-color: #242526;
+    border-color: #414141;
 }
 
-.function {
-    color: blue;
-}
-
-.variable {
-    color: orange;
-}
-
-.self {
-    color: green;
-}
-
-.social-btn {
-    transition: var(--transition-duration);
-    background-color: var(--theme-orange);
-    color: var(--color-primary);
-    text-decoration: none;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    border: none;
-}
-
-.social-btn:hover {
-    transition: var(--transition-duration);
-    background-color: var(--theme-blue);
-    color: var(--color-primary);
-}
-
-.social-btn-r {
-    transition: var(--transition-duration);
-    background-color: var(--theme-blue);
-    color: var(--color-primary);
-    text-decoration: none;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    border: none;
-}
-
-.social-btn-r:hover {
-    transition: var(--transition-duration);
-    background-color: var(--theme-orange);
-    color: var(--color-primary);
-}
-
-
-
-.skills {
-    font-size: 20px;
-    background-color: black;
-    color: var(--color-primary);
-    padding: 2px;
-    border-radius: 2px;
+.dark-form:focus {
+    background-color: #292929;
+    border-color: #414141;
+    color:white;
 }

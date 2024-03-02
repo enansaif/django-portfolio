@@ -10,72 +10,11 @@ from website.settings import EMAIL_HOST_USER
 from .forms import ContactForm
 
 
-def base(request):
+def index(request):
     """
     Serves as the main entry point to the website.
     """
-    return render(request, 'portfolio/base.html')
-
-
-def about(request):
-    """
-    Serves the about page.
-    """
-    return render(request, 'portfolio/about.html')
-
-
-def project_info():
-    """
-    Retrieve information about projects.
-
-    Returns:
-        list: A list of dictionaries containing project information.
-
-    This function retrieves information about projects and returns it as a list of dictionaries.
-    Each dictionary represents a project and contains the following keys:
-    - 'name': The name of the project.
-    - 'description': A description of the project.
-    - 'tools': A list of tools/technologies used in the project.
-    - 'url': The URL or route for accessing the project.
-    """
-    project_list = []
-    chessai = {
-        'name': 'Chess-AI',
-        'description': '''
-        A web application that allows users to play chess against AI bots, implemented using the 
-        traditional minimax algorithm and a convolutional neural network. This web app is developed 
-        using the Django framework, incorporating the chess.py library for backend functionality 
-        and the chessboard.js library for the frontend chessboard interface.
-        ''',
-        'tools': ['Python', 'JavaScript', 'PyTorch', 'onnxruntime', 'Bootstrap', 'chess.py', 'chessboard.js'],
-        'url': reverse('chess_app:game_view'),
-        'github': 'https://github.com/enansaif/chess_project',
-    }
-    
-    leetquizzer = {
-        'name': 'Leetquizzer',
-        'description': '''
-        A CRUD application for a quick review of previously solved leetcode questions. Just share the link 
-        of the problem, choose a category, and upload your solutions. The app will then create a 
-        separate page for each problem by talking to the leetcode/graphql server using GraphQL queries.
-        ''',
-        'tools': ['Python', 'Django', 'Bootstrap', 'GraphQL', 'JavaScript'],
-        'url': reverse('leetquizzer:main_menu'),
-        'github': 'https://github.com/enansaif/flashcards',
-    }
-    
-    project_list.append(chessai)
-    project_list.append(leetquizzer)
-    return project_list
-
-
-def projects(request):
-    """
-    Serves the projects page with a list of projects.
-    """
-    context = {'project_list': project_info()}
-    return render(request, 'portfolio/projects.html', context)
-
+    return render(request, 'portfolio/index.html', {'form': ContactForm()})
 
 class ContactView(View):
     """

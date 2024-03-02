@@ -3,9 +3,9 @@ Contact Form for Portfolio project
 """
 from django import forms
 
-textarea_widget = forms.Textarea(attrs={'rows': '8', 'class': 'form-control',
+textarea_widget = forms.Textarea(attrs={'rows': '5', 'class': 'form-control dark-form',
                                         'style': 'resize:none'})
-textinput_widget = forms.TextInput(attrs={'class': 'form-control'})
+textinput_widget = forms.TextInput(attrs={'class': 'form-control dark-form'})
 
 
 class ContactForm(forms.Form):
