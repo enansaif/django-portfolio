@@ -2,21 +2,6 @@
     --animation-duration: 400ms;
 }
 
-/* fade in page animation */
-.fade-in {
-    animation: fadein 0.8s;
-}
-
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 /* image frame circular animation */
 .frame {
     position: relative;
@@ -74,78 +59,4 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* about section left-right animation */
-.right-left1 {
-    animation: rightToLeft var(--animation-duration) ease-out forwards;
-    transform: translateX(150%);
-}
-
-.left-right1 {
-    animation: leftToRight var(--animation-duration) ease-out forwards var(--animation-duration);
-    transform: translateX(-150%);
-}
-
-.right-left2 {
-    animation: rightToLeft var(--animation-duration) ease-out forwards calc(var(--animation-duration) * 2);
-    transform: translateX(150%);
-}
-
-.left-right2 {
-    animation: leftToRight var(--animation-duration) ease-out forwards calc(var(--animation-duration) * 3);
-    transform: translateX(-150%);
-}
-
-.right-left3 {
-    animation: rightToLeft var(--animation-duration) ease-out forwards calc(var(--animation-duration) * 4);
-    transform: translateX(150%);
-}
-
-@keyframes leftToRight {
-    0% {
-        transform: translateX(-150%);
-    }
-
-    80% {
-        transform: translateX(5%);
-    }
-
-    100% {
-        transform: translateX(0%);
-    }
-}
-
-@keyframes rightToLeft {
-    0% {
-        transform: translateX(150%);
-    }
-
-    80% {
-        transform: translateX(-5%);
-    }
-
-    100% {
-        transform: translateX(0%);
-    }
-}
-
-/* contact section drop animation */
-.dropFromTop {
-    animation: drop var(--animation-duration) ease-out forwards;
-    transform: translateY(-150%);
-}
-
-@keyframes drop {
-    0% {
-        transform: translateY(-100%);
-    }
-
-    75% {
-        transform: translateY(12.5%);
-    }
-
-    100% {
-        transform: translateY(0%);
-    }
 }

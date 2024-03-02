@@ -11,6 +11,16 @@ body {
 
 .slidein-card {
     background-color: #292929;
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100%);
+    transition: all 0.5s;
+}
+
+.slidein {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
 }
 
 .dark-form,
@@ -18,4 +28,11 @@ body {
     background-color: #242526;
     border-color: #414141;
     color: white;
+}
+
+.rounded-item {
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
 }

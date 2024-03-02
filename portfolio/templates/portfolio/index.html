@@ -82,6 +82,13 @@
                     document and ask questions about it to different large language models like OpenAI's ChatGPT or GCP
                     Vertex AI.
                 </p>
+                <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">JavaScript</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">LangChain</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Bootstrap</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">FastAPI</li>
+                </ul>
             </div>
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
@@ -102,6 +109,15 @@
                     an Image Analyzer REST API capable of extracting information such as age, gender, race, emotion,
                     scene, object, and context from any image using various image processing techniques.
                 </p>
+                <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">OpenCV</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">PyTorch</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">NumPy</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Pandas</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Django</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">FastAPI</li>
+                </ul>
             </div>
         </div>
         <div class="row text-end"><a href="">my resume</a></div>
@@ -121,6 +137,14 @@
                     different algorithms, with one utilizing minimax and another employing a Convolutional Neural
                     Network trained on a kaggle chess dataset.
                 </p>
+                <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">JavaScript</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Pytorch</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">chessboard.js</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">python-chess</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">onnxruntime</li>
+                </ul>
             </div>
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
@@ -136,19 +160,25 @@
                     application will automatically generate dedicated pages for each problem by utilizing GraphQL
                     queries to the leetcode/graphql server for getting additional question information.
                 </p>
+                <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">JavaScript</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">GraphQL</li>
+                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Bootstrap</li>
+                </ul>
             </div>
         </div>
         <div class="row text-start">
             <h2>Contact</h2>
         </div>
-        <div class="row">
+        <div class="row slidein-card shadow-sm rounded p-2">
             <div class="col-xl-3">
                 <p>
                     Please feel free to message me anytime. You can email me through the form, or reach out to me via
                     <a href="https://www.linkedin.com/in/enansaif/">Linked In</a>
                 </p>
             </div>
-            <div class="col slidein-card shadow-sm rounded p-2">
+            <div class="col">
                 <form id="contactForm">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control dark-form" id="name" name="name" required>
@@ -189,6 +219,21 @@
                 console.error('Error:', error);
             });
         }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slidein');
+                } else {
+                    entry.target.classList.remove('slidein');
+                }
+            });
+        });
+
+        const hiddenElement = document.querySelectorAll('.slidein-card')
+        hiddenElement.forEach((element) => {
+            observer.observe(element);
+        });
     </script>
 </body>
 
