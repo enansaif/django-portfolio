@@ -9,7 +9,7 @@
     <title>Saife Shuhaib Md.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
@@ -33,6 +33,8 @@
                                     class="devicon-linkedin-plain"></i></a>
                             <a class="btn fs-3 text-light" href="https://github.com/enansaif"><i
                                     class="devicon-github-original"></i></a>
+                            <a class="p-3 link-light link-underline-opacity-0 link-underline-opacity-100-hover"
+                                href="{% static 'portfolio/pdf/resume.pdf' %}">my resume &nearr;</a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +43,7 @@
                 <div class="container p-0 d-flex justify-content-center align-items-start align-items-md-center">
                     <div class="frame">
                         <div class="content">
-                            <img src="{% static 'portfolio/img/profileimage.png' %}" alt="Profile Picture" height="100%"
+                            <img src="{% static 'portfolio/img/profileimage.jpg' %}" alt="Profile Picture" height="100%"
                                 width="100%" class="rounded-circle">
                         </div>
                     </div>
@@ -120,7 +122,6 @@
                 </ul>
             </div>
         </div>
-        <div class="row text-end"><a href="">my resume</a></div>
         <div class="row text-start">
             <h2>Projects</h2>
         </div>
@@ -204,20 +205,20 @@
 
             fetch("{% url 'portfolio:contact' %}", {
                 method: 'POST',
-                body: JSON.stringify({name, email, message}),
+                body: JSON.stringify({ name, email, message }),
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': "{{ csrf_token }}",
                 },
             })
-            .then(response => response.json())
-            .then(responseData => {
-                alert('Thank you for contacting me.');
-                console.log('Server response:', responseData);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(responseData => {
+                    alert('Thank you for contacting me.');
+                    console.log('Server response:', responseData);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         const observer = new IntersectionObserver((entries) => {
