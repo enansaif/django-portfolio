@@ -13,13 +13,9 @@ body {
     background-color: #292929;
 }
 
-.dark-form {
+.dark-form,
+.dark-form:focus {
     background-color: #242526;
     border-color: #414141;
-}
-
-.dark-form:focus {
-    background-color: #292929;
-    border-color: #414141;
-    color:white;
+    color: white;
 }
