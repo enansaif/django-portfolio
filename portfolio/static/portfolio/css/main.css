@@ -2,25 +2,31 @@
     --theme-blue: #55bae2;
     --theme-orange: #f3b542;
     --transition-duration: 0.1s;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px black inset !important;
-    -webkit-text-fill-color: white !important;
+    --default-background-color: #242526;
+    --default-card-color: #292929;
+    --default-border-color: #363636;
+    --default-text-color: white;
 }
 
 body {
     font-family: Space Grotesk, sans-serif;
-    background-color: #242526;
-    color:white;
-    
+    background-color: var(--default-background-color);
+    color: var(--default-text-color);
+}
+
+.light-side {
+    --default-background-color: #e9dcdc;
+    --default-card-color: rgb(226, 210, 210);
+    --default-border-color: #cebebe;
+    --default-text-color: black;
+}
+
+.link-color {
+    color: var(--default-text-color)
 }
 
 .slidein-card {
-    background-color: #292929;
+    background-color: var(--default-card-color);
     opacity: 0;
     filter: blur(5px);
     transform: translateX(-100%);
@@ -35,9 +41,9 @@ body {
 
 .dark-form,
 .dark-form:focus {
-    background-color: #242526;
-    border-color: #363636;
-    color: white;
+    background-color: var(--default-background-color);
+    border-color: var(--default-border-color);
+    color: var(--default-text-color);
 }
 
 .rounded-item {

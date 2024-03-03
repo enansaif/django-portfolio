@@ -13,6 +13,9 @@ hiddenElement.forEach((element) => {
     observer.observe(element);
 });
 
+var toggler = document.getElementById("dark-side-toggle");
+toggler.onclick = () => {document.body.classList.toggle("light-side")};
+
 function submitForm() {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
