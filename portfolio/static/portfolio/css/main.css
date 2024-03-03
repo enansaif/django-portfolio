@@ -4,9 +4,19 @@
     --transition-duration: 0.1s;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px black inset !important;
+    -webkit-text-fill-color: white !important;
+}
+
 body {
+    font-family: Space Grotesk, sans-serif;
     background-color: #242526;
     color:white;
+    
 }
 
 .slidein-card {

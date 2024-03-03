@@ -1,0 +1,46 @@
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("slidein");
+        } else {
+            entry.target.classList.remove("slidein");
+        }
+    });
+});
+
+const hiddenElement = document.querySelectorAll(".slidein-card");
+hiddenElement.forEach((element) => {
+    observer.observe(element);
+});
+
+function submitForm() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (!name || !email || !message) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    if (!re.test(String(email).toLowerCase())) {
+        alert("Please provide a valid email address.");
+        return;
+    }
+
+    alert("Thank you for contacting me.");
+
+    fetch(contactUrl, {
+        method: "POST",
+        body: JSON.stringify({ name, email, message }),
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrf_token,
+        },
+    })
+        .then((response) => response.json())
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+}
