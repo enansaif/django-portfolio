@@ -20,7 +20,13 @@
 </head>
 
 <body>
-    <div class="container-fluid col-xl-7">
+    <nav class="container col-xl-7 sticky-top sticky-nav shadow-sm text-end">
+        <a class="link-color" href="#home">Home</a>
+        <a class="link-color" href="#projects">Projects</a>
+        <a class="link-color" href="#contact">Contact</a>
+        <a class="btn border-0 fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i class="bi bi-lightbulb-fill"></i></a>
+    </nav>
+    <div id="home" class="container-fluid col-xl-7">
         <!--Landing section-->
         <div class="row py-5">
             <div class="col">
@@ -30,13 +36,12 @@
                         <p>Software Engineer</p>
                         <p>I build backend applications with python, artificial intelligence and machine learning</p>
                         <div>
-                            <a class="btn fs-4 link-color" href="https://www.linkedin.com/in/enansaif/"
+                            <a class="btn border-0 fs-4 link-color" href="https://www.linkedin.com/in/enansaif/"
                                 title="Linked In"><i class="bi bi-linkedin"></i></a>
-                            <a class="btn fs-4 link-color" href="https://github.com/enansaif" title="GitHub"><i
+                            <a class="btn border-0 fs-4 link-color" href="https://github.com/enansaif" title="GitHub"><i
                                     class="bi bi-github"></i></a>
-                            <a class="btn fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i class="bi bi-lightbulb-fill"></i></a>
                             <a class="p-3 link-color link-style"
-                                href="{% static 'portfolio/pdf/resume.pdf' %}">my resume <i
+                                href="{% static 'portfolio/pdf/resume.pdf' %}">Resume<i
                                     class="bi bi-box-arrow-up-right"></i></a>
                         </div>
                     </div>
@@ -90,11 +95,11 @@
                     Vertex AI.
                 </p>
                 <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">JavaScript</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">LangChain</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Bootstrap</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">FastAPI</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Python</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">JavaScript</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">LangChain</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Bootstrap</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">FastAPI</li>
                 </ul>
             </div>
         </div>
@@ -119,18 +124,18 @@
                     scene, object, and context from any image using various image processing techniques.
                 </p>
                 <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">OpenCV</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">PyTorch</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">NumPy</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Pandas</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Django</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">FastAPI</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Python</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">OpenCV</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">PyTorch</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">NumPy</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Pandas</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Django</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">FastAPI</li>
                 </ul>
             </div>
         </div>
         <div class="row text-start">
-            <h2>Projects</h2>
+            <h2 id="projects">Projects</h2>
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
             <div class="col-3">
@@ -146,12 +151,12 @@
                     Network trained on a kaggle chess dataset.
                 </p>
                 <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">JavaScript</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Pytorch</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">chessboard.js</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">python-chess</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">onnxruntime</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Python</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">JavaScript</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Pytorch</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">chessboard.js</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">python-chess</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">onnxruntime</li>
                 </ul>
             </div>
         </div>
@@ -169,15 +174,15 @@
                     queries to the leetcode/graphql server for getting additional question information.
                 </p>
                 <ul class="container p-0 list-unstyled d-flex justify-content-start align-items-md-center flex-wrap">
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Python</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">JavaScript</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">GraphQL</li>
-                    <li class="bg-secondary rounded-pill px-2 m-1 opacity-75">Bootstrap</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Python</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">JavaScript</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">GraphQL</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Bootstrap</li>
                 </ul>
             </div>
         </div>
         <div class="row text-start">
-            <h2>Contact</h2>
+            <h2 id="contact">Contact</h2>
         </div>
         <div class="row slidein-card shadow-sm rounded p-2">
             <div class="col-xl-3">
@@ -189,12 +194,12 @@
             <div class="col">
                 <form id="contactForm">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control dark-form" id="name" name="name" required>
+                    <input type="text" class="form-control contact-form" id="name" name="name" required>
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control dark-form" id="email" name="email" required>
+                    <input type="email" class="form-control contact-form" id="email" name="email" required>
                     <label for="message">Message:</label>
-                    <textarea id="message" class="form-control dark-form" name="message" rows="4" required></textarea>
-                    <button type="button" class="form-control dark-form mt-1" onclick="submitForm()">Submit</button>
+                    <textarea id="message" class="form-control contact-form" name="message" rows="4" required></textarea>
+                    <button type="button" class="form-control contact-form mt-1" onclick="submitForm()">Submit</button>
                 </form>
             </div>
         </div>

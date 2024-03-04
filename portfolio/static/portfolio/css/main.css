@@ -14,6 +14,15 @@ body {
     color: var(--default-text-color);
 }
 
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.sticky-nav {
+    background-color: var(--default-border-color);
+}
+
 .light-side {
     --default-background-color: #e9dcdc;
     --default-card-color: rgb(226, 210, 210);
@@ -39,16 +48,13 @@ body {
     transform: translateX(0);
 }
 
-.dark-form,
-.dark-form:focus {
+.contact-form,
+.contact-form:focus {
     background-color: var(--default-background-color);
     border-color: var(--default-border-color);
     color: var(--default-text-color);
 }
 
 .rounded-item {
-    border-radius: 20px;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 10px;
+    background-color: var(--default-border-color);
 }
