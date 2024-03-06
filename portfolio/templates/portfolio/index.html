@@ -20,13 +20,15 @@
 </head>
 
 <body>
-    <nav class="container col-xl-7 sticky-top sticky-nav shadow-sm text-end">
-        <a class="link-color" href="#home">Home</a>
-        <a class="link-color" href="#projects">Projects</a>
-        <a class="link-color" href="#contact">Contact</a>
-        <a class="btn border-0 fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i class="bi bi-lightbulb-fill"></i></a>
-    </nav>
     <div id="home" class="container-fluid col-xl-7">
+        <nav class="row sticky-top sticky-nav shadow-sm text-end">
+            <div>
+                <a class="p-1 link-color link-style" href="#home">Home</a>
+                <a class="p-1 link-color link-style" href="#projects">Projects</a>
+                <a class="p-1 btn border-0 fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i
+                        class="bi bi-lightbulb-fill"></i></a>
+            </div>
+        </nav>
         <!--Landing section-->
         <div class="row py-5">
             <div class="col">
@@ -40,9 +42,10 @@
                                 title="Linked In"><i class="bi bi-linkedin"></i></a>
                             <a class="btn border-0 fs-4 link-color" href="https://github.com/enansaif" title="GitHub"><i
                                     class="bi bi-github"></i></a>
-                            <a class="p-3 link-color link-style"
-                                href="{% static 'portfolio/pdf/resume.pdf' %}">Resume<i
-                                    class="bi bi-box-arrow-up-right"></i></a>
+                            <span class="px-3">
+                                <a class="link-color link-style"
+                                    href="{% static 'portfolio/pdf/resume.pdf' %}">Resume</a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -85,8 +88,7 @@
                 <p class="pt-1">February 2024 - Current</p>
             </div>
             <div class="col">
-                <h3>Software Engineer @ <a href="https://www.reea.net/"
-                        class="link-color link-style">REEA
+                <h3>Software Engineer @ <a href="https://www.reea.net/" class="link-color link-style">REEA
                         Digital Limited <i class="bi bi-box-arrow-up-right"></i></a></h3>
                 <p>
                     Though I haven't been working here for long, I've already been involved in some interesting
@@ -108,8 +110,7 @@
                 <p class="pt-1">November 2021 - January 2024</p>
             </div>
             <div class="col">
-                <h3>Software Engineer @ <a href="https://bjitgroup.com/"
-                        class="link-color link-style">BJIT
+                <h3>Software Engineer @ <a href="https://bjitgroup.com/" class="link-color link-style">BJIT
                         Limited <i class="bi bi-box-arrow-up-right"></i></a></h3>
                 <p>
                     During my time at BJIT Limited, I played a crucial role in developing impactful projects that
@@ -138,12 +139,15 @@
             <h2 id="projects">Projects</h2>
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
-            <div class="col-3">
-                <img src="{% static 'portfolio/img/chessboard.png' %}" alt="Chess Project Snapshot" width="100%"
-                    height="auto">
+            <div class="col-sm-3">
+                <a href="{% url 'chess_app:game_view' %}" target="_blank">
+                    <img src="{% static 'portfolio/img/chessboard.png' %}" alt="Chess Project Snapshot" width="100%"
+                        height="auto">
+                </a>
             </div>
             <div class="col">
-                <h3>Chess-AI</h3>
+                <h3 class="pt-1"><a class="link-color link-style" href="{% url 'chess_app:game_view' %}">Chess-AI <i
+                            class="bi bi-box-arrow-up-right"></i></a></h3>
                 <p>
                     Developed with Django, the python-chess library, and chessboard.js, this web-based chess application
                     allows users to participate in chess matches against an AI opponent. The bots are developed using
@@ -161,12 +165,16 @@
             </div>
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
-            <div class="col-3">
-                <img src="{% static 'portfolio/img/leetquizzer.png' %}" alt="Quizzer Project Snapshot" width="100%"
-                    height="auto">
+            <div class="col-sm-3">
+                <a href="{% url 'leetquizzer:main_menu' %}" target="_blank">
+                    <img src="{% static 'portfolio/img/leetquizzer.png' %}" alt="Quizzer Project Snapshot" width="100%"
+                        height="auto">
+                </a>
             </div>
             <div class="col">
-                <h3>Leetcode-Flashcards</h3>
+                <h3 class="pt-1"><a class="link-color link-style"
+                        href="{% url 'leetquizzer:main_menu' %}">Leetcode-Flashcards <i
+                            class="bi bi-box-arrow-up-right"></i></a></h3>
                 <p>
                     A Django-based web application designed for efficient review of solved leetcode questions. Users can
                     input the problem link, specify a topic for categorization, and provide their solutions. The
@@ -188,7 +196,7 @@
             <div class="col-xl-3">
                 <p>
                     Please feel free to message me anytime. You can email me through the form, or reach out to me via
-                    <a href="https://www.linkedin.com/in/enansaif/">Linked In</a>
+                    <a href="https://www.linkedin.com/in/enansaif/" class="link-style link-color">Linked In <i class="bi bi-box-arrow-up-right"></i></a>
                 </p>
             </div>
             <div class="col">
@@ -198,7 +206,8 @@
                     <label for="email">Email:</label>
                     <input type="email" class="form-control contact-form" id="email" name="email" required>
                     <label for="message">Message:</label>
-                    <textarea id="message" class="form-control contact-form" name="message" rows="4" required></textarea>
+                    <textarea id="message" class="form-control contact-form" name="message" rows="4"
+                        required></textarea>
                     <button type="button" class="form-control contact-form mt-1" onclick="submitForm()">Submit</button>
                 </form>
             </div>
