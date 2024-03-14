@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Saife Shuhaib Md. - Software Engineer specializing in backend applications, AI, and ML.">
+    <meta name="keywords" content="Saife Shuhaib Md, Software Engineer, Python, AI, Machine Learning, Backend Development">
     <title>Saife Shuhaib Md.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,8 +27,7 @@
             <div>
                 <a class="p-1 link-color link-style" href="#home">Home</a>
                 <a class="p-1 link-color link-style" href="#projects">Projects</a>
-                <a class="p-1 btn border-0 fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i
-                        class="bi bi-lightbulb-fill"></i></a>
+                <a class="p-1 btn border-0 fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i id="toggler-icon" class="bi bi-sun-fill"></i></a>
             </div>
         </nav>
         <!--Landing section-->
@@ -208,12 +209,11 @@
                     <label for="message">Message:</label>
                     <textarea id="message" class="form-control contact-form" name="message" rows="4"
                         required></textarea>
-                    <button type="button" class="form-control contact-form mt-1" onclick="submitForm()">Submit</button>
+                    <button type="button" class="form-control contact-form mt-1" onclick="submitForm()">Send</button>
                 </form>
             </div>
         </div>
     </div>
-    <footer class="p-5"></footer>
     <script>
         const contactUrl = "{% url 'portfolio:contact' %}"
         const csrf_token = "{{ csrf_token }}"
