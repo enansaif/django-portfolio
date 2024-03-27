@@ -24,6 +24,19 @@ toggler.onclick = () => {
   }
 };
 
+const blurDiv = document.querySelector(".blur-load");
+const img = blurDiv.querySelector("img");
+
+if (img.complete) {
+  loaded();
+} else {
+  img.addEventListener("load", loaded);
+}
+
+function loaded() {
+  blurDiv.classList.add("loaded");
+}
+
 function submitForm() {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
