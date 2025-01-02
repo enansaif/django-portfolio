@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,10 +14,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{% static 'portfolio/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'portfolio/css/animations.css' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'portfolio/img/favicon.ico' %}" />
-    <script defer src="{% static 'portfolio/js/app.js' %}"></script>
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/animations.css">
+    <link rel="shortcut icon" type="image/png" href="static/img/favicon.ico" />
+    <script defer src="static/js/app.js"></script>
 </head>
 
 <body>
@@ -45,7 +44,7 @@
                                     class="bi bi-github"></i></a>
                             <span class="px-3">
                                 <a class="link-color link-style"
-                                    href="{% static 'portfolio/pdf/resume.pdf' %}">Resume</a>
+                                    href="static/pdf/resume.pdf">Resume</a>
                             </span>
                         </div>
                     </div>
@@ -54,8 +53,8 @@
             <div class="col-md-3 col-5">
                 <div class="container p-0 d-flex justify-content-center align-items-start align-items-md-center">
                     <div class="frame">
-                        <div class="content blur-load" style="background-image: url({% static 'portfolio/img/profileimage-min.jpg' %});">
-                            <img src="{% static 'portfolio/img/profileimage.jpg' %}" alt="Profile Picture" height="100%"
+                        <div class="content blur-load" style="background-image: url('static/img/profileimage-min.jpg');">
+                            <img src="static/img/profileimage.jpg" alt="Profile Picture" height="100%"
                                 width="100%" class="rounded-circle">
                         </div>
                     </div>
@@ -141,13 +140,11 @@
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
             <div class="col-sm-3">
-                <a href="{% url 'chess_app:game_view' %}">
-                    <img src="{% static 'portfolio/img/chessboard.png' %}" alt="Chess Project Snapshot" width="100%"
-                        height="auto">
-                </a>
+                <img src="static/img/chessboard.png" alt="Chess Project Snapshot" width="100%"
+                    height="auto">
             </div>
             <div class="col">
-                <h3 class="pt-1"><a class="link-color link-style" href="{% url 'chess_app:game_view' %}">Chess-AI <i
+                <h3 class="pt-1"><a class="link-color link-style" href="https://github.com/enansaif/chess_project">Chess-AI <i
                             class="bi bi-box-arrow-up-right"></i></a></h3>
                 <p>
                     Developed with Django, the python-chess library, and chessboard.js, this web-based chess application
@@ -167,14 +164,11 @@
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
             <div class="col-sm-3">
-                <a href="{% url 'leetquizzer:main_menu' %}">
-                    <img src="{% static 'portfolio/img/leetquizzer.png' %}" alt="Quizzer Project Snapshot" width="100%"
-                        height="auto">
-                </a>
+                <img src="static/img/leetquizzer.png" alt="Quizzer Project Snapshot" width="100%"
+                    height="auto">
             </div>
             <div class="col">
-                <h3 class="pt-1"><a class="link-color link-style"
-                        href="{% url 'leetquizzer:main_menu' %}">Flashcards <i
+                <h3 class="pt-1"><a class="link-color link-style" href="https://github.com/enansaif/flashcards">Flashcards <i
                             class="bi bi-box-arrow-up-right"></i></a></h3>
                 <p>
                     A Django-based web application designed for efficient review of solved leetcode questions. Users can
@@ -214,10 +208,6 @@
             </div>
         </div>
     </div>
-    <script>
-        const contactUrl = "{% url 'portfolio:contact' %}"
-        const csrf_token = "{{ csrf_token }}"
-    </script>
 </body>
 
 </html>
