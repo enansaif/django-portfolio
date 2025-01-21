@@ -15,7 +15,7 @@ hiddenElement.forEach((element) => {
 
 var toggler = document.getElementById("dark-side-toggle");
 toggler.onclick = () => {
-  document.body.classList.toggle("light-side");
+  document.body.classList.toggle("dark-side");
   let togglerIcon = document.getElementById("toggler-icon");
   if (togglerIcon.classList.contains("bi-sun-fill")) {
     togglerIcon.classList.replace("bi-sun-fill", "bi-moon-fill");

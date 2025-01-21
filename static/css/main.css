@@ -2,10 +2,10 @@
     --theme-blue: #55bae2;
     --theme-orange: #f3b542;
     --transition-duration: 0.1s;
-    --default-background-color: #242526;
-    --default-card-color: #292929;
-    --default-border-color: #363636;
-    --default-text-color: white;
+    --default-background-color: #e9dcdc;
+    --default-card-color: rgb(226, 210, 210);
+    --default-border-color: #cebebe;
+    --default-text-color: black;
 }
 
 body {
@@ -38,11 +38,11 @@ body {
     background-color: var(--default-border-color);
 }
 
-.light-side {
-    --default-background-color: #e9dcdc;
-    --default-card-color: rgb(226, 210, 210);
-    --default-border-color: #cebebe;
-    --default-text-color: black;
+.dark-side {
+    --default-background-color: #242526;
+    --default-card-color: #292929;
+    --default-border-color: #363636;
+    --default-text-color: white;
 }
 
 .link-color {
