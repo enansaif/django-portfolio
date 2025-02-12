@@ -24,7 +24,7 @@
     <div id="home" class="container-fluid col-xl-7">
         <nav class="row sticky-top sticky-nav shadow-sm text-end">
             <div>
-                <a class="p-1 link-color link-style" href="#home">Home</a>
+                <a class="p-1 link-color link-style" href="#home">About</a>
                 <a class="p-1 link-color link-style" href="#experience">Experience</a>
                 <a class="p-1 link-color link-style" href="#projects">Projects</a>
                 <a class="p-1 btn border-0 fs-4 link-color" id="dark-side-toggle" titlle="Light Toggle"><i id="toggler-icon" class="bi bi-moon-fill"></i></a>
@@ -37,16 +37,13 @@
                     <div class="text-start">
                         <h1>Saife Shuhaib Md.</h1>
                         <p>Software Engineer</p>
-                        <p>I build backend applications with python, artificial intelligence and machine learning</p>
+                        <p>I build backend applications with python, artificial intelligence and natural language processing</p>
                         <div>
                             <a class="btn border-0 fs-4 link-color" href="https://www.linkedin.com/in/enansaif/"
-                                title="Linked In"><i class="bi bi-linkedin"></i></a>
-                            <a class="btn border-0 fs-4 link-color" href="https://github.com/enansaif" title="GitHub"><i
-                                    class="bi bi-github"></i></a>
-                            <span class="px-3">
-                                <a class="link-color link-style"
-                                    href="static/pdf/resume.pdf">Resume</a>
-                            </span>
+                                title="Linked In"><span class="p-1 link-color link-style"><i
+                                        class="bi bi-linkedin"></i> Linked In</span></a>
+                            <a class="btn border-0 fs-4 link-color" href="static/pdf/resume.pdf" title="Resume"><span
+                                    class="p-1 link-color link-style"><i class="bi bi-file-person"></i> Resume</span></a>
                         </div>
                     </div>
                 </div>
@@ -101,19 +98,19 @@
                 <p class="pt-1 lead"><b>Key Contributions</b></p>
                 <ul>
                     <li>Designed the system for processing text data and storing it in a vector database.</li>
-                    <li>Developed a module to retrieve state-specific legal data chunks from the vector database.</li>
+                    <li>Developed a module to retrieve state-specific legal data from the vector database.</li>
                     <li>Designed a logging system for the scraper used to extract legal data.</li>
-                    <li>Enhanced user query performance for improved accuracy and efficiency.</li>
-                    <li>Optimized vector query performance through data cleaning and query augmentation.</li>
-                    <li>Improved citation accuracy by enhancing vector search accuracy.</li>
-                    <li>Reduced response time from 1.5 minutes to 30 seconds.</li>
+                    <li>Optimized vector query accuracy through data cleaning and query augmentation.</li>
+                    <li>Improved citation module accuracy by 60%.</li>
+                    <li>Implemented multithreading for parallel execution of independent API calls within the system.</li>
+                    <li>Reduced overall system response time from 1.5 minutes to 30 seconds, a 67% reduction.</li>
                 </ul>
                 <ul class="p-0 list-unstyled d-flex flex-wrap">
                     <li class="rounded-item rounded-pill px-2 m-1">Python</li>
                     <li class="rounded-item rounded-pill px-2 m-1">Supabase</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">PostgreSQL</li>
                     <li class="rounded-item rounded-pill px-2 m-1">Gemini</li>
                     <li class="rounded-item rounded-pill px-2 m-1">Perplexity</li>
-                    <li class="rounded-item rounded-pill px-2 m-1">System Design</li>
                 </ul>
             </div>
         </div>
@@ -125,15 +122,20 @@
             <div class="col">
                 <p class="pt-1 lead"><b>Key Contributions</b></p>
                 <ul>
-                    <li>Implemented a meeting transcription versioning system.</li>
+                    <li>Implemented meeting transcription versioning and tagging systems.</li>
                     <li>Designed APIs for generating various file notes from user transcripts.</li>
+                    <li>Migrated all database tables and data from the dev environment to production using pg_dump.</li>
+                    <li>Helped transition from session-based user settings to fetching them from the database.</li>
+                    <li>Increased user satisfaction by 80% and eliminated manual data entry at each login.</li>
+                    <li>Created APIs for letting admin modify system prompts from the front-end.</li>
+                    <li>Increased admin productivity and completely eliminated developer dependency for prompt modifications (100% reduction).</li>
                 </ul>
                 <ul class="p-0 list-unstyled d-flex flex-wrap">
                     <li class="rounded-item rounded-pill px-2 m-1">JavaScript</li>
                     <li class="rounded-item rounded-pill px-2 m-1">API Design</li>
                     <li class="rounded-item rounded-pill px-2 m-1">Transcription</li>
-                    <li class="rounded-item rounded-pill px-2 m-1">Version Control</li>
                     <li class="rounded-item rounded-pill px-2 m-1">AssemblyAI</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Docker</li>
                 </ul>
             </div>
         </div>
@@ -150,6 +152,7 @@
                     <li>Conducted project time estimation, resource planning, and resource allocation.</li>
                     <li>Implemented preprocessing techniques for comic book images to enhance detection accuracy.</li>
                     <li>Optimized model performance for inference and deployment.</li>
+                    <li>Reduced translation error by 25%.</li>
                 </ul>
                 <ul class="p-0 list-unstyled d-flex flex-wrap">
                     <li class="rounded-item rounded-pill px-2 m-1">Python</li>
@@ -170,28 +173,6 @@
                         Limited <i class="bi bi-box-arrow-up-right"></i></a></h3>
             </div>
         </div>
-        <div class="row slidein-card rounded shadow-sm my-2 p-1">
-            <div class="col-xl-3">
-                <p class="pt-1 lead"><b>Homomorphic Encryption</b></p>
-                <p>Secured face embeddings with an advanced encryption system using homomorphic encryption techniques.</p>
-            </div>
-            <div class="col">
-                <p class="pt-1 lead"><b>Key Contributions</b></p>
-                <ul>
-                    <li>Developed an encryption system to secure face embeddings.</li>
-                    <li>Implemented homomorphic encryption using Microsoft SEAL to ensure no decryption during processing.</li>
-                    <li>Integrated the encryption module with an Android app using Java Native Interface.</li>
-                    <li>Optimized encryption settings to reduce file size and decryption time.</li>
-                    <li>Achieved 93% file size reduction (to 30 KB) with inference times under 1 second.</li>
-                </ul>
-                <ul class="p-0 list-unstyled d-flex flex-wrap">
-                    <li class="rounded-item rounded-pill px-2 m-1">C++</li>
-                    <li class="rounded-item rounded-pill px-2 m-1">Microsoft SEAL</li>
-                    <li class="rounded-item rounded-pill px-2 m-1">Android</li>
-                    <li class="rounded-item rounded-pill px-2 m-1">Optimization</li>
-                </ul>
-            </div>
-        </div>        
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
             <div class="col-xl-3">
                 <p class="pt-1 lead"><b>Face AI</b></p>
@@ -217,6 +198,28 @@
         </div>
         <div class="row slidein-card rounded shadow-sm my-2 p-1">
             <div class="col-xl-3">
+                <p class="pt-1 lead"><b>Homomorphic Encryption</b></p>
+                <p>Secured face embeddings with an advanced encryption system using homomorphic encryption techniques.</p>
+            </div>
+            <div class="col">
+                <p class="pt-1 lead"><b>Key Contributions</b></p>
+                <ul>
+                    <li>Developed a system to securely store face embeddings.</li>
+                    <li>Implemented homomorphic encryption using Microsoft SEAL to perform secure recognition on encrypted data.</li>
+                    <li>Integrated the encryption module with an Android app using Java Native Interface.</li>
+                    <li>Optimized encryption settings to minimize file size and decryption time.</li>
+                    <li>Achieved 90% file size reduction (to 30 KB) with inference times under 1 second.</li>
+                </ul>
+                <ul class="p-0 list-unstyled d-flex flex-wrap">
+                    <li class="rounded-item rounded-pill px-2 m-1">C++</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Microsoft SEAL</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Android</li>
+                    <li class="rounded-item rounded-pill px-2 m-1">Optimization</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row slidein-card rounded shadow-sm my-2 p-1">
+            <div class="col-xl-3">
                 <p class="pt-1 lead"><b>Bootstrap Automation</b></p>
                 <p>Automated the process of detecting and analyzing changes in website elements to streamline QA efforts.</p>
             </div>
@@ -225,7 +228,7 @@
                 <ul>
                     <li>Developed an object detection model to identify changes in website elements.</li>
                     <li>Created a module to analyze the DOM and model outputs to determine which elements were modified.</li>
-                    <li>Reduced manual QA efforts by 80%.</li>
+                    <li>Reduced manual QA efforts by 50%.</li>
                 </ul>
                 <ul class="p-0 list-unstyled d-flex flex-wrap">
                     <li class="rounded-item rounded-pill px-2 m-1">Python</li>
