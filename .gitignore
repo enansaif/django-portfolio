@@ -1,8 +1,0 @@
-.gitignore
-.venv
-.env
-.vscode
-__pycache__
-settings.json
-chess_model.onnx
-db.sqlite3
